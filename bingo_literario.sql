@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-11-2025 a las 21:52:26
+-- Tiempo de generación: 30-11-2025 a las 04:27:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -59,6 +59,17 @@ CREATE TABLE `categorias` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `categorias_has_composiciones`
+--
+
+CREATE TABLE `categorias_has_composiciones` (
+  `categorias_id` int(11) NOT NULL,
+  `composiciones_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `codigos`
 --
 
@@ -79,8 +90,7 @@ CREATE TABLE `composiciones` (
   `titulo` varchar(300) NOT NULL,
   `autor` varchar(300) NOT NULL,
   `frase` text NOT NULL,
-  `tipo_material_id` int(11) NOT NULL,
-  `categorias_id` int(11) NOT NULL
+  `tipo_material_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -117,6 +127,14 @@ ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `categorias_has_composiciones`
+--
+ALTER TABLE `categorias_has_composiciones`
+  ADD PRIMARY KEY (`categorias_id`,`composiciones_id`),
+  ADD KEY `fk_categorias_has_composiciones_composiciones1_idx` (`composiciones_id`),
+  ADD KEY `fk_categorias_has_composiciones_categorias1_idx` (`categorias_id`);
+
+--
 -- Indices de la tabla `codigos`
 --
 ALTER TABLE `codigos`
@@ -127,8 +145,7 @@ ALTER TABLE `codigos`
 --
 ALTER TABLE `composiciones`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_composiciones_tipo_material_idx` (`tipo_material_id`),
-  ADD KEY `fk_composiciones_categorias1_idx` (`categorias_id`);
+  ADD KEY `fk_composiciones_tipo_material_idx` (`tipo_material_id`);
 
 --
 -- Indices de la tabla `tipo_material`
@@ -181,10 +198,16 @@ ALTER TABLE `tipo_material`
 --
 
 --
+-- Filtros para la tabla `categorias_has_composiciones`
+--
+ALTER TABLE `categorias_has_composiciones`
+  ADD CONSTRAINT `fk_categorias_has_composiciones_categorias1` FOREIGN KEY (`categorias_id`) REFERENCES `categorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_categorias_has_composiciones_composiciones1` FOREIGN KEY (`composiciones_id`) REFERENCES `composiciones` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `composiciones`
 --
 ALTER TABLE `composiciones`
-  ADD CONSTRAINT `fk_composiciones_categorias1` FOREIGN KEY (`categorias_id`) REFERENCES `categorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_composiciones_tipo_material` FOREIGN KEY (`tipo_material_id`) REFERENCES `tipo_material` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
