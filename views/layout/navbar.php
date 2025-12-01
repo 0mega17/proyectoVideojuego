@@ -39,7 +39,7 @@
                         data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
                             <img
-                                src="../assets/img/libro-icono.png"
+                                src="./assets/img/libro-icono.png"
                                 alt
                                 class="w-px-40 h-auto rounded-circle" />
                         </div>
@@ -51,7 +51,7 @@
                                     <div class="shrink-0 me-3">
                                         <div class="avatar avatar-online">
                                             <img
-                                                src="../assets/img/libro-icono.png"
+                                                src="./assets/img/libro-icono.png"
                                                 alt
                                                 class="w-px-40 h-auto rounded-circle" />
                                         </div>
