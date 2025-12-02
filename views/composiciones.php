@@ -1,8 +1,9 @@
 <?php
 // VERIFICAR SI HAY UNA SESION INICIADA
 session_start();
-if ($_SESSION["acceso"] == false || $_SESSION["acceso"] == null) {
-    header('location: ./login_admin.php');
+if (!isset($_SESSION["acceso"]) || $_SESSION["acceso"] !== true) {
+    header('location: login_admin.php');
+    exit();
 }
 
 // MODELO DE LA BD
