@@ -21,7 +21,7 @@
     <link
         rel="icon"
         type="image/x-icon"
-        href="./assets/img/favicon/favicon.ico" />
+        href="./assets/img/bingo-icono.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -37,6 +37,7 @@
 
     <link rel="stylesheet" href="./assets/vendor/css/core.css" />
     <link rel="stylesheet" href="./assets/css/demo.css" />
+    <link rel="stylesheet" href="./assets/css/styles.css">
 
     <!-- Vendors CSS -->
 

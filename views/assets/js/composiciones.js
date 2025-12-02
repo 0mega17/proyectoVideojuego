@@ -10,6 +10,7 @@ const frmComposiciones = document.querySelector("#frmComposiciones");
 
 let modoCategorias = null;
 let modoEdicion = null;
+let IDeditar = 0;
 
 // CAMPOS
 const txtTitulo = document.querySelector("#txtTitulo");
@@ -25,7 +26,7 @@ btnAgregar.addEventListener("click", async () => {
 
 tblComposiciones.addEventListener("click", async (e) => {
   if (e.target.classList.contains("btnEditar")) {
-    let IDeditar = e.target.dataset.id;
+    IDeditar = e.target.dataset.id;
     modoEdicion = true;
 
     // ID para editar los datos de la fila seleccionada
@@ -44,34 +45,34 @@ tblComposiciones.addEventListener("click", async (e) => {
     txtFrase.value = response.composiciones.frase;
 
     // SELECCIONAR LAS OPCIONES de tipo de MATERIAL
-   let opcionesTipos = document.querySelectorAll(".optionTipo")
-   
-   // Limpiar las opciones seleccionadas
-   opcionesTipos.forEach((opcion) => {
-    opcion.selected = false;
-   })
+    let opcionesTipos = document.querySelectorAll(".optionTipo");
 
-   // Seleccionar la que tiene actualmente
-   opcionesTipos.forEach((opcion) => {
-   if(opcion.value == response.composiciones.tipo_material_id ){
-    opcion.selected = true;
-   }
-   })
+    // Limpiar las opciones seleccionadas
+    opcionesTipos.forEach((opcion) => {
+      opcion.selected = false;
+    });
 
-   // SELECCIONAR LAS OPCIONES de categorias
-   let opcionesCategorias = document.querySelectorAll(".optionCat")
-   // limpiar las opciones seleccionadas
-   opcionesCategorias.forEach(opcion => {
-    opcion.selected = false;
-   })
-   // Seleccionar las categorias actuales
-   opcionesCategorias.forEach((opcion) => {
-    response.categorias.forEach((IDcat) => {
-      if(opcion.value == IDcat){
+    // Seleccionar la que tiene actualmente
+    opcionesTipos.forEach((opcion) => {
+      if (opcion.value == response.composiciones.tipo_material_id) {
         opcion.selected = true;
       }
-    })
-   })
+    });
+
+    // SELECCIONAR LAS OPCIONES de categorias
+    let opcionesCategorias = document.querySelectorAll(".optionCat");
+    // limpiar las opciones seleccionadas
+    opcionesCategorias.forEach((opcion) => {
+      opcion.selected = false;
+    });
+    // Seleccionar las categorias actuales
+    opcionesCategorias.forEach((opcion) => {
+      response.categorias.forEach((IDcat) => {
+        if (opcion.value == IDcat) {
+          opcion.selected = true;
+        }
+      });
+    });
 
     modalComposiciones.show();
     console.log(response);
@@ -157,9 +158,14 @@ frmComposiciones.addEventListener("submit", async (e) => {
   e.preventDefault();
   modalComposiciones.hide();
 
-  const url = modoEdicion ? "../controllers/editar_composicion.php" : "../controllers/crear_composicion.php";
-
+  const url = modoEdicion
+    ? "../controllers/editar_composicion.php"
+    : "../controllers/crear_composicion.php";
   const formData = new FormData(frmComposiciones);
+
+  if (IDeditar > 0) {
+    formData.append("IDeditar", IDeditar);
+  }
 
   const request = await fetch(url, {
     method: "POST",
