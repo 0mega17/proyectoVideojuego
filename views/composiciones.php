@@ -1,5 +1,9 @@
 <?php
-
+// VERIFICAR SI HAY UNA SESION INICIADA
+session_start();
+if ($_SESSION["acceso"] == false || $_SESSION["acceso"] == null) {
+    header('location: ./login_admin.php');
+}
 
 // MODELO DE LA BD
 require_once '../models/MySQL.php';
