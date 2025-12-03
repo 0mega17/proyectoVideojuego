@@ -1,3 +1,8 @@
+ <?php
+
+// Obtener el nombre del archivo actual
+$archivoActual = basename($_SERVER["PHP_SELF"]);
+?>
  </div>
  <!-- / Content -->
 
