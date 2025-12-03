@@ -36,7 +36,7 @@ require_once './layout/navbar.php';
 ?>
 
 
-<div class="d-flex justify-content-between border-bottom border-2 p-2 mb-5">
+<div class="d-flex justify-content-between border-bottom border-2 p-2 mb-3">
     <div class="">
         <h2 class="fw-semibold m-0">Balotas del bingo literario</h2>
         <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
@@ -49,7 +49,7 @@ require_once './layout/navbar.php';
     </div>
 </div>
 
-<div class="row border-bottom border-2 p-2 mb-5">
+<div class="row p-2 mb-5">
     <div class="col-sm-12">
         <button id="btnBalota" class="btn btn-success w-100 p-3 fw-bold">Nueva balota</button>
     </div>

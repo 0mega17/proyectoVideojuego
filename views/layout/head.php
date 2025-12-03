@@ -21,7 +21,7 @@
     <link
         rel="icon"
         type="image/x-icon"
-        href="./assets/img/bingo-icono.png" />
+        href="./assets/img/libro-icono.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

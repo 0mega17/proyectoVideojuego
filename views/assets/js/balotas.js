@@ -32,7 +32,7 @@ btnBalota.addEventListener("click", () => {
       arregloBalotas.push(objetoBalotas);
       localStorage.setItem("navegadorBalotas", JSON.stringify(arregloBalotas));
       Swal.fire({
-        title: "Balota generada",
+        title: `<strong class="display-5">${res.columna}</strong>`,
         html: `${res.columna} : ${res.balota}`,
         icon: "success",
       }).then(() => {
