@@ -1,5 +1,5 @@
 <?php
-require_once "./models/MySQL.php"; // tu archivo de conexión
+require_once "../models/MySQL.php"; // tu archivo de conexión
 $mysql = new MySQL();
 $mysql->conectar();
 
@@ -38,15 +38,15 @@ function obtenerElementoRandom($mysql,&$usados)
 <head>
   <meta charset="UTF-8">
   <title class="text-dark">Bingo Literario</title>
-  <link rel="stylesheet" href="./views/assets/vendor/css/core.css">
-  <link rel="stylesheet" href="prueba.css">
+  <link rel="stylesheet" href="./assets/vendor/css/core.css">
+  <link rel="stylesheet" href="./assets/css/tablasBingo.css">
 </head>
 
-<body class="container py-4" style="background-color: #fbfffbff;">
+<body class="container py-4 justify-content-center" style="background-color: #ffffffff;">
 
-  <h1 class="text-center mb-4 text-white">Bingo Literario</h1>
+  <h1 class="text-center mb-5 text-dark">Bingo Literario</h1>
 
-  <table class="table table-bordered table-light border border-dark border-2 text-center">
+  <table class="table table-bordered table-light border border-dark border-2 text-center mt-4">
     <thead>
       <tr>
         <th style="font-size: 50px;">B</th>
@@ -78,5 +78,5 @@ function obtenerElementoRandom($mysql,&$usados)
   </table>
 
 </body>
-
+<script src="./assets/js/pintarBingo.js"></script>
 </html>

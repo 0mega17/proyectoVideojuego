@@ -1,0 +1,83 @@
+/* ENCABEZADO (fila B I N G O) */
+thead th {
+  background-color: #0056b3 !important;
+  color: white !important;
+  text-align: center;
+  font-weight: bold;
+  border: none !important;
+  padding: 18px;
+  font-size: 50px; /* tamaño original */
+}
+
+/* QUITAR BORDE ENTRE THEAD Y TBODY */
+thead tr {
+  border-bottom: none !important;
+}
+
+/* BORDES DE LAS CELDAS DEL CUERPO */
+tbody td {
+  border: 2px solid #000 !important;
+  background-color: #e6e6e6;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  font-size: 20px; /* tamaño original */
+}
+
+table {
+  border: 3px solid #000 !important;
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────── */
+/*                RESPONSIVIDAD                */
+/* ─────────────────────────────────────────── */
+
+/* Tablets – 768px */
+@media (max-width: 768px) {
+  thead th {
+    font-size: 36px;
+    padding: 14px;
+  }
+
+  tbody td {
+    font-size: 32px;
+    padding: 6px;
+  }
+}
+
+/* Teléfonos medianos – 576px */
+@media (max-width: 576px) {
+  thead th {
+    font-size: 28px;
+    padding: 10px;
+  }
+
+  tbody td {
+    font-size: 22px;
+    padding: 4px;
+  }
+
+  table {
+    border-width: 2px !important;
+  }
+}
+
+/* Teléfonos pequeños – 400px */
+@media (max-width: 400px) {
+  thead th {
+    font-size: 22px;
+    padding: 8px;
+  }
+
+  tbody td {
+    font-size: 16px;
+    padding: 3px;
+  }
+}
+tbody td.marcado {
+  background-color: #4caf50 !important; /* verde */
+  color: white; 
+  font-weight: bold;
+}
+
