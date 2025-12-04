@@ -17,13 +17,7 @@ thead th {
   box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
-/* QUITAR BORDE ENTRE THEAD Y TBODY */
-thead tr {
-  border-bottom: none !important;
-  width: 50%;
-}
-
-/* CUERPO DE LA TABLA */
+/* CUERPO */
 tbody td {
   width: 170px;
   line-break:anywhere;
@@ -33,51 +27,51 @@ tbody td {
   vertical-align: middle;
   padding: 14px;
   font-size: 21.5px;
-
   border-radius: 10px;
   transition: all 0.2s ease;
   box-shadow: 0 3px 6px rgba(0,0,0,0.08);
 }
 
-/* HOVER SUAVE */
+/* HOVER */
 tbody td:hover {
   background: #e9f3ff;
-  /* border-color: #007bff !important; */
   transform: scale(1.05);
 }
 
-/* TABLA GENERAL */
+/* TABLA GENERAL - ARREGLADA */
 table {
   table-layout: fixed;
-  width: 110%;
+  width: 100%;
   margin-left: -20%;
-  border: none !important;
+  max-width: 900px;     /* ancho ideal para PC */
+  margin: auto;         /* centrar tabla */
   border-collapse: separate !important;
-  border-spacing: 10px !important; /* separa celdas suavemente */
+  border-spacing: 10px !important;
   background: #f5faff;
   padding: 20px;
   border-radius: 20px;
 }
 
+/* CELDA MARCADA */
 tbody td.marcado {
   background-image: url("../img/logoSena.png");
-  background-size: 40%;   /* Ajusta aquí el tamaño */
-  background-color: white;
+  background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
-  
+  background-color: white;
   border-color: #1c7f33 !important; 
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
-
-
 
 /* ============================================ */
 /*               RESPONSIVIDAD                  */
 /* ============================================ */
 
 @media (max-width: 768px) {
+  table {
+    max-width: 100%;     /* se ajusta al celular */
+  }
   thead th {
     font-size: 30px;
   }
@@ -104,3 +98,16 @@ tbody td.marcado {
     font-size: 14px;
   }
 }
+/* FIX — Centrar tabla en celulares */
+@media (max-width: 768px) {
+  body, html {
+    overflow-x: hidden; /* elimina corrimiento horizontal */
+  }
+
+  table {
+    margin: 0 auto !important;  /* centrar siempre */
+    width: 100% !important;     /* ocupar el ancho */
+    max-width: 100% !important; /* evita desplazamiento */
+  }
+}
+
