@@ -43,7 +43,7 @@ require_once './layout/navbar.php';
 
 <div class="d-flex justify-content-between border-bottom border-2 p-2 mb-5">
     <div class="">
-        <h2 class="fw-semibold m-0">Composiciones literarias</h2>
+        <h2 class="fw-semibold m-0">Obras literarias</h2>
         <p class="text-muted m-0">Gestiona todo lo relacionado con los elementos para el bingo literario</p>
     </div>
     <div class="mt-3">
@@ -143,7 +143,7 @@ require_once './layout/navbar.php';
                                                 <i class="fa-solid fa-pen-to-square me-1"></i>
                                                 Editar
                                             </button>
-                                            <button class="btn btn-danger btn-sm" data-id="<?php echo $fila["id"] ?>">
+                                            <button class="btn btn-danger btn-sm btnEliminar" data-id="<?php echo $fila["id"] ?>" data-titulo="<?php echo $fila["titulo"] ?>">
                                                 <i class="fa-solid fa-trash"></i>
                                                 Eliminar
                                             </button>
