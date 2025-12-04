@@ -10,10 +10,11 @@ $pagina = "Bingo literario";
 
 //CONSULTA DE TODAS LAS COMPOSICIONES LITERARIAS
 try {
-    $sql = "SELECT composiciones.id, composiciones.titulo, composiciones.autor, composiciones.frase, tipo_material.nombre FROM composiciones JOIN tipo_material ON tipo_material.id  = composiciones.tipo_material_id";
-
-    $composiciones = $mysql->getConexion()->prepare($sql);
-    $composiciones->execute();
+    $sql = "SELECT COUNT(*) as conteo FROM composiciones";
+    $conteoObras = $mysql->getConexion()->prepare($sql);
+    $conteoObras->execute();
+    $conteo = $conteoObras->fetch(PDO::FETCH_ASSOC)["conteo"];
+    $posibilidades = $conteo * 3;
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(
@@ -38,13 +39,18 @@ require_once './layout/navbar.php';
 
 <div class="d-flex justify-content-between border-bottom border-2 p-2 mb-2">
     <div class="">
-        <h2 class="fw-semibold m-0">Balotas del bingo literario</h2>
+        <h2 class="fw-semibold m-0 me-1">Balotas del bingo literario</h2>
         <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
     </div>
     <div class="mt-3">
-        <button id="btnAgregar" class="btn btn-danger">
+        <button id="btnReiniciar" class="btn btn-primary">
+            <i class="fa-solid fa-rotate-left me-1"></i>
+            Reiniciar juego
+        </button>
+
+        <button id="btnReiniciar" class="btn btn-danger">
             <i class="fa-solid fa-trash"></i>
-            Finalizar juego
+            Terminar juego
         </button>
     </div>
 </div>
@@ -80,7 +86,7 @@ require_once './layout/navbar.php';
                                 Item
                             </th>
                             <th class="fw-bold">
-                                <i class="fa-solid fa-book"></i>
+                                <i class="fa-brands fa-dribbble"></i>
                                 Balotas del juego
                             </th>
                             <th class="fw-bold">

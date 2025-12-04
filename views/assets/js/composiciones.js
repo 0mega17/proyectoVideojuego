@@ -11,6 +11,7 @@ const frmComposiciones = document.querySelector("#frmComposiciones");
 let modoCategorias = null;
 let modoEdicion = null;
 let IDeditar = 0;
+let IDeliminar = 0;
 
 // CAMPOS
 const txtTitulo = document.querySelector("#txtTitulo");
@@ -76,6 +77,48 @@ tblComposiciones.addEventListener("click", async (e) => {
 
     modalComposiciones.show();
     console.log(response);
+  }
+
+  if (e.target.classList.contains("btnEliminar")) {
+    let titulo = e.target.dataset.titulo
+    Swal.fire({
+      title: `Eliminar obra literaria`,
+      html: `¿Esta seguro de eliminar esta obra? 
+      <br> <strong>Nombre: </strong>${titulo}`,
+      icon: "info",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Si, eliminar",
+      customClass:{
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      preConfirm: async () =>{
+  IDeliminar = e.target.dataset.id;
+    let formData = new FormData();
+    formData.append("IDeliminar", IDeliminar);
+
+    const request = await fetch("../controllers/eliminar_composicion.php", {
+      method: "POST",
+      body: formData,
+    });
+
+    const response = await request.json();
+
+    if (response.success) {
+      Swal.fire({
+        title: "¡Exito!",
+        text: response.message,
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      }).then(() => {
+        location.reload();
+      });
+    }
+      }
+    });
+  
   }
 });
 
