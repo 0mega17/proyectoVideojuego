@@ -1,8 +1,8 @@
  <?php
 
-// Obtener el nombre del archivo actual
-$archivoActual = basename($_SERVER["PHP_SELF"]);
-?>
+    // Obtener el nombre del archivo actual
+    $archivoActual = basename($_SERVER["PHP_SELF"]);
+    ?>
  </div>
  <!-- / Content -->
 
@@ -84,6 +84,10 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
 
  <?php if ($archivoActual == "balotas.php"): ?>
      <script src="./assets/js/balotas.js"></script>
+ <?php endif ?>
+ <?php if ($archivoActual == "sala.php"): ?>
+     <script src="./assets/js/categorias.js"></script>
+     <script src="./assets/js/crear_sala.js"></script>
  <?php endif ?>
  </body>
 

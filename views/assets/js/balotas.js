@@ -114,8 +114,8 @@ btnReiniciar.addEventListener("click", () => {
     title: "Reiniciar juego",
     html: "¿Esta seguro de reiniciar el juego?",
     icon: "info",
-    confirmButtonText: "Si, reiniciar juego",
-    cancelButtonText: "No, cancelar",
+    confirmButtonText: "Si",
+    cancelButtonText: "No",
     showCancelButton: true,
     customClass: {
       confirmButton: "btn btn-success",

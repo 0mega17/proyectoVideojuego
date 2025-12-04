@@ -18,7 +18,7 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                         <span class="app-brand-logo demo">
                             <span class="text-primary">
                                 <img
-                                    src="./assets/img/libro-icono.png"
+                                    src="./assets/img/logoSena.png"
                                     class="img-fluid w-75"
                                     alt="" />
                             </span>
@@ -57,6 +57,12 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                         <a href="balotas.php" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-tennis-ball'></i>
                             <div class="text-truncate" data-i18n="Basic">Balotas</div>
+                        </a>
+                    </li>
+                    <li class="menu-item <?php echo ($archivoActual == "sala.php" ? "active" : "") ?>">
+                        <a href="sala.php" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-tennis-ball'></i>
+                            <div class="text-truncate" data-i18n="Basic">Salas</div>
                         </a>
                     </li>
 
