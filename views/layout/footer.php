@@ -1,3 +1,8 @@
+ <?php
+
+// Obtener el nombre del archivo actual
+$archivoActual = basename($_SERVER["PHP_SELF"]);
+?>
  </div>
  <!-- / Content -->
 
@@ -50,7 +55,6 @@
  <script src="./assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
  <script src="./assets/vendor/js/menu.js"></script>
-
  <!-- endbuild -->
 
  <!-- Main JS -->
@@ -73,6 +77,7 @@
 
  <?php if ($archivoActual == "composiciones.php"): ?>
      <script src="./assets/js/composiciones.js"></script>
+     <script src="./assets/js/log_out.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
  <?php endif ?>
