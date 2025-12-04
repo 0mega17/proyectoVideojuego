@@ -1,12 +1,19 @@
-/* ENCABEZADO (fila B I N G O) */
+/* ============================================ */
+/*           DISEÑO FRESCO Y NÍTIDO BINGO       */
+/* ============================================ */
+
+/* ENCABEZADO (B I N G O) */
 thead th {
-  background-color: #0056b3 !important;
+  background-color: #007bff !important;
   color: white !important;
   text-align: center;
-  font-weight: bold;
-  border: none !important;
+  font-weight: 700;
   padding: 18px;
-  font-size: 50px; /* tamaño original */
+  font-size: 20px;
+  border-radius: 12px 12px 0 0;
+  border: none !important;
+  letter-spacing: 2px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
 /* QUITAR BORDE ENTRE THEAD Y TBODY */
@@ -14,69 +21,78 @@ thead tr {
   border-bottom: none !important;
 }
 
-/* BORDES DE LAS CELDAS DEL CUERPO */
+/* CUERPO DE LA TABLA */
 tbody td {
-  border: 2px solid #000 !important;
-  background-color: #e6e6e6;
+  line-break:anywhere;
+  background: #ffffff;
+  border: 2px solid #d3d3d3 !important;
   text-align: center;
   vertical-align: middle;
-  padding: 10px;
-  font-size: 20px; /* tamaño original */
+  padding: 14px;
+  font-size: 21.5px;
+
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
 }
 
+/* HOVER SUAVE */
+tbody td:hover {
+  background: #e9f3ff;
+  border-color: #007bff !important;
+  transform: scale(1.05);
+}
+
+/* TABLA GENERAL */
 table {
-  border: 3px solid #000 !important;
-  width: 100%;
+  table-layout: fixed;
+  width: 110%;
+  /* margin-left: 2%; */
+  border: none !important;
+  border-collapse: separate !important;
+  border-spacing: 10px !important; /* separa celdas suavemente */
+  background: #f5faff;
+  padding: 20px;
+  border-radius: 20px;
 }
 
-/* ─────────────────────────────────────────── */
-/*                RESPONSIVIDAD                */
-/* ─────────────────────────────────────────── */
+/* CELDA MARCADA */
+tbody td.marcado {
+  background: #28a745 !important;
+  color: white !important;
+  border-color: #1c7f33 !important;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
 
-/* Tablets – 768px */
+/* ============================================ */
+/*               RESPONSIVIDAD                  */
+/* ============================================ */
+
 @media (max-width: 768px) {
   thead th {
-    font-size: 36px;
-    padding: 14px;
+    font-size: 30px;
   }
-
   tbody td {
-    font-size: 32px;
-    padding: 6px;
-  }
-}
-
-/* Teléfonos medianos – 576px */
-@media (max-width: 576px) {
-  thead th {
-    font-size: 28px;
+    font-size: 18px;
     padding: 10px;
   }
-
-  tbody td {
-    font-size: 22px;
-    padding: 4px;
-  }
-
-  table {
-    border-width: 2px !important;
-  }
 }
 
-/* Teléfonos pequeños – 400px */
-@media (max-width: 400px) {
+@media (max-width: 576px) {
   thead th {
-    font-size: 22px;
-    padding: 8px;
+    font-size: 26px;
   }
-
   tbody td {
     font-size: 16px;
-    padding: 3px;
   }
 }
-tbody td.marcado {
-  background-color: #4caf50 !important; /* verde */
-  color: white; 
-}
 
+@media (max-width: 400px) {
+  thead th {
+    font-size: 20px;
+  }
+  tbody td {
+    font-size: 14px;
+  }
+}
