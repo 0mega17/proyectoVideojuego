@@ -3,6 +3,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (
+        isset($_POST["IDeditar"]) && !empty($_POST["IDeditar"]) &&
         isset($_POST["titulo"]) && !empty($_POST["titulo"]) &&
         isset($_POST["autor"]) && !empty($_POST["autor"]) &&
         isset($_POST["tipo"]) && !empty($_POST["tipo"]) &&
@@ -15,45 +16,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mysql->conectar();
 
         // CAPTURAR LOS DATOS ENVIADOS
+        $IDcomposicion = intval($_POST["IDeditar"]);
         $titulo = trim($_POST["titulo"]);
         $autor = trim($_POST["autor"]);
         $frase = trim($_POST["frase"]);
         $categorias = $_POST["categorias"];
         $tipoMaterial = intval($_POST["tipo"]);
 
-        if($frase == ""){
+        if ($frase == "") {
             $frase = null;
         }
 
         $errores = [];
 
         try {
-            $sqlComposiciones = "INSERT INTO composiciones(titulo, autor, frase, tipo_material_id) VALUES(:titulo,
-        :autor, :frase, :tipoMaterial)";
+            $sqlComposiciones = "UPDATE composiciones SET titulo = :titulo, autor = :autor,
+            frase = :frase, tipo_material_id = :tipoMaterial WHERE id = :IDeditar";
             $insertComposiciones = $mysql->getConexion()->prepare($sqlComposiciones);
+            $insertComposiciones->bindParam("IDeditar", $IDcomposicion);
             $insertComposiciones->bindParam("titulo", $titulo, PDO::PARAM_STR);
             $insertComposiciones->bindParam("autor", $autor, PDO::PARAM_STR);
             $insertComposiciones->bindParam("frase", $frase, PDO::PARAM_STR);
             $insertComposiciones->bindParam("tipoMaterial", $tipoMaterial, PDO::PARAM_INT);
             $insertComposiciones->execute();
         } catch (PDOException $e) {
-            $errores[] = "Error en el insert de composiciones" . $e->getMessage();
+            $errores[] = "Error en el update de composiciones" . $e->getMessage();
         }
 
-        try{
-            $sqlID = "SELECT MAX(id) as IDmaximo FROM composiciones";
-            $selectID = $mysql->getConexion()->prepare($sqlID);
-            $selectID->execute();
-
-            $IDcomposicion = $selectID->fetch(PDO::FETCH_ASSOC)["IDmaximo"];
-        }catch(PDOException $e){
-            $errores[] = "Error en la consulta ID " . $e->getMessage();
+        try {
+            $sqlDelete = "DELETE FROM categorias_has_composiciones WHERE composiciones_id = :IDeditar";
+            $deleteCategorias = $mysql->getConexion()->prepare($sqlDelete);
+            $deleteCategorias->bindParam("IDeditar", $IDcomposicion);
+            $deleteCategorias->execute();
+        } catch (PDOException $e) {
+            $errores[] = "Error en el delete de categorias" . $e->getMessage();
         }
-      
 
-        try{
-            foreach($categorias as $cat){
-                $IDcategoria = $cat;
+        try {
+            foreach ($categorias as $cat) {
+                $IDcategoria = intval($cat);
                 $sqlCategorias = "INSERT INTO categorias_has_composiciones(categorias_id, composiciones_id)
                 VALUES(:IDcategoria, :IDcomposicion)";
 
@@ -62,28 +63,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $insertCategorias->bindParam("IDcomposicion", $IDcomposicion, PDO::PARAM_INT);
 
                 $insertCategorias->execute();
-
-
             }
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             $errores[] = "Error en el insert de categorias" . $e->getMessage();
         }
 
 
-        if(count($errores) == 0){
+
+        if (count($errores) == 0) {
             echo json_encode([
                 "success" => true,
-                "message" => "¡Composicion agregada exitosamente!"
+                "message" => "¡Composicion editada exitosamente!"
             ]);
             exit();
-        }else{
+        } else {
             echo json_encode([
                 "success" => false,
                 "message" => "Ocurrio un error..."
             ]);
             exit();
         }
-    }else{
+    } else {
         echo json_encode([
             "success" => false,
             "message" => "Faltan campos por rellenar..."

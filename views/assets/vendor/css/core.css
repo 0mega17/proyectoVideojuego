@@ -25558,8 +25558,8 @@ li:not(:first-child) .dropdown-item, .dropdown-menu .dropdown-item:not(:first-ch
   --bs-menu-hover-color: #384551;
   --bs-menu-sub-active-bg: var(--bs-primary-bg-subtle);
   --bs-menu-sub-active-color: var(--bs-primary);
-  --bs-menu-active-color: var(--bs-primary);
-  --bs-menu-active-bg: var(--bs-primary-bg-subtle);
+  --bs-menu-active-color: var(--bs-success);
+  --bs-menu-active-bg: var(--bs-success-bg-subtle);
   --bs-menu-active-toggle-bg: #edeef0;
   --bs-menu-horizontal-active-bg: var(--bs-menu-bg);
   --bs-menu-box-shadow: 0 0.125rem 0.375rem 0 rgba(34, 48, 62, 0.08);
@@ -26091,7 +26091,7 @@ li:not(:first-child) .dropdown-item, .dropdown-menu .dropdown-item:not(:first-ch
 }
 .layout-wrapper:not(.layout-horizontal) .menu-vertical .menu-inner > .menu-item.active::before {
   position: absolute;
-  background-color: var(--bs-primary);
+  background-color: var(--bs-success);
   block-size: 2.6845rem;
   content: "";
   inline-size: 0.25rem;

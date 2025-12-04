@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     session_start();
                     $_SESSION['nombreAdmin'] = $resultado['nombre'];
+                    $_SESSION['acceso'] = true;
                     echo json_encode([
                         "success" => true,
                         "message" => "Sesión iniciada"

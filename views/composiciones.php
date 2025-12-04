@@ -1,5 +1,10 @@
 <?php
-
+// VERIFICAR SI HAY UNA SESION INICIADA
+session_start();
+if (!isset($_SESSION["acceso"]) || $_SESSION["acceso"] !== true) {
+    header('location: login_admin.php');
+    exit();
+}
 
 // MODELO DE LA BD
 require_once '../models/MySQL.php';
@@ -42,7 +47,7 @@ require_once './layout/navbar.php';
         <p class="text-muted m-0">Gestiona todo lo relacionado con los elementos para el bingo literario</p>
     </div>
     <div class="mt-3">
-        <button id="btnAgregar" class="btn btn-primary">
+        <button id="btnAgregar" class="btn btn-success">
             <i class="fa-solid fa-plus"></i>
             Agregar
         </button>
@@ -128,7 +133,7 @@ require_once './layout/navbar.php';
                                     <td>
                                         <?php
                                         foreach ($categorias as $categoria) { ?>
-                                            <span class="badge text-bg-info px-3 m-1 shadow rounded-pill"><?php echo $categoria ?></span>
+                                            <span class="badge text-bg-success px-3 m-1 shadow rounded-pill"><?php echo $categoria ?></span>
                                         <?php }
                                         ?>
                                     </td>
@@ -153,12 +158,12 @@ require_once './layout/navbar.php';
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="modalComposiciones" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-dialog modal-dialog-centered rounded" role="document">
 
                         <div class="modal-content">
                             <form action="" id="frmComposiciones">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalCenterTitle">Gestion de composiciones</h5>
+                                <div class="modal-header bg-success-subtle p-5">
+                                    <h5 class="modal-title text-success m-0" id="modalCenterTitle">Gestion de composiciones</h5>
                                     <button
                                         type="button"
                                         class="btn-close"
@@ -194,7 +199,7 @@ require_once './layout/navbar.php';
                                     <div class="row g-6 mt-1">
                                         <div class="col mb-0">
                                             <label for="txtFrase" class="form-label">Frase</label>
-                                            <textarea class="form-control" rows="3" name="frase" id="txtFrase" placeholder="Ingrese una frase relacionada con la obra..."></textarea>
+                                            <textarea class="form-control" rows="3" name="frase" id="txtFrase" placeholder="Ingrese una frase relacionada con la obra..." required></textarea>
 
                                         </div>
                                     </div>
@@ -214,7 +219,7 @@ require_once './layout/navbar.php';
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                         Cancelar
                                     </button>
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="submit" class="btn btn-success">Guardar</button>
                                 </div>
                             </form>
                         </div>
