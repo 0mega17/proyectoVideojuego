@@ -194,7 +194,7 @@ require_once './layout/navbar.php';
                                     <div class="row g-6 mt-1">
                                         <div class="col mb-0">
                                             <label for="txtFrase" class="form-label">Frase</label>
-                                            <textarea class="form-control" rows="3" name="frase" id="txtFrase" placeholder="Ingrese una frase relacionada con la obra..."></textarea>
+                                            <textarea class="form-control" rows="3" name="frase" id="txtFrase" placeholder="Ingrese una frase relacionada con la obra..." required></textarea>
 
                                         </div>
                                     </div>

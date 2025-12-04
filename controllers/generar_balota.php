@@ -56,13 +56,22 @@ function revolverBalotas($composiciones, $conteoFilas)
     return $balotaGeneral;
 }
 
+// Numero random para las columnas a escoger
+$numCol = mt_rand(0, sizeof($columnas) - 1);
+// Revolver el arreglo de las columnas
+shuffle($columnas);
+
+function seleccionarBalota($balotaGeneral, $columnas, $numCol)
+{
+    // Seleccionar de la balota seleccionada una columna con el numero random
+    $balota = $balotaGeneral[$columnas[$numCol]];
+    return $balota;
+}
+
 // Revoler las balotas con la funcion
 $balotaGeneral = revolverBalotas($composiciones, $conteoFilas);
+$balota = seleccionarBalota($balotaGeneral, $columnas, $numCol);
 
-// Numero random para las columnas a escoger
-$numCol = mt_rand(0, 2);
-// Seleccionar de la balota seleccionada una columna con el numero random
-$balota = $balotaGeneral[$columnas[$numCol]];
 
 
 if (count($arregloBalotas) > 0) {
@@ -74,7 +83,7 @@ if (count($arregloBalotas) > 0) {
         // Decision para determninar si ya se llego al limite
         if ($limiteBaraja <= count($arregloBalotas)) {
             echo json_encode([
-                "success" => true,
+                "success" => false,
                 "balota" => "Todas las balotas fueron generadas",
                 "columna" => "Sin columna"
             ]);
@@ -86,28 +95,16 @@ if (count($arregloBalotas) > 0) {
         if ($balotasRepetidas == $balota) {
             // Volver a revolver y seleccionar otro elemento
             $balotaGeneral = revolverBalotas($composiciones, $conteoFilas);
-            $numCol = mt_rand(0, 2);
-            $balota = $balotaGeneral[$columnas[$numCol]];
+            $numCol = mt_rand(0, sizeof($columnas) - 1);
+            shuffle($columnas);
+            $balota = seleccionarBalota($balotaGeneral, $columnas, $numCol);
             // Reiniciar el ciclo otra vez
-            $i = 0;
+            $i = -1;
         }
     }
 }
-
-// Determinar que columna saliò
-switch ($numCol) {
-    case 0:
-        $columna = "Titulo";
-        break;
-    case 1:
-        $columna = "Autor";
-        break;
-    case 2:
-        $columna = "Frase";
-        break;
-    default:
-        $columna = "N/A";
-}
+// Columna a enviar
+$columna = ucfirst($columnas[$numCol]); // ucfirst = Primera letra en mayuscula
 
 
 // Enviar la informacion al JS

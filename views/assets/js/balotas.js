@@ -25,25 +25,29 @@ btnBalota.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((res) => {
-      objetoBalotas = {
-        columna: res.columna,
-        balota: res.balota,
-      };
+      if (res.success) {
+        objetoBalotas = {
+          columna: res.columna,
+          balota: res.balota,
+          success: res.success,
+        };
+        arregloBalotas.push(objetoBalotas);
+      }
+
       if (res.balota.length < 25) {
         ancho = 600;
       }
 
-      if(res.balota.length > 25 && res.balota.length < 40){
+      if (res.balota.length > 25 && res.balota.length < 40) {
         ancho = 900;
       }
 
-      if (res.balota.length > 40) {
+      if (res.balota.length > 45) {
         ancho = 1400;
       }
 
       console.log(ancho);
 
-      arregloBalotas.push(objetoBalotas);
       localStorage.setItem("navegadorBalotas", JSON.stringify(arregloBalotas));
       Swal.fire({
         html: `
