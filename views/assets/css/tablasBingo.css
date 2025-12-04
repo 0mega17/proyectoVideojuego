@@ -39,7 +39,7 @@ tbody td {
 /* HOVER SUAVE */
 tbody td:hover {
   background: #e9f3ff;
-  border-color: #007bff !important;
+  /* border-color: #007bff !important; */
   transform: scale(1.05);
 }
 
@@ -56,14 +56,18 @@ table {
   border-radius: 20px;
 }
 
-/* CELDA MARCADA */
 tbody td.marcado {
-  background: #28a745 !important;
-  color: white !important;
-  border-color: #1c7f33 !important;
+  background-image: url("../img/logoSena.png");
+  background-size: 40%;   /* Ajusta aquí el tamaño */
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  border-color: #1c7f33 !important; 
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
+
+
 
 /* ============================================ */
 /*               RESPONSIVIDAD                  */
