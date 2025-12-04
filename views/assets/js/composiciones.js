@@ -144,6 +144,12 @@ async function cargarDatosSelect(
 // Se ejecuta despues de abrir la modal para inicializar select 2
 modalComposiciones._element.addEventListener("shown.bs.modal", () => {
   $(".selectCategorias").select2({
+    theme: "bootstrap-5",
+    width: $(this).data("width")
+      ? $(this).data("width")
+      : $(this).hasClass("w-100")
+      ? "100%"
+      : "style",
     dropdownParent: $("#modalComposiciones"),
     language: {
       noResults: function () {

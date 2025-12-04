@@ -55,7 +55,7 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
 
                     <li class="menu-item <?php echo ($archivoActual == "balotas.php" ? "active" : "") ?>">
                         <a href="balotas.php" class="menu-link">
-                            <i class='menu-icon tf-icons bx bx-book-bookmark'></i>
+                            <i class='menu-icon tf-icons bx bx-tennis-ball'></i>
                             <div class="text-truncate" data-i18n="Basic">Balotas</div>
                         </a>
                     </li>
