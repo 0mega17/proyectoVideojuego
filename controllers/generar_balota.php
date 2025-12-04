@@ -18,7 +18,7 @@ $conteoFilas = 0;
 
 // Consulta para traer todas las composiciones
 try {
-    $sql = "SELECT * FROM composiciones";
+    $sql = "SELECT composiciones.id, composiciones.titulo, composiciones.autor, composiciones.frase, tipo_material.nombre as tipo_obra FROM composiciones JOIN tipo_material ON composiciones.tipo_material_id = tipo_material.id";
     $consultaComposiciones = $mysql->getConexion()->prepare($sql);
     $consultaComposiciones->execute();
 } catch (PDOException $e) {
@@ -73,12 +73,13 @@ $balotaGeneral = revolverBalotas($composiciones, $conteoFilas);
 $balota = seleccionarBalota($balotaGeneral, $columnas, $numCol);
 
 
-
+$tipo_obra = $balotaGeneral["tipo_obra"];
 if (count($arregloBalotas) > 0) {
     for ($i = 0; $i < count($arregloBalotas); $i++) {
         // Elemento del array de las balotas que ya salieron
         $balotasRepetidas = $arregloBalotas[$i]["balota"];
         $conteo = count($arregloBalotas);
+        $tipo_obra = $balotaGeneral["tipo_obra"];
 
         // Decision para determninar si ya se llego al limite
         if ($limiteBaraja <= count($arregloBalotas)) {
@@ -111,5 +112,6 @@ $columna = ucfirst($columnas[$numCol]); // ucfirst = Primera letra en mayuscula
 echo json_encode([
     "success" => true,
     "balota" => $balota,
-    "columna" => $columna
+    "columna" => $columna,
+    "tipo_obra" => $tipo_obra
 ]);

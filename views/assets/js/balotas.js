@@ -25,10 +25,12 @@ btnBalota.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((res) => {
+      console.log(res.tipo_obra)
       if (res.success) {
         objetoBalotas = {
           columna: res.columna,
           balota: res.balota,
+          tipo_obra: res.tipo_obra,
           success: res.success,
         };
         arregloBalotas.push(objetoBalotas);
@@ -85,14 +87,18 @@ function pintarTabla(lista) {
   lista.forEach((b) => {
     let fila = document.createElement("tr");
 
-    let tdTipo = document.createElement("td");
-    tdTipo.textContent = b.columna;
+    let tdCategoria = document.createElement("td");
+    tdCategoria.textContent = b.columna;
 
     let tdBalota = document.createElement("td");
     tdBalota.textContent = b.balota;
 
-    fila.appendChild(tdTipo);
+     let tdTipoObra = document.createElement("td");
+     tdTipoObra.textContent = b.tipo_obra;
+
+    fila.appendChild(tdCategoria);
     fila.appendChild(tdBalota);
+    fila.appendChild(tdTipoObra);
 
     tblBalotas.appendChild(fila);
   });

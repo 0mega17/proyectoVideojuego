@@ -77,11 +77,15 @@ require_once './layout/navbar.php';
                         <thead>
                             <th class="fw-bold">
                                 <i class="fa-solid fa-bookmark"></i>
-                                Tipo
+                                Item
                             </th>
                             <th class="fw-bold">
                                 <i class="fa-solid fa-book"></i>
                                 Balotas del juego
+                            </th>
+                            <th class="fw-bold">
+                                <i class="fa-solid fa-book"></i>
+                                Tipo de obra
                             </th>
                         </thead>
                         <tbody id="tblBalotas"></tbody>
