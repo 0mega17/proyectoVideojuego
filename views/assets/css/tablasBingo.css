@@ -1,82 +1,113 @@
-/* ENCABEZADO (fila B I N G O) */
+/* ============================================ */
+/*           DISEÑO FRESCO Y NÍTIDO BINGO       */
+/* ============================================ */
+
+/* ENCABEZADO (B I N G O) */
 thead th {
-  background-color: #0056b3 !important;
+  background-color: #007bff !important;
+  width: 170px;
   color: white !important;
   text-align: center;
-  font-weight: bold;
-  border: none !important;
+  font-weight: 700;
   padding: 18px;
-  font-size: 50px; /* tamaño original */
+  font-size: 20px;
+  border-radius: 12px 12px 0 0;
+  border: none !important;
+  letter-spacing: 2px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
-/* QUITAR BORDE ENTRE THEAD Y TBODY */
-thead tr {
-  border-bottom: none !important;
-}
-
-/* BORDES DE LAS CELDAS DEL CUERPO */
+/* CUERPO */
 tbody td {
-  border: 2px solid #000 !important;
-  background-color: #e6e6e6;
+  width: 170px;
+  line-break:anywhere;
+  background: #ffffff;
+  border: 2px solid #d3d3d3 !important;
   text-align: center;
   vertical-align: middle;
-  padding: 10px;
-  font-size: 20px; /* tamaño original */
+  padding: 14px;
+  font-size: 21.5px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
 }
 
+/* HOVER */
+tbody td:hover {
+  background: #e9f3ff;
+  transform: scale(1.05);
+}
+
+/* TABLA GENERAL - ARREGLADA */
 table {
-  border: 3px solid #000 !important;
+  table-layout: fixed;
   width: 100%;
+  margin-left: -20%;
+  max-width: 900px;     /* ancho ideal para PC */
+  margin: auto;         /* centrar tabla */
+  border-collapse: separate !important;
+  border-spacing: 10px !important;
+  background: #f5faff;
+  padding: 20px;
+  border-radius: 20px;
 }
 
-/* ─────────────────────────────────────────── */
-/*                RESPONSIVIDAD                */
-/* ─────────────────────────────────────────── */
+/* CELDA MARCADA */
+tbody td.marcado {
+  background-image: url("../img/logoSena.png");
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: white;
+  border-color: #1c7f33 !important; 
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
 
-/* Tablets – 768px */
+/* ============================================ */
+/*               RESPONSIVIDAD                  */
+/* ============================================ */
+
 @media (max-width: 768px) {
-  thead th {
-    font-size: 36px;
-    padding: 14px;
+  table {
+    max-width: 100%;     /* se ajusta al celular */
   }
-
+  thead th {
+    font-size: 30px;
+  }
   tbody td {
-    font-size: 32px;
-    padding: 6px;
-  }
-}
-
-/* Teléfonos medianos – 576px */
-@media (max-width: 576px) {
-  thead th {
-    font-size: 28px;
+    font-size: 18px;
     padding: 10px;
   }
+}
 
+@media (max-width: 576px) {
+  thead th {
+    font-size: 26px;
+  }
   tbody td {
-    font-size: 22px;
-    padding: 4px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  thead th {
+    font-size: 20px;
+  }
+  tbody td {
+    font-size: 14px;
+  }
+}
+/* FIX — Centrar tabla en celulares */
+@media (max-width: 768px) {
+  body, html {
+    overflow-x: hidden; /* elimina corrimiento horizontal */
   }
 
   table {
-    border-width: 2px !important;
+    margin: 0 auto !important;  /* centrar siempre */
+    width: 100% !important;     /* ocupar el ancho */
+    max-width: 100% !important; /* evita desplazamiento */
   }
-}
-
-/* Teléfonos pequeños – 400px */
-@media (max-width: 400px) {
-  thead th {
-    font-size: 22px;
-    padding: 8px;
-  }
-
-  tbody td {
-    font-size: 16px;
-    padding: 3px;
-  }
-}
-tbody td.marcado {
-  background-color: #4caf50 !important; /* verde */
-  color: white; 
 }
 
