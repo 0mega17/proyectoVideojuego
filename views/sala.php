@@ -85,6 +85,7 @@ require_once './layout/navbar.php';
                                 <select class="form-control" id="modoJuego" name="modoJuego">
                                     <option value="">Seleccione un modo</option>
                                     <option value="categoria">Categorias</option>
+                                    <option value="general">General</option>
                                 </select>
                             </div>
                         </div>

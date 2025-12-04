@@ -10,7 +10,17 @@ formularioSala.addEventListener("submit", (e) => {
   })
     .then((res) => res.json())
       .then((res) => {
-        
+        if (res) {
+          Swal.fire({
+            title: "CODIGO SALA",
+            text: res.sala,
+            icon: "info",
+            confirmButtonText: "Entendido",
+            confirmButtonColor: "#3085d6",
+          });
+
+
+        }
           
           
           

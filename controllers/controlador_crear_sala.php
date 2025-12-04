@@ -3,8 +3,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (
         isset($_POST['cantidadJugadores']) && !empty($_POST['cantidadJugadores']) &&
-        isset($_POST['modoJuego']) && !empty($_POST['modoJuego']) &&
-        isset($_POST['categoria']) && !empty($_POST['categoria'])
+        isset($_POST['modoJuego']) && !empty($_POST['modoJuego'])
+
     ) {
 
         require_once '../models/MySQL.php';
@@ -15,7 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cantidadJugadores = $_POST['cantidadJugadores'];
         $modoJuego = $_POST['modoJuego'];
         $categoria = $_POST['categoria'];
-
+        if (is_null($categoria)) {
+            $categoria = "sin categoria";
+        }
         try {
             $sql = "INSERT INTO codigos (codigo, estado) VALUES (:codigo, 1)";
             $insert = $mysql->getConexion()->prepare($sql);
