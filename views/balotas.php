@@ -43,6 +43,7 @@ require_once './layout/navbar.php';
         <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
     </div>
     <div class="mt-3">
+        <button type="button" class="btn btn-info" id="Btncodigo" disabled></button>
         <button id="btnReiniciar" class="btn btn-primary">
             <i class="fa-solid fa-rotate-left me-1"></i>
             Reiniciar juego

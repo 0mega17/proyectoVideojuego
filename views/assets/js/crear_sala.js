@@ -9,10 +9,23 @@ formularioSala.addEventListener("submit", (e) => {
     body: datos,
   })
     .then((res) => res.json())
-      .then((res) => {
-        
-          console.log(res);
-          localStorage.setItem("datosSala", JSON.stringify(res));
+    .then((res) => {
+      localStorage.setItem("codigoSala", res.sala);
+        if (res) {
+          Swal.fire({
+            title: "CODIGO SALA",
+            text: res.sala,
+            icon: "info",
+            confirmButtonText: "Entendido",
+            confirmButtonColor: "#3085d6",
+          }).then(() => {
+            window.location.href = "balotas.php"; 
+          });
+
+
+        }
+          
+          
           
           
     });
