@@ -48,7 +48,7 @@ require_once './layout/navbar.php';
             Reiniciar juego
         </button>
 
-        <button id="btnReiniciar" class="btn btn-danger">
+        <button id="btnTerminar" class="btn btn-danger">
             <i class="fa-solid fa-trash"></i>
             Terminar juego
         </button>

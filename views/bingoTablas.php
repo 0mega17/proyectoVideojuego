@@ -43,8 +43,7 @@ function obtenerElementoRandom($mysql, &$usados)
 </head>
 
 <body class="container-fluid py-4 justify-content-center" style="background-color: #ffffffff;">
-
-  <h1 class="text-center mb-5 text-dark">Bingo Literario</h1>
+  <h1 class="text-center mb-5 text-dark fw-semibold">Bingo Literario</h1>
   <table class="table table-bordered table-light border border-dark border-2 text-center mt-4">
     <thead>
       <tr>
@@ -78,5 +77,4 @@ function obtenerElementoRandom($mysql, &$usados)
 
 </body>
 <script src="./assets/js/pintarBingo.js"></script>
-
 </html>

@@ -1,7 +1,8 @@
 const btnBalota = document.querySelector("#btnBalota");
 const btnReiniciar = document.querySelector("#btnReiniciar");
 const tblBalotas = document.querySelector("#tblBalotas");
-
+const datosSala = JSON.parse(localStorage.getItem("datosSala"));
+console.log(datosSala);
 
 let ancho = 0;
 
@@ -110,6 +111,7 @@ function pintarTabla(lista) {
 }
 
 btnReiniciar.addEventListener("click", () => {
+  console.log(datosSala);
   Swal.fire({
     title: "Reiniciar juego",
     html: "¿Esta seguro de reiniciar el juego?",
@@ -122,10 +124,27 @@ btnReiniciar.addEventListener("click", () => {
       cancelButton: "btn btn-danger",
     },
     preConfirm: () => {
-      localStorage.clear();
-      location.reload();
-      console.log(arregloBalotas);
+
+      fetch("../controllers/reiniciar_juego.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(datosSala),
+      })
+        .then((res) => res.json())
+        .then((response) => {
+          if (response.success) {
+            Swal.fire({
+              title: "Exito",
+              text: response.message,
+              icon: "success",
+            }).then(() => {
+              localStorage.clear();
+              location.reload();
+            });
+          }
+        });
     },
   });
 });
-
