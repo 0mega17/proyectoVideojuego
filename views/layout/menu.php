@@ -14,17 +14,17 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                 id="layout-menu"
                 class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="index.html" class="app-brand-link">
+                    <a href="./composiciones.php" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <span class="text-primary">
                                 <img
-                                    src="./assets/img/bingo-icono.png"
+                                    src="./assets/img/libro-icono.png"
                                     class="img-fluid w-75"
                                     alt="" />
                             </span>
                         </span>
                         <span class="app-brand-text demo menu-text fw-bold">Bingo</span>
-                        <small>Literario</small>
+                        <small class="text-success">Literario</small>
                     </a>
 
                     <a
@@ -47,9 +47,16 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                     </li>
 
                     <li class="menu-item <?php echo ($archivoActual == "composiciones.php" ? "active" : "") ?>">
-                        <a href="composiciones.html" class="menu-link">
+                        <a href="composiciones.php" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-book-bookmark'></i>
                             <div class="text-truncate" data-i18n="Basic">Composiciones</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item <?php echo ($archivoActual == "balotas.php" ? "active" : "") ?>">
+                        <a href="balotas.php" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-tennis-ball'></i>
+                            <div class="text-truncate" data-i18n="Basic">Balotas</div>
                         </a>
                     </li>
 
