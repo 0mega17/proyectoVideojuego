@@ -1,5 +1,8 @@
 const btnBalota = document.querySelector("#btnBalota");
+const btnReiniciar = document.querySelector("#btnReiniciar");
 const tblBalotas = document.querySelector("#tblBalotas");
+
+
 let ancho = 0;
 
 tblBalotas.innerHTML = "";
@@ -25,7 +28,7 @@ btnBalota.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res.tipo_obra)
+      console.log(res.tipo_obra);
       if (res.success) {
         objetoBalotas = {
           columna: res.columna,
@@ -47,8 +50,6 @@ btnBalota.addEventListener("click", () => {
       if (res.balota.length > 45) {
         ancho = 1400;
       }
-
-      console.log(ancho);
 
       localStorage.setItem("navegadorBalotas", JSON.stringify(arregloBalotas));
       Swal.fire({
@@ -75,6 +76,10 @@ btnBalota.addEventListener("click", () => {
         customClass: {
           confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",
         },
+        timer: 6000,
+        allowOutsideClick: false,
+        timerProgressBar: true,
+        showConfirmButton: false,
       }).then(() => {
         location.reload();
       });
@@ -93,8 +98,8 @@ function pintarTabla(lista) {
     let tdBalota = document.createElement("td");
     tdBalota.textContent = b.balota;
 
-     let tdTipoObra = document.createElement("td");
-     tdTipoObra.textContent = b.tipo_obra;
+    let tdTipoObra = document.createElement("td");
+    tdTipoObra.textContent = b.tipo_obra;
 
     fila.appendChild(tdCategoria);
     fila.appendChild(tdBalota);
@@ -103,3 +108,24 @@ function pintarTabla(lista) {
     tblBalotas.appendChild(fila);
   });
 }
+
+btnReiniciar.addEventListener("click", () => {
+  Swal.fire({
+    title: "Reiniciar juego",
+    html: "¿Esta seguro de reiniciar el juego?",
+    icon: "info",
+    confirmButtonText: "Si, reiniciar juego",
+    cancelButtonText: "No, cancelar",
+    showCancelButton: true,
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    preConfirm: () => {
+      localStorage.clear();
+      location.reload();
+      console.log(arregloBalotas);
+    },
+  });
+});
+
