@@ -21,8 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             // primero se hace la consulta sobre si el codigo de ficha ingresado es valido cuando el estado sea 1 es que esta activo y puede entrar 
 
-            $consultaEstadoSala = "select codigo from codigos where estado = 1 ";
+            $consultaEstadoSala = "select codigo from codigos where estado = 1 AND codigo = :codigo ";
             $codigoConsulta = $mysql->getConexion()->prepare($consultaEstadoSala);
+            $codigoConsulta->bindParam("codigo", $codigo);
             $codigoConsulta->execute();
             $resultadoCodigo = $codigoConsulta->fetch(PDO::FETCH_ASSOC);
             if ($resultadoCodigo) {
@@ -40,6 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $resultado->bindParam(":ficha", $ficha, PDO::PARAM_STR);
 
                     $resultado->execute();
+
+                    // session_start();
+                    // $_SESSION["codigoSala"] = $codigoBD;
                     if ($resultado) {
                         echo json_encode([
                             "validacion" => true

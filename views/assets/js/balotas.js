@@ -1,7 +1,7 @@
 const btnBalota = document.querySelector("#btnBalota");
 const btnReiniciar = document.querySelector("#btnReiniciar");
 const tblBalotas = document.querySelector("#tblBalotas");
-const datosSala = JSON.parse(localStorage.getItem("datosSala"));
+const datosSala = JSON.parse(localStorage.getItem("codigoSala"));
 console.log(datosSala);
 
 let ancho = 0;
@@ -140,7 +140,7 @@ btnReiniciar.addEventListener("click", () => {
               text: response.message,
               icon: "success",
             }).then(() => {
-              localStorage.clear();
+             localStorage.removeItem("navegadorBalotas")
               location.reload();
             });
           }

@@ -3,6 +3,10 @@ require_once "../models/MySQL.php"; // tu archivo de conexión
 $mysql = new MySQL();
 $mysql->conectar();
 
+// session_start();
+
+// $codigoSala = $_SESSION["codigoSala"];
+
 function obtenerElementoRandom($mysql, &$usados)
 {
   $db = $mysql->getConexion();

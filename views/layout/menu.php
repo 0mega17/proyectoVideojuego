@@ -53,18 +53,20 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                         </a>
                     </li>
 
+                    <li class="menu-item <?php echo ($archivoActual == "sala.php" ? "active" : "") ?>">
+                        <a href="sala.php" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-collection"></i>
+                            <div class="text-truncate" data-i18n="Basic">Salas</div>
+                        </a>
+                    </li>
+
                     <li class="menu-item <?php echo ($archivoActual == "balotas.php" ? "active" : "") ?>">
                         <a href="balotas.php" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-tennis-ball'></i>
                             <div class="text-truncate" data-i18n="Basic">Balotas</div>
                         </a>
                     </li>
-                    <li class="menu-item <?php echo ($archivoActual == "sala.php" ? "active" : "") ?>">
-                        <a href="sala.php" class="menu-link">
-                            <i class='menu-icon tf-icons bx bx-tennis-ball'></i>
-                            <div class="text-truncate" data-i18n="Basic">Salas</div>
-                        </a>
-                    </li>
+
 
                     <!-- Authenticacion  -->
                     <li class="menu-item">
