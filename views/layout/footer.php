@@ -90,6 +90,12 @@
      <script src="./assets/js/categorias.js"></script>
      <script src="./assets/js/crear_sala.js"></script>
  <?php endif ?>
+
+
+ <?php if ($archivoActual == "crear_categoria.php"): ?>
+ 
+     <script src="./assets/js/crear_categorias.js"></script>
+ <?php endif ?>
  </body>
 
  </html>
