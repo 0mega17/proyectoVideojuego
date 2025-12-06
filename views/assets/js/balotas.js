@@ -131,7 +131,7 @@ function pintarTabla(lista) {
 btnReiniciar.addEventListener("click", () => {
   console.log(datosSala);
   Swal.fire({
-    title: `<h1 class="m-0">Reiniciar juego`,
+    title: `<h1 class="m-0 fw-bold">Reiniciar`,
     html: "¿Esta seguro de realizar esta acción?",
     icon: "info",
     confirmButtonText: "Si, reiniciar juego",
@@ -153,9 +153,13 @@ btnReiniciar.addEventListener("click", () => {
         .then((response) => {
           if (response.success) {
             Swal.fire({
-              title: "Exito",
+              title: `<h1 class="mb-0 fw-bold">¡Exito!</h1>`,
               text: response.message,
               icon: "success",
+              confirmButtonText: "Continuar juego",
+              customClass:{
+                confirmButton: "btn btn-success fw-bold"
+              }
             }).then(() => {
               localStorage.removeItem("navegadorBalotas");
               location.reload();
