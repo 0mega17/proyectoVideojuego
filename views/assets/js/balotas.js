@@ -58,11 +58,11 @@ btnBalota.addEventListener("click", () => {
         arregloBalotas.push(objetoBalotas);
       }
 
-      if (res.balota.length < 25) {
+      if (res.balota.length <= 25) {
         ancho = 600;
       }
 
-      if (res.balota.length > 25 && res.balota.length < 40) {
+      if (res.balota.length > 25 && res.balota.length <= 45) {
         ancho = 900;
       }
 

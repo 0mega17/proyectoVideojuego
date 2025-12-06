@@ -57,7 +57,7 @@ require_once './layout/navbar.php';
             <div class="card-header border">
                 <h5 class="m-0">
                     <i class="fa-solid fa-list"></i>
-                    Listado de material bibliografico
+                    Espacio para crear nuevas salas
                 </h5>
             </div>
 

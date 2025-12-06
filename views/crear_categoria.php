@@ -13,7 +13,7 @@ $mysql = new MySQL();
 $mysql->conectar();
 $pagina = "Categorias";
 
-//CONSULTA DE TODAS LAS COMPOSICIONES LITERARIAS
+//CONSULTA DE TODAS LAS CATEGORIAS
 try {
     $sql = "SELECT * FROM categorias";
 
@@ -105,7 +105,7 @@ require_once './layout/navbar.php';
                         <div class="modal-content">
                             <form action="" id="frmCategorias">
                                 <div class="modal-header bg-success-subtle p-5">
-                                    <h5 class="modal-title text-success m-0" id="modalCenterTitle">Gestion de cateogiras</h5>
+                                    <h5 class="modal-title text-success m-0" id="modalCenterTitle">Gestion de categorias</h5>
                                     <button
                                         type="button"
                                         class="btn-close"
@@ -121,7 +121,7 @@ require_once './layout/navbar.php';
                                                 id="txtCategoria"
                                                 name="categoria"
                                                 class="form-control"
-                                                placeholder="Ingrese la categoria"
+                                                placeholder="Ingrese el nombre de la categoria"
                                                 required />
                                         </div>
                                     </div>
