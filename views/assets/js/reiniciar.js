@@ -1,6 +1,6 @@
 const txtCodigoSala = document.querySelector("#txtCodigoSala");
 let ultimaFecha = null;
-console.log(ultimaFecha);
+let accion = localStorage.getItem("accion")
 
 setInterval(() => {
   let formData = new FormData();
@@ -19,10 +19,20 @@ setInterval(() => {
         return;
       }
 
-      if (ultimaFecha !== data) {
+      if (ultimaFecha !== data && accion == "reiniciar") {
         localStorage.clear();
         ultimaFecha = null;
-        location.reload();
+
+        fetch("../controllers/reiniciar_juego.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((response) => {
+            if (response.success) {
+              location.reload();
+            }
+          });
       }
     });
 }, 3000);

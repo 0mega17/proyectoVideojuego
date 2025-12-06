@@ -1,5 +1,6 @@
 const btnBalota = document.querySelector("#btnBalota");
 const btnReiniciar = document.querySelector("#btnReiniciar");
+const btnFinalizar = document.querySelector("#btnFinalizar");
 const tblBalotas = document.querySelector("#tblBalotas");
 const datosSala = JSON.parse(localStorage.getItem("codigoSala"));
 const divUltimaBalota = document.querySelector("#ultimaBalota");
@@ -129,9 +130,10 @@ function pintarTabla(lista) {
 }
 
 btnReiniciar.addEventListener("click", () => {
-  console.log(datosSala);
+  let accion = "reiniciar"
+  localStorage.setItem("accion", accion);
   Swal.fire({
-    title: `<h1 class="m-0 fw-bold">Reiniciar`,
+    title: `<h1 class="m-0 fw-bold">Reiniciar </h1>`,
     html: "¿Esta seguro de realizar esta acción?",
     icon: "info",
     confirmButtonText: "Si, reiniciar juego",
@@ -142,12 +144,11 @@ btnReiniciar.addEventListener("click", () => {
       cancelButton: "btn btn-danger",
     },
     preConfirm: () => {
+      let formData = new FormData();
+      formData.append("codigoSala", datosSala);
       fetch("../controllers/reiniciar_juego.php", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(datosSala),
+        body: formData,
       })
         .then((res) => res.json())
         .then((response) => {
@@ -157,9 +158,51 @@ btnReiniciar.addEventListener("click", () => {
               text: response.message,
               icon: "success",
               confirmButtonText: "Continuar juego",
-              customClass:{
-                confirmButton: "btn btn-success fw-bold"
-              }
+              customClass: {
+                confirmButton: "btn btn-success fw-bold",
+              },
+            }).then(() => {
+              localStorage.removeItem("navegadorBalotas");
+              location.reload();
+            });
+          }
+        });
+    },
+  });
+});
+
+btnFinalizar.addEventListener("click", () => {
+  let accion = "finalizar";
+  localStorage.setItem("accion", accion);
+  Swal.fire({
+    title: `<h1 class="m-0 fw-bold">Finalizar </h1>`,
+    html: "¿Esta seguro de realizar esta acción?",
+    icon: "error",
+    confirmButtonText: "Si, finalizar juego",
+    cancelButtonText: "Cancelar",
+    showCancelButton: true,
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    preConfirm: () => {
+      let formData = new FormData();
+      formData.append("codigoSala", datosSala);
+      fetch("../controllers/reiniciar_juego.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((response) => {
+          if (response.success) {
+            Swal.fire({
+              title: `<h1 class="mb-0 fw-bold">¡Exito!</h1>`,
+              text: response.message,
+              icon: "success",
+              confirmButtonText: "Continuar juego",
+              customClass: {
+                confirmButton: "btn btn-success fw-bold",
+              },
             }).then(() => {
               localStorage.removeItem("navegadorBalotas");
               location.reload();

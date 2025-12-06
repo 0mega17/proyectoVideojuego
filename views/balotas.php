@@ -51,14 +51,14 @@ require_once './layout/navbar.php';
     </div>
     <div class="mt-3">
         <button type="button" class="btn btn-info" id="Btncodigo" disabled></button>
-        <button id="btnReiniciar" class="btn btn-primary">
+        <button data-accion="reiniciar" id="btnReiniciar" class="btn btn-primary">
             <i class="fa-solid fa-rotate-left me-1"></i>
             Reiniciar juego
         </button>
 
-        <button id="btnTerminar" class="btn btn-danger">
+        <button id="btnFinalizar" class="btn btn-danger">
             <i class="fa-solid fa-trash"></i>
-            Terminar juego
+            Finalizar juego
         </button>
     </div>
 </div>
