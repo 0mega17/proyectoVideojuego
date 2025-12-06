@@ -92,7 +92,7 @@ require_once './layout/navbar.php';
                         <div class="col-3">
                             <div class="mb-6">
                                 <label for="categoria" class="form-label">Categorias</label>
-                                <select class="form-control" id="categoria" name="categoria" disabled hidden>
+                                <select class="form-control selectCategorias" id="categoria" name="categoria" disabled hidden>
                                     <option value="">Seleccione una categoría...</option>
                                 </select>
                             </div>

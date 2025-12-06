@@ -1,34 +1,58 @@
+<script>
+  let codigoSala = localStorage.getItem("codigoSala");
+  let modoJuego = localStorage.getItem("modoJuego");
+  let categoria = localStorage.getItem("categoria");
+
+  // Enviar datos a PHP mediante redirect con parámetros
+  window.location.href = "bingoTablas.php?modo=" + modoJuego + "&categoria=" + categoria;
+</script>
 <?php
 require_once "../models/MySQL.php"; // tu archivo de conexión
 $mysql = new MySQL();
 $mysql->conectar();
+$modoJuego = $_GET["modo"] ?? "general";
+$categoria = $_GET["categoria"] ?? null;
 
-function obtenerElementoRandom($mysql, &$usados)
+
+function obtenerElementoRandom($mysql, &$usados, $modoJuego, $categoria)
 {
   $db = $mysql->getConexion();
 
-  while (true) {
-    //! Tomar fila aleatoria
-    $sql = "SELECT titulo, autor, frase 
-                FROM composiciones 
-                ORDER BY RAND() 
-                LIMIT 1";
-    $stmt = $db->query($sql);
-    $fila = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    //! Elegir uno de los campos
-    $valores = array_values($fila);
-    $valor = $valores[array_rand($valores)];
-
-    //! Si NO está repetido, lo devolvemos
-    if (!in_array($valor, $usados)) {
-      $usados[] = $valor; //! Guardar como usado
-      return $valor;
-    }
-
-    //! Si está repetido → vuelve a intentar
+  if ($modoJuego === "categoria" && $categoria !== "sin categoria") {
+      // SOLO valores de la categoría seleccionada
+      $sql = "SELECT c.titulo, c.autor, c.frase 
+              FROM composiciones c
+              JOIN categorias_has_composiciones cc ON cc.composiciones_id = c.id
+              JOIN categorias ca ON ca.id = cc.categorias_id
+              WHERE ca.nombre = :categoria
+              ORDER BY RAND()
+              LIMIT 1";
+      $stmt = $db->prepare($sql);
+      $stmt->bindParam(":categoria", $categoria, PDO::PARAM_STR);
+      $stmt->execute();
+  } else {
+      // MODO GENERAL
+      $sql = "SELECT titulo, autor, frase 
+              FROM composiciones 
+              ORDER BY RAND() 
+              LIMIT 1";
+      $stmt = $db->query($sql);
   }
+
+  $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+  $valores = array_values($fila);
+  $valor = $valores[array_rand($valores)];
+
+  // evitar repetidos
+  if (!in_array($valor, $usados)) {
+    $usados[] = $valor;
+    return $valor;
+  }
+
+  // si está repetido... buscar otro
+  return obtenerElementoRandom($mysql, $usados, $modoJuego, $categoria);
 }
+
 
 
 ?>
@@ -65,7 +89,7 @@ function obtenerElementoRandom($mysql, &$usados)
         for ($c = 0; $c < 5; $c++) {
 
           //! Obtener un valor aleatorio desde la base de datos
-          $valor = obtenerElementoRandom($mysql, $usados);
+          $valor = obtenerElementoRandom($mysql, $usados, $modoJuego, $categoria);
 
           echo "<td>$valor</td>";
         }

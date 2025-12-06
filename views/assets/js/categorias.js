@@ -8,12 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (modo === "categoria") {
       categoriaSelect.hidden = false;
       categoriaSelect.disabled = false;
-
       cargarCategorias();
     } else {
       categoriaSelect.hidden = true;
-      categoriaSelect.disabled = true;
-      categoriaSelect.innerHTML = `<option value="">Seleccione una categoría...</option>`;
+      categoriaSelect.disabled = false; // <-- CAMBIAR ESTO
+      categoriaSelect.value = ""; // <-- para que no mande nada
     }
   });
 });
@@ -26,7 +25,7 @@ function cargarCategorias() {
 
       data.forEach((cat) => {
         const opt = document.createElement("option");
-        opt.value = cat.id;
+        opt.value = cat.nombre;
         opt.textContent = cat.nombre;
         categoriaSelect.appendChild(opt);
       });

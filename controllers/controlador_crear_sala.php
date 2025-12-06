@@ -4,7 +4,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (
         isset($_POST['cantidadJugadores']) && !empty($_POST['cantidadJugadores']) &&
         isset($_POST['modoJuego']) && !empty($_POST['modoJuego'])
-
     ) {
 
         require_once '../models/MySQL.php';
@@ -14,12 +13,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $cantidadJugadores = $_POST['cantidadJugadores'];
         $modoJuego = $_POST['modoJuego'];
-        $categoria = $_POST['categoria'] ?? "sin categoria";
-      
+        
+        // ⬇️ AQUÍ VIENE LA CATEGORÍA
+        $categoria = $_POST['categoria'] ?? null;
+
         try {
-            $sql = "INSERT INTO codigos (codigo, estado) VALUES (:codigo, 1)";
+
+            // ⬇️ AGREGAMOS CATEGORÍA A LA TABLA
+            $sql = "INSERT INTO codigos (codigo, estado, categoria_codigo)
+                    VALUES (:codigo, 1, :categoria)";
+            
             $insert = $mysql->getConexion()->prepare($sql);
+            
             $insert->bindParam(":codigo", $codigo, PDO::PARAM_STR);
+
+            // ⬇️ GUARDAMOS LA CATEGORÍA
+            $insert->bindParam(":categoria", $categoria, PDO::PARAM_STR);
+
             $insert->execute();
 
             echo json_encode([
@@ -29,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "modo" => $modoJuego,
                 "categoria" => $categoria
             ]);
+
         } catch (PDOException $e) {
             echo json_encode([
                 "success" => false,
