@@ -14,12 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cantidadJugadores = $_POST['cantidadJugadores'];
         $modoJuego = $_POST['modoJuego'];
         
-        // ⬇️ AQUÍ VIENE LA CATEGORÍA
+        //  AQUÍ VIENE LA CATEGORÍA
         $categoria = $_POST['categoria'] ?? null;
 
         try {
 
-            // ⬇️ AGREGAMOS CATEGORÍA A LA TABLA
+            //  AGREGAMOS CATEGORÍA A LA TABLA
             $sql = "INSERT INTO codigos (codigo, estado, categoria_codigo)
                     VALUES (:codigo, 1, :categoria)";
             
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             $insert->bindParam(":codigo", $codigo, PDO::PARAM_STR);
 
-            // ⬇️ GUARDAMOS LA CATEGORÍA
+            // GUARDAMOS LA CATEGORÍA
             $insert->bindParam(":categoria", $categoria, PDO::PARAM_STR);
 
             $insert->execute();

@@ -1,57 +1,57 @@
-<script>
-  let codigoSala = localStorage.getItem("codigoSala");
-  let modoJuego = localStorage.getItem("modoJuego");
-  let categoria = localStorage.getItem("categoria");
-
-  // Enviar datos a PHP mediante redirect con parámetros
-  window.location.href = "bingoTablas.php?modo=" + modoJuego + "&categoria=" + categoria;
-</script>
 <?php
-require_once "../models/MySQL.php"; // tu archivo de conexión
+require_once "../models/MySQL.php";
 $mysql = new MySQL();
 $mysql->conectar();
-$modoJuego = $_GET["modo"] ?? "general";
-$categoria = $_GET["categoria"] ?? null;
 
-
-function obtenerElementoRandom($mysql, &$usados, $modoJuego, $categoria)
+// Si ya hay POST, usamos esos valores y NO auto-submit
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $modoJuego = $_POST['modo'] ?? 'general';
+  $categoria = $_POST['categoria'] ?? 'general';
+  $autoSubmit = false;
+} else {
+  // aún no hay POST -> vamos a pedir al cliente que nos envíe modo/categoria desde localStorage
+  $modoJuego = null;
+  $categoria = null;
+  $autoSubmit = true;
+}
+function obtenerValores($mysql, $modoJuego, $categoria)
 {
   $db = $mysql->getConexion();
 
-  if ($modoJuego === "categoria" && $categoria !== "sin categoria") {
-      // SOLO valores de la categoría seleccionada
-      $sql = "SELECT c.titulo, c.autor, c.frase 
-              FROM composiciones c
-              JOIN categorias_has_composiciones cc ON cc.composiciones_id = c.id
-              JOIN categorias ca ON ca.id = cc.categorias_id
-              WHERE ca.nombre = :categoria
-              ORDER BY RAND()
-              LIMIT 1";
-      $stmt = $db->prepare($sql);
-      $stmt->bindParam(":categoria", $categoria, PDO::PARAM_STR);
-      $stmt->execute();
+  if ($modoJuego === "categoria" && $categoria !== "general") {
+
+    $sql = "SELECT c.titulo, c.autor, c.frase
+                FROM composiciones c
+                JOIN categorias_has_composiciones cc ON cc.composiciones_id = c.id
+                JOIN categorias ca ON ca.id = cc.categorias_id
+                WHERE ca.nombre = :categoria";
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":categoria", $categoria);
+    $stmt->execute();
   } else {
-      // MODO GENERAL
-      $sql = "SELECT titulo, autor, frase 
-              FROM composiciones 
-              ORDER BY RAND() 
-              LIMIT 1";
-      $stmt = $db->query($sql);
+
+    $sql = "SELECT titulo, autor, frase FROM composiciones";
+    $stmt = $db->query($sql);
   }
 
-  $fila = $stmt->fetch(PDO::FETCH_ASSOC);
-  $valores = array_values($fila);
-  $valor = $valores[array_rand($valores)];
+  $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  // evitar repetidos
-  if (!in_array($valor, $usados)) {
-    $usados[] = $valor;
-    return $valor;
+  $valores = [];
+
+  foreach ($rows as $fila) {
+    $valores[] = $fila["titulo"];
+    $valores[] = $fila["autor"];
+    $valores[] = $fila["frase"];
   }
 
-  // si está repetido... buscar otro
-  return obtenerElementoRandom($mysql, $usados, $modoJuego, $categoria);
+  // Barajar
+  shuffle($valores);
+
+  return $valores;
 }
+
+
 
 
 
@@ -65,6 +65,37 @@ function obtenerElementoRandom($mysql, &$usados, $modoJuego, $categoria)
   <link rel="stylesheet" href="./assets/vendor/css/core.css">
   <link rel="stylesheet" href="./assets/css/tablasBingo.css">
 </head>
+<form id="formOculto" method="POST" style="display:none;">
+  <input type="hidden" name="modo" id="modo">
+  <input type="hidden" name="categoria" id="categoria">
+</form>
+
+<script>
+  (function() {
+    const autoSubmit = <?= $autoSubmit ? 'true' : 'false' ?>;
+    if (!autoSubmit) return; // ya vinimos por POST, no volver a enviar
+
+    // evitar doble envío por recargas: marcar en sessionStorage
+    if (sessionStorage.getItem('bingoPosted') === '1') {
+      // ya se envió una vez en esta sesión del navegador -> no reenviar
+      return;
+    }
+
+    const modo = localStorage.getItem('modoJuego') || 'general';
+    const categoria = localStorage.getItem('categoria') || 'general';
+
+    document.getElementById('modo').value = modo;
+    document.getElementById('categoria').value = categoria;
+
+    // marcar como enviado para que en una recarga no vuelva a enviar
+    sessionStorage.setItem('bingoPosted', '1');
+
+    // enviar el formulario
+    document.getElementById('formOculto').submit();
+  })();
+</script>
+
+
 
 <body class="container-fluid py-4 justify-content-center" style="background-color: #ffffffff;">
 
@@ -81,27 +112,30 @@ function obtenerElementoRandom($mysql, &$usados, $modoJuego, $categoria)
     </thead>
     <tbody>
       <?php
-      $usados = []; //! Para evitar repeticiones
-      for ($r = 0; $r < 5; $r++) {
+      $valores = obtenerValores($mysql, $modoJuego, $categoria);
 
+      // aseguramos que haya al menos 25 valores
+      while (count($valores) < 25) {
+        $valores[] = "SIN DATOS";
+      }
+
+      $index = 0;
+
+      for ($r = 0; $r < 5; $r++) {
         echo "<tr>";
 
         for ($c = 0; $c < 5; $c++) {
-
-          //! Obtener un valor aleatorio desde la base de datos
-          $valor = obtenerElementoRandom($mysql, $usados, $modoJuego, $categoria);
-
-          echo "<td>$valor</td>";
+          echo "<td>" . $valores[$index++] . "</td>";
         }
 
         echo "</tr>";
       }
+
       ?>
     </tbody>
   </table>
 
 </body>
 <script src="./assets/js/pintarBingo.js"></script>
-<script src="./assets/js/crear_sala.js"></script>
 
 </html>
