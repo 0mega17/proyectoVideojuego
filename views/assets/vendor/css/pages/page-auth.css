@@ -33,7 +33,7 @@
 }
 .authentication-wrapper.authentication-basic .authentication-inner::before {
   position: absolute;
-  background: color-mix(in sRGB, var(--bs-primary) 60%, var(--bs-paper-bg));
+  background: color-mix(in sRGB, var(--bs-success) 60%, var(--bs-paper-bg));
   block-size: 148px;
   content: " ";
   inline-size: 148px;
@@ -54,7 +54,7 @@
 .authentication-wrapper.authentication-basic .authentication-inner::after {
   position: absolute;
   z-index: -1;
-  background: color-mix(in sRGB, var(--bs-primary) 60%, var(--bs-paper-bg));
+  background: color-mix(in sRGB, var(--bs-success) 60%, var(--bs-paper-bg));
   block-size: 240px;
   content: " ";
   inline-size: 243px;

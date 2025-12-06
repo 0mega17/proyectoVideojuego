@@ -41,6 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $resultado->bindParam(":ficha", $ficha, PDO::PARAM_STR);
 
                     $resultado->execute();
+
+                    session_start();
+                    $_SESSION["codigoSala"] = $codigoBD;
                     if ($resultado) {
                         echo json_encode([
                             "validacion" => true
