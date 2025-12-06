@@ -15,56 +15,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cantidadJugadores = $_POST['cantidadJugadores'];
         $modoJuego = $_POST['modoJuego'];
         $categoria = $_POST['categoria'] ?? "sin categoria";
-      
+
         try {
             $sql = "INSERT INTO codigos (codigo, estado) VALUES (:codigo, 1)";
             $insert = $mysql->getConexion()->prepare($sql);
             $insert->bindParam(":codigo", $codigo, PDO::PARAM_STR);
             $insert->execute();
 
-          
+            echo json_encode([
+                "success" => true,
+                "sala" => $codigo,
+                "jugadores" => $cantidadJugadores,
+                "modo" => $modoJuego,
+                "categoria" => $categoria
+            ]);
         } catch (PDOException $e) {
             echo json_encode([
                 "success" => false,
                 "message" => "Error al crear sala: " . $e->getMessage()
             ]);
         }
-
-        try {
-            $sqlID = "SELECT MAX(id) as IDmaximo FROM codigos";
-            $consultaID = $mysql->getConexion()->prepare($sqlID);
-            $consultaID->execute();
-            $IDmaximo = $consultaID->fetch(PDO::FETCH_ASSOC)["IDmaximo"];
-        } catch (PDOException $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => "Error al captura IDmaximo sala: " . $e->getMessage()
-            ]);
-        }
-
-        try{
-            $sqlEstado = "INSERT INTO estado_juego(estado, codigos_id) VALUES(:estado, :IDmaximo)";
-            $insertEstado = $mysql->getConexion()->prepare($sqlEstado);
-            $estado = "Activo";
-            $insertEstado->bindParam("estado", $estado, PDO::PARAM_STR);
-            $insertEstado->bindParam("IDmaximo", $IDmaximo, PDO::PARAM_INT);
-            $insertEstado->execute();
-        }catch(PDOException $e){
-            echo json_encode([
-                "success" => false,
-                "message" => "Error al insertar el estado de la sala: " . $e->getMessage()
-            ]);
-        }
-
-
-        echo json_encode([
-            "success" => true,
-            "ID" => $IDmaximo,
-            "sala" => $codigo,
-            "jugadores" => $cantidadJugadores,
-            "modo" => $modoJuego,
-            "categoria" => $categoria
-        ]);
     } else {
         echo json_encode([
             "success" => false,

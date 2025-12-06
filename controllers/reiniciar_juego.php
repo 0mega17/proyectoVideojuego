@@ -11,24 +11,14 @@ $errores = [];
 $json_string = file_get_contents('php://input');
 // Captura del objeto con los datos de la sala
 $codigoSala = json_decode($json_string, true);
-$estado = "Reset";
-
-try{
-    $sqlID = "SELECT id FROM codigos WHERE codigo = :codigoSala";
-    $consultaID = $mysql->getConexion()->prepare($sqlID);
-    $consultaID->bindParam("codigoSala", $codigoSala);
-    $consultaID->execute();
-
-    $IDsala = $consultaID->fetch(PDO::FETCH_ASSOC)["id"];
-}catch(PDOException $e){
-
-}
+$estado = intval(2);
 
 try {
-    $sqlUpdate = "UPDATE estado_juego SET estado = :estado WHERE codigos_id = :IDsala ";
+    $numAleatorio = mt_rand(0,9);
+    $sqlUpdate = "UPDATE codigos SET estado = :estado WHERE codigo = :codigoSala ";
     $updateEstado = $mysql->getConexion()->prepare($sqlUpdate);
-    $updateEstado->bindParam("IDsala", $IDsala);
-    $updateEstado->bindParam("estado", $estado);
+    $updateEstado->bindParam("codigoSala", $codigoSala, PDO::PARAM_INT);
+    $updateEstado->bindParam("estado", $numAleatorio, PDO::PARAM_INT);
     $updateEstado->execute();
 } catch (PDOException $e) {
     $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();

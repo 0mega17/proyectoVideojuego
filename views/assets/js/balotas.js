@@ -2,6 +2,7 @@ const btnBalota = document.querySelector("#btnBalota");
 const btnReiniciar = document.querySelector("#btnReiniciar");
 const tblBalotas = document.querySelector("#tblBalotas");
 const datosSala = JSON.parse(localStorage.getItem("codigoSala"));
+const divUltimaBalota = document.querySelector("#ultimaBalota");
 console.log(datosSala);
 
 let ancho = 0;
@@ -16,6 +17,23 @@ document.addEventListener("DOMContentLoaded", () => {
   if (datosGuardados) {
     arregloBalotas = JSON.parse(datosGuardados);
     pintarTabla(arregloBalotas);
+
+    // Ultima balota
+    let ultimaBalota = document.createElement("button");
+    let tituloUltima = document.createElement("p");
+    tituloUltima.classList.add("fw-bold", "my-2");
+    tituloUltima.textContent = "Ultima balota";
+    ultimaBalota.classList.add(
+      "btn",
+      "text-bg-info",
+      "d-block",
+      "w-100",
+      "mb-3"
+    );
+
+    ultimaBalota.textContent = arregloBalotas[arregloBalotas.length - 1].balota;
+    divUltimaBalota.appendChild(tituloUltima);
+    divUltimaBalota.appendChild(ultimaBalota);
   }
 });
 
@@ -55,7 +73,7 @@ btnBalota.addEventListener("click", () => {
       localStorage.setItem("navegadorBalotas", JSON.stringify(arregloBalotas));
       Swal.fire({
         html: `
-    <div class="container-fluid py-4">
+    <div class="py-4">
 
       <div class="row justify-content-center align-items-center">
 
@@ -113,18 +131,17 @@ function pintarTabla(lista) {
 btnReiniciar.addEventListener("click", () => {
   console.log(datosSala);
   Swal.fire({
-    title: "Reiniciar juego",
-    html: "¿Esta seguro de reiniciar el juego?",
+    title: `<h1 class="m-0">Reiniciar juego`,
+    html: "¿Esta seguro de realizar esta acción?",
     icon: "info",
-    confirmButtonText: "Si",
-    cancelButtonText: "No",
+    confirmButtonText: "Si, reiniciar juego",
+    cancelButtonText: "Cancelar",
     showCancelButton: true,
     customClass: {
       confirmButton: "btn btn-success",
       cancelButton: "btn btn-danger",
     },
     preConfirm: () => {
-
       fetch("../controllers/reiniciar_juego.php", {
         method: "POST",
         headers: {
@@ -140,7 +157,7 @@ btnReiniciar.addEventListener("click", () => {
               text: response.message,
               icon: "success",
             }).then(() => {
-             localStorage.removeItem("navegadorBalotas")
+              localStorage.removeItem("navegadorBalotas");
               location.reload();
             });
           }

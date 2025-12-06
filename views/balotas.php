@@ -58,10 +58,15 @@ require_once './layout/navbar.php';
 
 <div class="row p-2 mb-2">
     <div class="col-sm-12">
+        <div id="ultimaBalota" class="my-2">
+        </div>
+
         <button id="btnBalota" class="btn btn-success w-100 p-3 fw-bold">
             <i class="fa-brands fa-dribbble fs-5"></i>
             Nueva balota
         </button>
+
+
     </div>
 
 </div>
