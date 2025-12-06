@@ -102,5 +102,6 @@ function obtenerElementoRandom($mysql, &$usados, $modoJuego, $categoria)
 
 </body>
 <script src="./assets/js/pintarBingo.js"></script>
+<script src="./assets/js/crear_sala.js"></script>
 
 </html>
