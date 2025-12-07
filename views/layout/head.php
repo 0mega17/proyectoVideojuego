@@ -21,7 +21,7 @@
     <link
         rel="icon"
         type="image/x-icon"
-        href="./assets/img/libro-icono.png" />
+        href="./assets/img/logoSena.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

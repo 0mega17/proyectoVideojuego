@@ -12,7 +12,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Demo: Login Basic - Pages | Sneat - Bootstrap Dashboard FREE</title>
+    <title>Login usuarios</title>
 
     <meta name="description" content="" />
 
@@ -106,7 +106,7 @@
                                     id="sala"
                                     name="codigoSala"
                                     placeholder="Ingrese codigo de sala"
-                                    
+
                                     autofocus />
                             </div>
                             <div class="mb-8">
@@ -115,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="mb-6">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Ingresar</button>
+                                <button class="btn btn-success d-grid w-100" type="submit">Ingresar</button>
                             </div>
                         </form>
 
@@ -133,7 +133,8 @@
 
     <!-- Core JS -->
 
-    <script src="./assets/vendor/libs/jquery/jquery.js"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
     <script src="./assets/vendor/libs/popper/popper.js"></script>
     <script src="./assets/vendor/js/bootstrap.js"></script>
@@ -151,7 +152,6 @@
     <script src="./assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="./assets/js/login_usuarios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>

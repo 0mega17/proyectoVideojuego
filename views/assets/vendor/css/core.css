@@ -2868,7 +2868,7 @@ progress {
 .form-control:focus {
   color: var(--bs-heading-color);
   background-color: transparent;
-  border-color: var(--bs-primary);
+  border-color: var(--bs-success);
   outline: 0;
   -webkit-box-shadow: 0 0.125rem 0.25rem 0 rgba(var(--bs-primary-rgb), 0.4);
           box-shadow: 0 0.125rem 0.25rem 0 rgba(var(--bs-primary-rgb), 0.4);
@@ -5792,16 +5792,16 @@ textarea.form-control-lg {
   --bs-pagination-bg: rgba(var(--bs-base-color-rgb), 0.06);
   --bs-pagination-border-width: 1px;
   --bs-pagination-border-color: rgba(34, 48, 62, 0.22);
-  --bs-pagination-border-radius: 50%;
-  --bs-pagination-hover-color: var(--bs-primary);
-  --bs-pagination-hover-bg: var(--bs-primary-bg-subtle);
+  --bs-pagination-border-radius: 20%;
+  --bs-pagination-hover-color: var(--bs-success);
+  --bs-pagination-hover-bg: var(--bs-success-bg-subtle);
   --bs-pagination-hover-border-color: rgba(34, 48, 62, 0.22);
-  --bs-pagination-focus-color: var(--bs-primary);
-  --bs-pagination-focus-bg: var(--bs-primary-bg-subtle);
+  --bs-pagination-focus-color: var(--bs-success);
+  --bs-pagination-focus-bg: var(--bs-success-bg-subtle);
   --bs-pagination-focus-box-shadow: none;
   --bs-pagination-active-color: var(--bs-white);
-  --bs-pagination-active-bg: var(--bs-primary);
-  --bs-pagination-active-border-color: var(--bs-primary);
+  --bs-pagination-active-bg: var(--bs-success);
+  --bs-pagination-active-border-color: var(--bs-success);
   --bs-pagination-disabled-color: var(--bs-heading-color);
   --bs-pagination-disabled-bg: rgba(var(--bs-base-color-rgb), 0.06);
   --bs-pagination-disabled-border-color: rgba(34, 48, 62, 0.22);
@@ -9926,16 +9926,16 @@ img[data-app-light-img][data-app-dark-img] {
   color: var(--bs-secondary-color);
 }
 .form-floating > .form-control:focus:not(:-moz-placeholder-shown) ~ label, .form-floating > .form-select:focus:not(:-moz-placeholder-shown) ~ label {
-  color: var(--bs-primary);
+  color: var(--bs-success);
 }
 .form-floating > .form-control:focus:not(:-ms-input-placeholder) ~ label, .form-floating > .form-select:focus:not(:-ms-input-placeholder) ~ label {
-  color: var(--bs-primary);
+  color: var(--bs-success);
 }
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:focus:not(:placeholder-shown) ~ label,
 .form-floating > .form-select:focus ~ label,
 .form-floating > .form-select:focus:not(:placeholder-shown) ~ label {
-  color: var(--bs-primary);
+  color: var(--bs-success);
 }
 
 .btn {

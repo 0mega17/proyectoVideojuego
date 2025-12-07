@@ -12,7 +12,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Demo: Login Basic - Pages | Sneat - Bootstrap Dashboard FREE</title>
+    <title>Login administrador</title>
 
     <meta name="description" content="" />
 
@@ -96,8 +96,7 @@
                                         id="contrasena"
                                         class="form-control"
                                         name="password"
-                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                        aria-describedby="password" />
+                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
                                     <span class="input-group-text cursor-pointer"><i class="icon-base bx bx-hide"></i></span>
                                 </div>
                             </div>
@@ -107,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="mb-6">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Ingresar</button>
+                                <button class="btn btn-success d-grid w-100" type="submit">Ingresar</button>
                             </div>
                         </form>
 
@@ -125,7 +124,6 @@
 
     <!-- Core JS -->
 
-    <script src="./assets/vendor/libs/jquery/jquery.js"></script>
 
     <script src="./assets/vendor/libs/popper/popper.js"></script>
     <script src="./assets/vendor/js/bootstrap.js"></script>
