@@ -9,32 +9,32 @@ $errores = [];
 
 // Codigo de la sala
 $codigoSala = $_POST["codigoSala"];
-$estado = 0;
+$accion = "reiniciar";
 
-// Seleccionar estado actual
-try{
-    $sqlEstado = "SELECT estado FROM codigos WHERE codigo = :codigoSala";
-    $consultaEstado = $mysql->getConexion()->prepare($sqlEstado);
-    $consultaEstado->bindParam("codigoSala", $codigoSala, PDO::PARAM_INT);
-    $consultaEstado->execute();
-
-    $estado = $consultaEstado->fetch(PDO::FETCH_ASSOC)["estado"];
-
-}catch(PDOException $e){
+// Seleccionar la accion actual
+try {
+    $sqlAccion = "SELECT accion FROM codigos WHERE codigo = :codigoSala";
+    $consultaAccion = $mysql->getConexion()->prepare($sqlAccion);
+    $consultaAccion->bindParam("codigoSala", $codigoSala, PDO::PARAM_INT);
+    $consultaAccion->execute();
+    $accion = $consultaAccion->fetch(PDO::FETCH_ASSOC)["accion"];
+} catch (PDOException $e) {
     $errores[] = "Ocurrio un error el select de estado..." . $e->getMessage();
 }
 
-if($estado == 0){
-    $estado = 2;
-}else if($estado == 2){
-    $estado = 0;
+// Numerar las ccciones para actualizar
+if ($accion == null) {
+    $accion = "reiniciar1";
+} else {
+    $num = substr($accion, 9, 1);
+    $accion = "reiniciar" . ($num + 1);
 }
 
 try {
-    $sqlUpdate = "UPDATE codigos SET estado = :estado WHERE codigo = :codigoSala ";
+    $sqlUpdate = "UPDATE codigos SET accion = :accion WHERE codigo = :codigoSala ";
     $updateEstado = $mysql->getConexion()->prepare($sqlUpdate);
     $updateEstado->bindParam("codigoSala", $codigoSala, PDO::PARAM_INT);
-    $updateEstado->bindParam("estado", $estado, PDO::PARAM_INT);
+    $updateEstado->bindParam("accion", $accion, PDO::PARAM_STR);
     $updateEstado->execute();
 } catch (PDOException $e) {
     $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();

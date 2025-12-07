@@ -130,7 +130,7 @@ function pintarTabla(lista) {
 }
 
 btnReiniciar.addEventListener("click", () => {
-  let accion = "reiniciar"
+  let accion = "reiniciar";
   localStorage.setItem("accion", accion);
   Swal.fire({
     title: `<h1 class="m-0 fw-bold">Reiniciar </h1>`,
@@ -188,7 +188,7 @@ btnFinalizar.addEventListener("click", () => {
     preConfirm: () => {
       let formData = new FormData();
       formData.append("codigoSala", datosSala);
-      fetch("../controllers/reiniciar_juego.php", {
+      fetch("../controllers/finalizar_juego.php", {
         method: "POST",
         body: formData,
       })
@@ -199,13 +199,15 @@ btnFinalizar.addEventListener("click", () => {
               title: `<h1 class="mb-0 fw-bold">¡Exito!</h1>`,
               text: response.message,
               icon: "success",
-              confirmButtonText: "Continuar juego",
+              confirmButtonText: "Finalizado",
               customClass: {
                 confirmButton: "btn btn-success fw-bold",
               },
             }).then(() => {
               localStorage.removeItem("navegadorBalotas");
+              localStorage.removeItem("codigoSala");
               location.reload();
+              location.href = "./sala.php";
             });
           }
         });
