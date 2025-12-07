@@ -21,12 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $categorias = $_POST["categorias"];
         $tipoMaterial = intval($_POST["tipo"]);
 
-        if($frase == ""){
-            $frase = null;
-        }
-
         $errores = [];
 
+        // INSERT PARA LAS COMPOSICIONES
         try {
             $sqlComposiciones = "INSERT INTO composiciones(titulo, autor, frase, tipo_material_id) VALUES(:titulo,
         :autor, :frase, :tipoMaterial)";
@@ -40,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errores[] = "Error en el insert de composiciones" . $e->getMessage();
         }
 
+        // CAPTURAR EL ULTIMO ID
         try{
             $sqlID = "SELECT MAX(id) as IDmaximo FROM composiciones";
             $selectID = $mysql->getConexion()->prepare($sqlID);
@@ -51,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
       
 
+        // INSERTAR TODAS LAS CATEGORIAS DEL ARREGLO CON LA ULTIMA COMPOSICION
         try{
             foreach($categorias as $cat){
                 $IDcategoria = $cat;
@@ -62,8 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $insertCategorias->bindParam("IDcomposicion", $IDcomposicion, PDO::PARAM_INT);
 
                 $insertCategorias->execute();
-
-
             }
         }catch(PDOException $e){
             $errores[] = "Error en el insert de categorias" . $e->getMessage();

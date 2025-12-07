@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             $sqlCategorias = "DELETE FROM categorias_has_composiciones WHERE composiciones_id = :IDeliminar";
             $consultaCategorias = $mysql->getConexion()->prepare($sqlCategorias);
-            $consultaCategorias->bindParam("IDeliminar", $IDeliminar);
+            $consultaCategorias->bindParam("IDeliminar", $IDeliminar, PDO::PARAM_INT);
             $consultaCategorias->execute();
         } catch (PDOException $e) {
             $errores[] = "Error en categorias... " . $e->getMessage();
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             $sqlObras = "DELETE FROM composiciones WHERE id = :IDeliminar";
             $consultaObras = $mysql->getConexion()->prepare($sqlObras);
-            $consultaObras->bindParam("IDeliminar", $IDeliminar);
+            $consultaObras->bindParam("IDeliminar", $IDeliminar, PDO::PARAM_INT);
             $consultaObras->execute();
         } catch (PDOException $e) {
             $errores[] = "Error en composiciones..." . $e->getMessage();

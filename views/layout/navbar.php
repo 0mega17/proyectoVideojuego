@@ -1,3 +1,10 @@
+<?php
+
+$nombreAdmin = $_SESSION["nombreAdmin"];
+
+?>
+
+
 <!-- Layout container -->
 <div class="layout-page">
     <!-- Navbar -->
@@ -45,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="grow">
-                                        <h6 class="mb-0">John Doe</h6>
+                                        <h6 class="mb-0"><?php echo $nombreAdmin ?></h6>
                                         <small class="text-body-secondary">Admin</small>
                                     </div>
                                 </div>

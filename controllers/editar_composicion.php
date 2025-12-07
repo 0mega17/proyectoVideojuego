@@ -23,12 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $categorias = $_POST["categorias"];
         $tipoMaterial = intval($_POST["tipo"]);
 
-        if ($frase == "") {
-            $frase = null;
-        }
-
         $errores = [];
 
+        // REALIZAR EL UPDATE
         try {
             $sqlComposiciones = "UPDATE composiciones SET titulo = :titulo, autor = :autor,
             frase = :frase, tipo_material_id = :tipoMaterial WHERE id = :IDeditar";
@@ -43,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errores[] = "Error en el update de composiciones" . $e->getMessage();
         }
 
+        // ELIMINAR TODAS LAS CATEGORIAS ASOCIADAS A LA COMPOSICION
         try {
             $sqlDelete = "DELETE FROM categorias_has_composiciones WHERE composiciones_id = :IDeditar";
             $deleteCategorias = $mysql->getConexion()->prepare($sqlDelete);
@@ -52,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errores[] = "Error en el delete de categorias" . $e->getMessage();
         }
 
+        // INSERTAR TODAS LAS CATEGORIAS DEL ARREGLO CON LA ULTIMA COMPOSICION
         try {
             foreach ($categorias as $cat) {
                 $IDcategoria = intval($cat);
