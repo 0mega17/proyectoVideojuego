@@ -9768,16 +9768,16 @@ img[data-app-light-img][data-app-dark-img] {
   border-color: var(--bs-gray-600);
 }
 .input-group:focus-within, .input-group:focus {
-  -webkit-box-shadow: 0 0 0 var(--bs-border-width) var(--bs-primary);
-          box-shadow: 0 0 0 var(--bs-border-width) var(--bs-primary);
+  -webkit-box-shadow: 0 0 0 var(--bs-border-width) var(--bs-success);
+          box-shadow: 0 0 0 var(--bs-border-width) var(--bs-success);
 }
 .input-group:focus-within::before, .input-group:focus::before {
-  -webkit-box-shadow: 0 0.125rem 0.25rem 0 rgba(var(--bs-primary-rgb), 0.4);
-          box-shadow: 0 0.125rem 0.25rem 0 rgba(var(--bs-primary-rgb), 0.4);
+  -webkit-box-shadow: 0 0.125rem 0.25rem 0 rgba(var(--bs-success-rgb), 0.4);
+          box-shadow: 0 0.125rem 0.25rem 0 rgba(var(--bs-success-rgb), 0.4);
 }
 .input-group:focus-within:not(.input-group-merge) .form-control::-webkit-file-upload-button, .input-group:focus:not(.input-group-merge) .form-control::-webkit-file-upload-button {
-  -webkit-box-shadow: var(--bs-border-width) 0 0 var(--bs-primary);
-          box-shadow: var(--bs-border-width) 0 0 var(--bs-primary);
+  -webkit-box-shadow: var(--bs-border-width) 0 0 var(--bs-success);
+          box-shadow: var(--bs-border-width) 0 0 var(--bs-success);
 }
 .input-group:focus-within:not(.input-group-merge) .form-control,
 .input-group:focus-within:not(.input-group-merge) .form-select,
@@ -9788,22 +9788,22 @@ img[data-app-light-img][data-app-dark-img] {
 .input-group:focus:not(.input-group-merge) .input-group-text,
 .input-group:focus:not(.input-group-merge) .btn,
 .input-group:focus:not(.input-group-merge) .form-control::file-selector-button {
-  -webkit-box-shadow: var(--bs-border-width) 0 0 var(--bs-primary);
-          box-shadow: var(--bs-border-width) 0 0 var(--bs-primary);
+  -webkit-box-shadow: var(--bs-border-width) 0 0 var(--bs-success);
+          box-shadow: var(--bs-border-width) 0 0 var(--bs-success);
 }
 .input-group:focus-within .input-group-text,
 .input-group:focus-within .form-control,
 .input-group:focus-within .form-select, .input-group:focus .input-group-text,
 .input-group:focus .form-control,
 .input-group:focus .form-select {
-  border-color: var(--bs-primary);
+  border-color: var(--bs-success);
 }
 .input-group:focus-within .input-group-text:hover,
 .input-group:focus-within .form-control:hover,
 .input-group:focus-within .form-select:hover, .input-group:focus .input-group-text:hover,
 .input-group:focus .form-control:hover,
 .input-group:focus .form-select:hover {
-  border-color: var(--bs-primary);
+  border-color: var(--bs-success);
 }
 .input-group.input-group-merge > :not(:first-child):not(.dropdown-menu) {
   margin-inline: 0;
