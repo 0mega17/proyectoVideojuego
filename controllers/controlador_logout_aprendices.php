@@ -7,6 +7,8 @@ session_unset();
 
 session_destroy();
 
-
-header("Location: ../views/login_usuarios.php");
+echo json_encode([
+    "success" => true,
+    "message" => "El juego fue finalizado, muchas gracias por participar "
+]);
 exit();

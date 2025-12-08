@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     echo json_encode([
                         "success" => false,
-                        "message" => "! Contraseña incorrecta ¡"
+                        "message" => "¡Contraseña incorrecta!"
                     ]);
                     exit();
                 }
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo json_encode(
                     [
                         "success" => false,
-                        "message" => "! Correo ingresado no existe ¡"
+                        "message" => "¡Correo ingresado no existe!"
                     ]
                 );
                 exit();
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo json_encode([
             "success" => false,
-            "message" => "Faltan campos por rellenar..."
+            "message" => "Todos los campos son obligatorios"
         ]);
         exit();
     }

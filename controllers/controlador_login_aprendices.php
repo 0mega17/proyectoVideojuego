@@ -61,9 +61,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         "mensaje" => "Codigo de sala incorrecto"
                     ]);
                 }
+            } else {
+                echo json_encode([
+                    "validacion" => false,
+                    "mensaje" => "Codigo de sala incorrecto"
+                ]);
             }
         } catch (PDOException $e) {
             $errores[] = "Error en la consulta de traer datos de los ADMIN" . $e->getMessage();
         }
+    }else{
+        echo json_encode([
+            "validacion" => false,
+            "mensaje" => "Todos los campos son obligatorios"
+        ]);
     }
 }

@@ -10,11 +10,11 @@ $codigo = $_POST["codigo"];
 
 try {
 
-    $sql = "SELECT updated_at FROM codigos WHERE codigo = :codigo";
+    $sql = "SELECT updated_at, accion FROM codigos WHERE codigo = :codigo";
     $consultaEstado = $mysql->getConexion()->prepare($sql);
     $consultaEstado->bindParam("codigo", $codigo);
     $consultaEstado->execute();
-    $estado = $consultaEstado->fetch(PDO::FETCH_ASSOC)["updated_at"];
+    $estado = $consultaEstado->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo json_encode([
         "success" => false,
@@ -25,4 +25,7 @@ try {
 
 
 header("ContentType:application/json");
-echo json_encode($estado);
+echo json_encode([
+    "success" => true,
+    "estado" => $estado,
+]);

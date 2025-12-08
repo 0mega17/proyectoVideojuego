@@ -1,6 +1,7 @@
 const txtCodigoSala = document.querySelector("#txtCodigoSala");
 let ultimaFecha = null;
-let accion = localStorage.getItem("accion");
+// let accion = localStorage.getItem("accion");
+let accion = null;
 
 setInterval(() => {
   let formData = new FormData();
@@ -12,27 +13,48 @@ setInterval(() => {
     .then((res) => res.json())
     .then((data) => {
       console.log("Respuesta del servidor:", data); // <-- aquí
-
+      console.log(ultimaFecha);
+      console.log(accion);
+      accion = data.estado.accion;
       if (!ultimaFecha) {
-        ultimaFecha = data;
+        ultimaFecha = data.estado.updated_at;
         console.log(ultimaFecha);
         return;
       }
 
-      if (ultimaFecha !== data && accion == "reiniciar") {
+      if (
+        ultimaFecha !== data.estado.updated_at &&
+        accion.includes("reiniciar")
+      ) {
         localStorage.clear();
         ultimaFecha = null;
         location.reload();
       }
 
-      if (ultimaFecha !== data && accion == "finalizar") {
+      if (
+        ultimaFecha !== data.estado.updated_at &&
+        accion.includes("finalizar")
+      ) {
         localStorage.clear();
         ultimaFecha = null;
         fetch("../controllers/controlador_logout_aprendices.php")
           .then((res) => res.json())
-          .then((data) => {
-            if (data.success) {
-              location.reload();
+          .then((response) => {
+            if (response.success) {
+              Swal.fire({
+                title: `<h1 class="mb-0 fw-bold">Aviso!</h1>`,
+                html: response.message,
+                icon: "success",
+                timer: 3000,
+                allowOutsideClick: false,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                customClass: {
+                  confirmButton: "btn btn-success fw-bold",
+                },
+              }).then(() => {
+                location.reload();
+              });
             }
           });
       }

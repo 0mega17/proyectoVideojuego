@@ -34,8 +34,8 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
   $db = $mysql->getConexion();
 
   while (true) {
-    
-    if($categoria != null){
+
+    if ($categoria != null) {
       //! Tomar fila aleatoria
       $sql = "SELECT titulo, autor, frase 
                 FROM composiciones
@@ -44,15 +44,15 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
                 WHERE categorias_has_composiciones.categorias_id = $categoria 
                 ORDER BY RAND() 
                 LIMIT 1";
-    }else{
+    } else {
       //! Tomar fila aleatoria
       $sql = "SELECT titulo, autor, frase 
                 FROM composiciones 
                 ORDER BY RAND() 
                 LIMIT 1";
     }
-    
-  
+
+
     $stmt = $db->query($sql);
     $fila = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -85,6 +85,8 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
 <body class="container-fluid py-4 justify-content-center" style="background-color: #ffffffff;">
 
   <h1 class="text-center mb-5 text-dark">Bingo Literario</h1>
+  <p class="text-center text-muted"><?php echo $codigoSala ?></p>
+  <input type="hidden" id="txtCodigoSala" value="<?php echo $codigoSala ?>">
 
   <table class="table table-bordered table-light border border-dark border-2 text-center mt-4">
     <thead>
@@ -120,5 +122,7 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
 </body>
 <script src="./assets/js/pintarBingo.js"></script>
 <script src="./assets/js/reiniciar.js"></script>
+<!-- Sweet alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </html>

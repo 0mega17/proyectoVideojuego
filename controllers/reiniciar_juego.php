@@ -43,7 +43,7 @@ try {
 
 
 if (count($errores) == 0) {
-    echo json_encode([
+     echo json_encode([
         "success" => true,
         "message" => "El juego fue reiniciado exitosamente"
     ]);

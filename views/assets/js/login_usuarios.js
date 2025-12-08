@@ -13,9 +13,13 @@ formularioLogin.addEventListener("submit", (e) => {
     success: function (respuesta) {
       if (!respuesta.validacion) {
         Swal.fire({
-          title: '<span class="fs-2 fw-bold"> ¡Error! </span>',
+          title: '<h1 class="m-0 fw-bold">¡Error! </h1>',
           text: respuesta.mensaje,
           icon: "error",
+          confirmButtonText: "Aceptar",
+          customClass: {
+            confirmButton: "btn btn-success",
+          },
         });
       } else {
         location.href = "./bingoTablas.php";
