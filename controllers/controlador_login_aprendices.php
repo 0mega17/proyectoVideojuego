@@ -44,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     session_start();
                     $_SESSION["codigoSala"] = $codigoBD;
+                    $_SESSION["accesoAprendiz"] = true;
                     if ($resultado) {
                         echo json_encode([
                             "validacion" => true

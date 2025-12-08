@@ -1,18 +1,58 @@
 <?php
-require_once "../models/MySQL.php"; // tu archivo de conexión
+
+// VERIFICAR SI HAY UNA SESION INICIADA
+session_start();
+if (!isset($_SESSION["accesoAprendiz"]) || $_SESSION["accesoAprendiz"] !== true) {
+  header('location: login_usuarios.php');
+  exit();
+}
+
+//Obtener el codigo de la sala ingresado
+$codigoSala = $_SESSION["codigoSala"];
+
+
+require_once "../models/MySQL.php"; //  Archivo de conexión
 $mysql = new MySQL();
 $mysql->conectar();
 
-function obtenerElementoRandom($mysql, &$usados)
+
+
+// Seleccionar la categoria escogida
+try {
+  $sql = "SELECT categoria_codigo FROM codigos WHERE codigo = $codigoSala";
+  $consultaCategoria = $mysql->getConexion()->prepare($sql);
+  $consultaCategoria->execute();
+  $categoria = $consultaCategoria->fetch(PDO::FETCH_ASSOC)["categoria_codigo"];
+} catch (PDOException $e) {
+  $error = $e->getMessage();
+}
+
+
+
+function obtenerElementoRandom($mysql, &$usados, $categoria)
 {
   $db = $mysql->getConexion();
 
   while (true) {
-    //! Tomar fila aleatoria
-    $sql = "SELECT titulo, autor, frase 
+    
+    if($categoria != null){
+      //! Tomar fila aleatoria
+      $sql = "SELECT titulo, autor, frase 
+                FROM composiciones
+                JOIN categorias_has_composiciones ON
+                categorias_has_composiciones.composiciones_id = composiciones.id
+                WHERE categorias_has_composiciones.categorias_id = $categoria 
+                ORDER BY RAND() 
+                LIMIT 1";
+    }else{
+      //! Tomar fila aleatoria
+      $sql = "SELECT titulo, autor, frase 
                 FROM composiciones 
                 ORDER BY RAND() 
                 LIMIT 1";
+    }
+    
+  
     $stmt = $db->query($sql);
     $fila = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -66,7 +106,7 @@ function obtenerElementoRandom($mysql, &$usados)
         for ($c = 0; $c < 5; $c++) {
 
           //! Obtener un valor aleatorio desde la base de datos
-          $valor = obtenerElementoRandom($mysql, $usados);
+          $valor = obtenerElementoRandom($mysql, $usados, $categoria);
 
           echo "<td>$valor</td>";
         }

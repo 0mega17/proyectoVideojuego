@@ -25,7 +25,7 @@ function cargarCategorias() {
 
       data.forEach((cat) => {
         const opt = document.createElement("option");
-        opt.value = cat.nombre;
+        opt.value = cat.id;
         opt.textContent = cat.nombre;
         categoriaSelect.appendChild(opt);
       });
