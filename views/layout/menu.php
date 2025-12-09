@@ -70,7 +70,13 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                             <div class="text-truncate" data-i18n="Basic">Balotas</div>
                         </a>
                     </li>
-            
+                    <li class="menu-item <?php echo ($archivoActual == "crear_categoria.php" ? "active" : "") ?>">
+                        <a href="crear_categoria.php" class="menu-link">
+                            <i class="menu-icon tf-icons bx  bx-list-ul"></i>
+                            <div class="text-truncate" data-i18n="Basic">Categorias</div>
+                        </a>
+                    </li>
+
                 </ul>
             </aside>
             <!-- / Menu -->
