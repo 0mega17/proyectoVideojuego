@@ -70,6 +70,12 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                             <div class="text-truncate" data-i18n="Basic">Balotas</div>
                         </a>
                     </li>
+                    <li class="menu-item <?php echo ($archivoActual == "admins.php" ? "active" : "") ?>">
+                        <a href="admins.php" class="menu-link">
+                            <i class="fa-solid fa-user"></i>
+                            <div class="text-truncate" data-i18n="Basic">Gestion administradores</div>
+                        </a>
+                    </li>
             
                 </ul>
             </aside>

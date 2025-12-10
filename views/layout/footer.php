@@ -96,6 +96,10 @@
  
      <script src="./assets/js/crear_categorias.js"></script>
  <?php endif ?>
+ <?php if ($archivoActual == "admins.php"): ?>
+ 
+     <script src="./assets/js/administradores.js"></script>
+ <?php endif ?>
  </body>
 
  </html>
