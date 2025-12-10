@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mysql->conectar();
 
         //! Sanatización
-        $nombre = filter_var(trim($_POST["nombre"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $nombre = trim($_POST["nombre"]);
         $email  = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
         $pass   = password_hash($_POST["pass"], PASSWORD_BCRYPT);
 

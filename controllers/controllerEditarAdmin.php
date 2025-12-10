@@ -13,9 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //! Sanitización
         $IDadmin = intval($_POST["IDeditar"]);
-        $nombre  = filter_var(trim($_POST["nombre"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        $email   = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
+        $nombre  = trim($_POST["nombre"]);
+        $email   = trim($_POST["email"]);
 
         $pass    = !empty($_POST["pass"])
             ? password_hash($_POST["pass"], PASSWORD_BCRYPT)
@@ -24,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errores = [];
 
         //! Validación de email
-        if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
             echo json_encode([
                 "success" => false,
@@ -75,9 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmt2 = $mysql->getConexion()->prepare($sql);
 
-            $stmt2->bindParam(":nombre", $nombre, PDO::PARAM_STR);
-            $stmt2->bindParam(":email", $email, PDO::PARAM_STR);
-            $stmt2->bindParam(":IDeditar", $IDadmin, PDO::PARAM_INT);
+            $stmt2->bindParam("nombre", $nombre, PDO::PARAM_STR);
+            $stmt2->bindParam("email", $email, PDO::PARAM_STR);
+            $stmt2->bindParam("IDeditar", $IDadmin, PDO::PARAM_INT);
 
             if ($pass !== null) {
                 $stmt2->bindParam(":pass", $pass, PDO::PARAM_STR);
