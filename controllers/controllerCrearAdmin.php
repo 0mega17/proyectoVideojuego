@@ -52,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //! Insertar Administrador
         try {
 
-            $sqlAdmins = "INSERT INTO administradores (nombre, email, password)
-                          VALUES (:nombre, :email, :pass)";
+            $sqlAdmins = "INSERT INTO administradores (nombre, email, password,estado)
+                          VALUES (:nombre, :email, :pass,'Activo')";
 
             $insertAdministradores = $mysql->getConexion()->prepare($sqlAdmins);
 

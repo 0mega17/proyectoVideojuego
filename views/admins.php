@@ -1,10 +1,10 @@
 <?php
 // VERIFICAR SI HAY UNA SESION INICIADA
- session_start();
- if (!isset($_SESSION["acceso"]) || $_SESSION["acceso"] !== true) {
-     header('location: login_admin.php');
-     exit();
- }
+session_start();
+if (!isset($_SESSION["acceso"]) || $_SESSION["acceso"] !== true) {
+    header('location: login_admin.php');
+    exit();
+}
 
 // MODELO DE LA BD
 require_once '../models/MySQL.php';
@@ -77,12 +77,17 @@ require_once './layout/navbar.php';
                                 Email
                             </th>
                             <th class="fw-bold">
+                                <i class="fa-solid fa-envelope"></i>
+                                Estados
+                            </th>
+                            <th class="fw-bold">
                                 <i class="fa-solid fa-thumbtack"></i>
                                 Acciones
                             </th>
                         </thead>
                         <tbody id="tblAdministradores">
                             <?php while ($fila = $administradores->fetch(PDO::FETCH_ASSOC)): ?>
+                                <?php $claseEstado = $fila["estado"] == "Activo" ? "badge rounded-pill text-bg-success" : "badge rounded-pill text-bg-danger"; ?>
                                 <tr>
                                     <td>
                                         <?php echo $fila["nombre"] ?>
@@ -91,17 +96,41 @@ require_once './layout/navbar.php';
                                         <?php echo $fila["email"] ?>
                                     </td>
                                     <td>
+                                        <span class="<?php echo $claseEstado ?> px-3 py-2"><?php echo $fila["estado"] ?></span>
+                                    </td>
+                                    <td>
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                            <button class="btn btn-primary btn-sm btnEditar" data-id="<?php echo $fila["id"] ?>">
-                                                <i class="fa-solid fa-pen-to-square me-1"></i>
-                                                Editar
-                                            </button>
-                                            <button class="btn btn-danger btn-sm btnEliminar" data-id="<?php echo $fila["id"] ?>" data-nombre="<?php echo $fila["nombre"] ?>">
-                                                <i class="fa-solid fa-trash"></i>
-                                                Eliminar
-                                            </button>
+
+                                            <?php if ($fila['estado'] == "Activo") { ?>
+
+                                                <button class="btn btn-primary btn-sm btnEditar"
+                                                    data-id="<?php echo $fila['id'] ?>">
+                                                    <i class="fa-solid fa-pen-to-square me-1"></i>
+                                                    Editar
+                                                </button>
+
+                                                <button class="btn btn-danger btn-sm btnEliminar"
+                                                    data-id="<?php echo $fila['id'] ?>"
+                                                    data-nombre="<?php echo $fila['nombre'] ?>">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                    Eliminar
+                                                </button>
+
+                                            <?php } else { ?>
+
+                                                <button class="btn btn-info btn-sm btnReintegrar"
+                                                    data-id="<?php echo $fila['id'] ?>"
+                                                    data-nombre="<?php echo $fila['nombre'] ?>">
+                                                    <i class="fa-solid fa-check"></i>
+                                                    Reintegrar
+                                                </button>
+
+                                            <?php } ?>
+
                                         </div>
                                     </td>
+
+
                                 </tr>
 
                             <?php endwhile; ?>

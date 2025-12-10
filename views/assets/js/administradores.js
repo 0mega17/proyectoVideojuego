@@ -7,7 +7,7 @@ const frmAdministradores = document.querySelector("#frmAdministradores");
 // VARIABLES
 let modoEdicion = false;
 let IDeditar = 0;
-let IDeliminar = 0;
+let IDreintegrar = 0;
 
 // CAMPOS
 const txtNombre = document.querySelector("#txtNombre");
@@ -82,6 +82,51 @@ tblAdministradores.addEventListener("click", async (e) => {
             body: formData,
           }
         );
+
+        const response = await request.json();
+
+        if (response.success) {
+          Swal.fire({
+            title: "¡Éxito!",
+            text: response.message,
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          }).then(() => {
+            location.reload();
+          });
+        }
+      },
+    });
+  }
+
+  // ==========================
+  // REINTEGRAR
+  // ==========================
+  if (e.target.classList.contains("btnReintegrar")) {
+    let nombre = e.target.dataset.nombre;
+
+    Swal.fire({
+      title: `Reintegrar administrador`,
+      html: `¿Esta seguro de reintegrar este administrador?`,
+      icon: "info",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Si, reintegrar",
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      preConfirm: async () => {
+        IDreintegrar = e.target.dataset.id;
+
+        let formData = new FormData();
+        formData.append("IDreintegrar", IDreintegrar);
+
+        const request = await fetch("../controllers/controllerReintegrar.php", {
+          method: "POST",
+          body: formData,
+        });
 
         const response = await request.json();
 
