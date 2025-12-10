@@ -23,7 +23,7 @@ try {
 }
 
 // Numerar las ccciones para actualizar
-if ($accion == null) {
+if ($accion == null || $accion == "jugar") {
     $accion = "reiniciar1";
 } else {
     $num = substr($accion, 9, 1);

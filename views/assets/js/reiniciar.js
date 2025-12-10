@@ -33,7 +33,7 @@ setInterval(() => {
 
       if (
         ultimaFecha !== data.estado.updated_at &&
-        accion.includes("finalizar")
+        accion == "finalizar"
       ) {
         localStorage.clear();
         ultimaFecha = null;

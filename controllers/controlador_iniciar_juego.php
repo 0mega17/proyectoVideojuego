@@ -24,15 +24,6 @@ try {
     $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();
 }
 
-try {
-    $sqlTruncate = "TRUNCATE aprendices";
-    $consultaTruncate = $mysql->getConexion()->prepare($sqlTruncate);
-    $consultaTruncate->execute();
-} catch (PDOException $e) {
-    $errores[] = "Ocurrio un error en el truncate..." . $e->getMessage();
-}
-
-
 
 if (count($errores) == 0) {
     echo json_encode([
