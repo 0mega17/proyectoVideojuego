@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $consultaCategoria->bindParam("IDcategoria", $categoria);
                 $consultaCategoria->execute();
                 $nombreCategoria = $consultaCategoria->fetch(PDO::FETCH_ASSOC)["nombre"];
+                
             } else {
                 $categoria = 0;
                 $nombreCategoria = "General";
@@ -32,6 +33,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode([
                 "success" => false,
                 "message" => "Error al consultar el nombre de la categoria " . $e->getMessage()
+            ]);
+        }
+
+        try {
+            if ($categoria != "") {
+                $sqlConteo = "SELECT COUNT(*) AS conteo FROM categorias";
+                $consultaConteo = $mysql->getConexion()->prepare($sqlConteo);
+                $consultaConteo->execute();
+                $conteo = $consultaConteo->fetch(PDO::FETCH_ASSOC)["conteo"];
+
+              
+
+            }
+        } catch (PDOException $e) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Error al consultar el conteo de las categorias " . $e->getMessage()
             ]);
         }
 

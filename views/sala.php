@@ -67,7 +67,7 @@ require_once './layout/navbar.php';
                 <form action="" id="formularioSala">
                     <div class="row">
 
-                        <div class="col-3">
+                        <div class="col-sm-3">
                             <div class="mb-6">
                                 <label for="ficha" class="form-label">Cantidad jugadores</label>
                                 <input
@@ -79,7 +79,7 @@ require_once './layout/navbar.php';
                                     autofocus />
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-sm-3">
                             <div class="mb-6">
                                 <label for="modoJuego" class="form-label">Modo de juego</label>
                                 <select class="form-control" id="modoJuego" name="modoJuego">
@@ -88,7 +88,7 @@ require_once './layout/navbar.php';
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-sm-3">
                             <div class="mb-6">
                                 <label for="categoria" class="form-label">Categorias</label>
                                 <select class="form-control selectCategorias" id="categoria" name="categoria" disabled hidden>
@@ -96,8 +96,8 @@ require_once './layout/navbar.php';
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <button type="submit" class="btn rounded-pill btn-success mt-5">Crear sala</button>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn rounded-pill btn-success mt-5 w-100">Crear sala</button>
                         </div>
                     </div>
                 </form>
