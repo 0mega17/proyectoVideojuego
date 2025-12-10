@@ -11,7 +11,9 @@ formularioSala.addEventListener("submit", (e) => {
     .then((res) => res.json())
     .then((res) => {
       if (res.success) {
-        // GUARDAMOS TODO
+        // Eliminamos el localstorage que exista
+        localStorage.clear();
+        // GUARDAMOS TODO LO NUEVO
         localStorage.setItem("codigoSala", res.sala);
         localStorage.setItem("modoJuego", res.modo);
         localStorage.setItem("categoria", res.categoria);

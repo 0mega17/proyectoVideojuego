@@ -10,15 +10,24 @@ $errores = [];
 $composiciones = [];
 $columnas = ["titulo", "autor", "frase"];
 
-// Lee el stream de entrada sin procesar
-$json_string = file_get_contents('php://input');
 // Captura del arreglo de las balotas que ya salieron
-$arregloBalotas = json_decode($json_string, true);
+$arregloBalotas = json_decode($_POST["arregloBalotas"], true);
+$categoria = intval($_POST["categoria"]);
+
+// if ($arregloBalotas == "") {
+//     $arregloBalotas = [];
+// }
 $conteoFilas = 0;
+$conteoLimite = 0;
 
 // Consulta para traer todas las composiciones
 try {
-    $sql = "SELECT composiciones.id, composiciones.titulo, composiciones.autor, composiciones.frase, tipo_material.nombre as tipo_obra FROM composiciones JOIN tipo_material ON composiciones.tipo_material_id = tipo_material.id";
+    if ($categoria == "") {
+        $sql = "SELECT composiciones.id, composiciones.titulo, composiciones.autor, composiciones.frase, tipo_material.nombre as tipo_obra FROM composiciones JOIN tipo_material ON composiciones.tipo_material_id = tipo_material.id";
+    } else {
+        $sql = "SELECT composiciones.id, composiciones.titulo, composiciones.autor, composiciones.frase, tipo_material.nombre as tipo_obra FROM composiciones JOIN tipo_material ON composiciones.tipo_material_id = tipo_material.id JOIN categorias_has_composiciones ON categorias_has_composiciones.composiciones_id = composiciones.id WHERE categorias_has_composiciones.categorias_id = $categoria";
+    }
+
     $consultaComposiciones = $mysql->getConexion()->prepare($sql);
     $consultaComposiciones->execute();
 } catch (PDOException $e) {
@@ -27,7 +36,14 @@ try {
 
 // Consulta para contar el numero de composiciones
 try {
-    $sql = "SELECT COUNT(*) as conteo FROM composiciones";
+    if ($categoria == "") {
+        $sql = "SELECT COUNT(*) as conteo FROM composiciones";
+    } else {
+        $sql = "SELECT COUNT(*) as conteo FROM composiciones JOIN categorias_has_composiciones ON
+        categorias_has_composiciones.composiciones_id = composiciones.id 
+        WHERE categorias_has_composiciones.categorias_id = $categoria";
+    }
+
     $consultaConteo = $mysql->getConexion()->prepare($sql);
     $consultaConteo->execute();
     $conteoFilas = $consultaConteo->fetch(PDO::FETCH_ASSOC)["conteo"];
@@ -74,15 +90,17 @@ $balota = seleccionarBalota($balotaGeneral, $columnas, $numCol);
 
 
 $tipo_obra = $balotaGeneral["tipo_obra"];
-if (count($arregloBalotas) > 0) {
+if (count($arregloBalotas) > 0 || $arregloBalotas == "") {
     for ($i = 0; $i < count($arregloBalotas); $i++) {
+        // Limitar si no encuentra ninguna balota
+        $conteoLimite++;
         // Elemento del array de las balotas que ya salieron
         $balotasRepetidas = $arregloBalotas[$i]["balota"];
         $conteo = count($arregloBalotas);
         $tipo_obra = $balotaGeneral["tipo_obra"];
 
         // Decision para determninar si ya se llego al limite
-        if ($limiteBaraja <= count($arregloBalotas)) {
+        if ($limiteBaraja <= count($arregloBalotas) || $conteoLimite === 500) {
             echo json_encode([
                 "success" => false,
                 "balota" => "Todas las balotas fueron generadas",

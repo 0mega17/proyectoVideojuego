@@ -50,7 +50,7 @@ require_once './layout/navbar.php';
         <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
     </div>
     <div class="mt-3">
-        <button type="button" class="btn btn-info" id="Btncodigo" disabled></button>
+        <button type="button" class="btn btn-info" id="Btncodigo"></button>
         <button data-accion="reiniciar" id="btnReiniciar" class="btn btn-primary">
             <i class="fa-solid fa-rotate-left me-1"></i>
             Reiniciar juego
@@ -69,7 +69,7 @@ require_once './layout/navbar.php';
         </div>
 
         <button id="btnBalota" class="btn btn-success w-100 p-3 fw-bold">
-            <i class="fa-brands fa-dribbble fs-5"></i>
+            <i class="fa-brands fa-dribbble fs-5 fw-bold"></i>
             Nueva balota
         </button>
 

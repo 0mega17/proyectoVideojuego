@@ -4,7 +4,8 @@ const btnFinalizar = document.querySelector("#btnFinalizar");
 const tblBalotas = document.querySelector("#tblBalotas");
 const datosSala = JSON.parse(localStorage.getItem("codigoSala"));
 const divUltimaBalota = document.querySelector("#ultimaBalota");
-console.log(datosSala);
+const categoria = localStorage.getItem("categoria");
+console.log(categoria);
 
 let ancho = 0;
 
@@ -21,30 +22,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ultima balota
     let ultimaBalota = document.createElement("button");
-    let tituloUltima = document.createElement("p");
-    tituloUltima.classList.add("fw-bold", "my-2");
-    tituloUltima.textContent = "Ultima balota";
-    ultimaBalota.classList.add(
-      "btn",
-      "text-bg-info",
-      "d-block",
-      "w-100",
-      "mb-3"
-    );
-
-    ultimaBalota.textContent = arregloBalotas[arregloBalotas.length - 1].balota;
-    divUltimaBalota.appendChild(tituloUltima);
+    let tituloUltima = document.createElement("span");
+    tituloUltima.classList.add("fw-bold");
+    tituloUltima.textContent = "Ultima balota: ";
+    ultimaBalota.classList.add("btn", "text-bg-info", "mb-2", "fs-5", "w-100");
+    ultimaBalota.appendChild(tituloUltima);
+    ultimaBalota.textContent += arregloBalotas[arregloBalotas.length - 1].balota;
     divUltimaBalota.appendChild(ultimaBalota);
   }
 });
 
 btnBalota.addEventListener("click", () => {
+  let formData = new FormData();
+  formData.append("arregloBalotas", JSON.stringify(arregloBalotas));
+  formData.append("categoria", categoria);
+  console.log(arregloBalotas);
   fetch("../controllers/generar_balota.php", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(arregloBalotas),
+    body: formData,
   })
     .then((res) => res.json())
     .then((res) => {
@@ -204,8 +199,7 @@ btnFinalizar.addEventListener("click", () => {
                 confirmButton: "btn btn-success fw-bold",
               },
             }).then(() => {
-              localStorage.removeItem("navegadorBalotas");
-              localStorage.removeItem("codigoSala");
+              localStorage.clear();
               location.reload();
               location.href = "./sala.php";
             });
