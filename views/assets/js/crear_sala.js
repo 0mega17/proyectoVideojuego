@@ -22,7 +22,7 @@ formularioSala.addEventListener("submit", (e) => {
           icon: "info",
           confirmButtonText: "Entendido",
         }).then(() => {
-          window.location.href = "balotas.php";
+          window.location.href = "jugadores.php";
         });
       }
     });
