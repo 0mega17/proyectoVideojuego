@@ -24,7 +24,9 @@ $nombreAdmin = $_SESSION["nombreAdmin"];
         <div
             class="navbar-nav-right d-flex align-items-center justify-content-end"
             id="navbar-collapse">
-         
+            <div id="capaCategoria" class="text-center">
+                
+            </div>
             <ul class="navbar-nav flex-row align-items-center ms-md-auto">
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">

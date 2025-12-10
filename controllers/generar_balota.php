@@ -22,7 +22,7 @@ $conteoLimite = 0;
 
 // Consulta para traer todas las composiciones
 try {
-    if ($categoria == "") {
+    if ($categoria == 0) {
         $sql = "SELECT composiciones.id, composiciones.titulo, composiciones.autor, composiciones.frase, tipo_material.nombre as tipo_obra FROM composiciones JOIN tipo_material ON composiciones.tipo_material_id = tipo_material.id";
     } else {
         $sql = "SELECT composiciones.id, composiciones.titulo, composiciones.autor, composiciones.frase, tipo_material.nombre as tipo_obra FROM composiciones JOIN tipo_material ON composiciones.tipo_material_id = tipo_material.id JOIN categorias_has_composiciones ON categorias_has_composiciones.composiciones_id = composiciones.id WHERE categorias_has_composiciones.categorias_id = $categoria";
@@ -36,7 +36,7 @@ try {
 
 // Consulta para contar el numero de composiciones
 try {
-    if ($categoria == "") {
+    if ($categoria == 0) {
         $sql = "SELECT COUNT(*) as conteo FROM composiciones";
     } else {
         $sql = "SELECT COUNT(*) as conteo FROM composiciones JOIN categorias_has_composiciones ON

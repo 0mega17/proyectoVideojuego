@@ -4,6 +4,7 @@ const btnFinalizar = document.querySelector("#btnFinalizar");
 const tblBalotas = document.querySelector("#tblBalotas");
 const datosSala = JSON.parse(localStorage.getItem("codigoSala"));
 const divUltimaBalota = document.querySelector("#ultimaBalota");
+const divNombreCategoria = document.querySelector("#capaCategoria");
 const categoria = localStorage.getItem("categoria");
 console.log(categoria);
 
@@ -15,6 +16,12 @@ let objetoBalotas = {};
 let arregloBalotas = [];
 
 document.addEventListener("DOMContentLoaded", () => {
+  const nombreCategoria = localStorage.getItem("nombreCategoria");
+  const parrafo = document.createElement("button");
+  parrafo.classList.add("m-0", "text-center", "btn", "btn-success", "mt-2", "w-100", "p-2", "fw-bold", "mx-sm-0");
+  parrafo.textContent = "Categoria: " + nombreCategoria;
+  divNombreCategoria.appendChild(parrafo)
+
   const datosGuardados = localStorage.getItem("navegadorBalotas");
   if (datosGuardados) {
     arregloBalotas = JSON.parse(datosGuardados);
@@ -27,7 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
     tituloUltima.textContent = "Ultima balota: ";
     ultimaBalota.classList.add("btn", "text-bg-info", "mb-2", "fs-5", "w-100");
     ultimaBalota.appendChild(tituloUltima);
-    ultimaBalota.textContent += arregloBalotas[arregloBalotas.length - 1].balota;
+    ultimaBalota.textContent +=
+      arregloBalotas[arregloBalotas.length - 1].balota;
     divUltimaBalota.appendChild(ultimaBalota);
   }
 });

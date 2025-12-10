@@ -83,9 +83,8 @@ require_once './layout/navbar.php';
                             <div class="mb-6">
                                 <label for="modoJuego" class="form-label">Modo de juego</label>
                                 <select class="form-control" id="modoJuego" name="modoJuego">
-                                    <option value="">Seleccione un modo</option>
-                                    <option value="categoria">Categorias</option>
                                     <option value="general">General</option>
+                                    <option value="categoria">Categorias</option>
                                 </select>
                             </div>
                         </div>
@@ -93,7 +92,7 @@ require_once './layout/navbar.php';
                             <div class="mb-6">
                                 <label for="categoria" class="form-label">Categorias</label>
                                 <select class="form-control selectCategorias" id="categoria" name="categoria" disabled hidden>
-                                    <option value="">Seleccione una categoría...</option>
+
                                 </select>
                             </div>
                         </div>

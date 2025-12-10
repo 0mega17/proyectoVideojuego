@@ -17,15 +17,29 @@ formularioSala.addEventListener("submit", (e) => {
         localStorage.setItem("codigoSala", res.sala);
         localStorage.setItem("modoJuego", res.modo);
         localStorage.setItem("categoria", res.categoria);
+        localStorage.setItem("nombreCategoria", res.nombreCategoria);
 
         Swal.fire({
-          title: "CODIGO SALA",
-          text: res.sala,
+          title: `<h1 class="m-0 fw-bold">Codigo sala </h1>`,
+          html: `<h3 class="m-0">${res.sala}</h3>`,
           icon: "info",
-          confirmButtonText: "Entendido",
+          confirmButtonText: "Aceptar",
+          customClass: {
+            confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",
+          },
         }).then(() => {
           window.location.href = "balotas.php";
         });
+      }else{
+         Swal.fire({
+           title: `<h1 class="m-0 fw-bold">Error </h1>`,
+           text: res.message,
+           icon: "error",
+           confirmButtonText: "Aceptar",
+           customClass: {
+             confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",
+           },
+         });
       }
     });
 });

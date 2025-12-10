@@ -13,18 +13,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $cantidadJugadores = $_POST['cantidadJugadores'];
         $modoJuego = $_POST['modoJuego'];
-        
+
         //  AQUÍ VIENE LA CATEGORÍA
         $categoria = $_POST['categoria'] ?? null;
+
+        try {
+            if ($categoria != "") {
+                $sqlCategoria = "SELECT nombre FROM categorias WHERE id = :IDcategoria";
+                $consultaCategoria = $mysql->getConexion()->prepare($sqlCategoria);
+                $consultaCategoria->bindParam("IDcategoria", $categoria);
+                $consultaCategoria->execute();
+                $nombreCategoria = $consultaCategoria->fetch(PDO::FETCH_ASSOC)["nombre"];
+            } else {
+                $categoria = 0;
+                $nombreCategoria = "General";
+            }
+        } catch (PDOException $e) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Error al consultar el nombre de la categoria " . $e->getMessage()
+            ]);
+        }
 
         try {
 
             //  AGREGAMOS CATEGORÍA A LA TABLA
             $sql = "INSERT INTO codigos (codigo, estado, categoria_codigo)
                     VALUES (:codigo, 1, :categoria)";
-            
+
             $insert = $mysql->getConexion()->prepare($sql);
-            
+
             $insert->bindParam(":codigo", $codigo, PDO::PARAM_STR);
 
             // GUARDAMOS LA CATEGORÍA
@@ -37,10 +55,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "sala" => $codigo,
                 "jugadores" => $cantidadJugadores,
                 "modo" => $modoJuego,
-                "categoria" => $categoria
+                "categoria" => $categoria,
+                "nombreCategoria" => $nombreCategoria
             ]);
-
         } catch (PDOException $e) {
+            $error = $e->getMessage();
             echo json_encode([
                 "success" => false,
                 "message" => "Error al crear sala: " . $e->getMessage()
