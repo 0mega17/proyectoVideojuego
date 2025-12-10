@@ -76,7 +76,12 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                             <div class="text-truncate" data-i18n="Basic">Categorias</div>
                         </a>
                     </li>
-
+                    <li class="menu-item <?php echo ($archivoActual == "jugadores.php" ? "active" : "") ?>">
+                        <a href="jugadores.php" class="menu-link">
+                            <i class="menu-icon tf-icons bx  bx-user"></i>
+                            <div class="text-truncate" data-i18n="Basic">Jugadores</div>
+                        </a>
+                    </li>
                 </ul>
             </aside>
             <!-- / Menu -->

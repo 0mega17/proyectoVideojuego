@@ -19,11 +19,15 @@ require_once './layout/navbar.php';
 
 <div class="d-flex justify-content-between border-bottom border-2 p-2 mb-5">
     <div class="">
-        <h2 class="fw-semibold m-0">Categoria jugadores</h2>
+        <h2 class="fw-semibold m-0">Jugadores</h2>
         <p class="text-muted m-0">Gestiona todo lo relacionado con los jugadores del bingo</p>
     </div>
     <div class="mt-3">
-
+        <button type="button" class="btn btn-info" id="Btncodigo" disabled></button>
+        <button id="btnIniciar" class="btn btn-primary">
+            <i class=""></i>
+            Iniciar juego
+        </button>
     </div>
 </div>
 
@@ -54,7 +58,7 @@ require_once './layout/navbar.php';
                             </th>
                         </thead>
                         <tbody id="tblJugadores">
-                        
+
                         </tbody>
                     </table>
                 </div>

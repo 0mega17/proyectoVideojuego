@@ -1,3 +1,4 @@
+let botonInicar = document.getElementById("btnIniciar");
 function cargarJugadores() {
   fetch("../controllers/controlador_listar_jugadores.php")
     .then((response) => response.text())
@@ -8,8 +9,42 @@ function cargarJugadores() {
 }
 
 cargarJugadores();
+document.addEventListener("DOMContentLoaded", () => {
+  let codigo = localStorage.getItem("codigoSala");
+  if (codigo) {
+    document.getElementById("Btncodigo").textContent = "Código: " + codigo;
+  }
+});
 
-setInterval(cargarJugadores, 3000);
+setInterval(cargarJugadores, 5000);
+botonInicar.addEventListener("click", () => {
+  let sala = localStorage.getItem("codigoSala");
+  Swal.fire({
+    title: "Iniciar juego",
+    text: "¿Estás seguro de iniciar el juego?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, iniciar",
+    cancelButtonText: "Cancelar",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      let formData = new FormData();
+      formData.append("codigoSala", sala);
+
+      const request = await fetch(
+        "../controllers/controlador_iniciar_juego.php",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const response = await request.json();
+      if (response.success) {
+        window.location.href = "balotas.php";
+      }
+    }
+  });
+});
 
 document.addEventListener("click", function (e) {
   if (e.target.closest(".btnEliminar")) {
