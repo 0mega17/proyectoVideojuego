@@ -98,8 +98,9 @@
  <?php endif ?>
  <?php if ($archivoActual == "jugadores.php"): ?>
      <script src="./assets/js/jugadores.js"></script>
+ <?php endif ?>
  <?php if ($archivoActual == "admins.php"): ?>
- 
+
      <script src="./assets/js/administradores.js"></script>
  <?php endif ?>
  </body>
