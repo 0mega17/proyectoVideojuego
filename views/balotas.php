@@ -44,19 +44,19 @@ require_once './layout/navbar.php';
 ?>
 
 
-<div class="d-flex justify-content-between border-bottom border-2 p-2 mb-2">
-    <div class="">
-        <h2 class="fw-semibold m-0 me-1">Balotas del bingo literario</h2>
+<div class="d-flex justify-content-between align-items-center border-bottom border-2 p-2 mb-2">
+    <div id="capaTitulo" class="">
+        <h2 class="fw-semibold m-0 me-1">Balotas del bingo</h2>
         <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
     </div>
     <div class="mt-3">
-        <button type="button" class="btn btn-info" id="Btncodigo" disabled></button>
-        <button data-accion="reiniciar" id="btnReiniciar" class="btn btn-primary">
+        <button type="button" class="btn btn-info m-1" id="Btncodigo"></button>
+        <button data-accion="reiniciar" id="btnReiniciar" class="btn btn-primary m-1">
             <i class="fa-solid fa-rotate-left me-1"></i>
             Reiniciar juego
         </button>
 
-        <button id="btnFinalizar" class="btn btn-danger">
+        <button id="btnFinalizar" class="btn btn-danger m-1">
             <i class="fa-solid fa-trash"></i>
             Finalizar juego
         </button>
@@ -69,7 +69,7 @@ require_once './layout/navbar.php';
         </div>
 
         <button id="btnBalota" class="btn btn-success w-100 p-3 fw-bold">
-            <i class="fa-brands fa-dribbble fs-5"></i>
+            <i class="fa-brands fa-dribbble fs-5 fw-bold"></i>
             Nueva balota
         </button>
 

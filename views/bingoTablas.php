@@ -9,6 +9,8 @@ if (!isset($_SESSION["accesoAprendiz"]) || $_SESSION["accesoAprendiz"] !== true)
 
 //Obtener el codigo de la sala ingresado
 $codigoSala = $_SESSION["codigoSala"];
+$nombreAprendiz = $_SESSION["nombreAprendiz"];
+$fichaAprendiz = $_SESSION["fichaAprendiz"];
 
 
 require_once "../models/MySQL.php"; //  Archivo de conexión
@@ -19,15 +21,28 @@ $mysql->conectar();
 
 // Seleccionar la categoria escogida
 try {
-  $sql = "SELECT categoria_codigo FROM codigos WHERE codigo = $codigoSala";
+  $sql = "SELECT categoria_codigo FROM codigos WHERE codigo = :codigoSala";
   $consultaCategoria = $mysql->getConexion()->prepare($sql);
+  $consultaCategoria->bindParam("codigoSala", $codigoSala);
   $consultaCategoria->execute();
   $categoria = $consultaCategoria->fetch(PDO::FETCH_ASSOC)["categoria_codigo"];
 } catch (PDOException $e) {
   $error = $e->getMessage();
 }
 
-
+try {
+  if ($categoria != 0) {
+    $sql = "SELECT nombre FROM categorias WHERE id = :categoria";
+    $consultaNombreCat = $mysql->getConexion()->prepare($sql);
+    $consultaNombreCat->bindParam("categoria", $categoria);
+    $consultaNombreCat->execute();
+    $nombreCat = $consultaNombreCat->fetch(PDO::FETCH_ASSOC)["nombre"];
+  } else {
+    $nombreCat = "General";
+  }
+} catch (PDOException $e) {
+  $error = $e->getMessage();
+}
 
 function obtenerElementoRandom($mysql, &$usados, $categoria)
 {
@@ -35,7 +50,7 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
 
   while (true) {
 
-    if ($categoria != null) {
+    if ($categoria != "0") {
       //! Tomar fila aleatoria
       $sql = "SELECT titulo, autor, frase 
                 FROM composiciones
@@ -80,15 +95,29 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
   <title class="text-dark">Bingo Literario</title>
   <link rel="stylesheet" href="./assets/vendor/css/core.css">
   <link rel="stylesheet" href="./assets/css/tablasBingo.css">
+
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="./assets/img/logoSena.png" />
 </head>
 
-<body class="container-fluid py-4 justify-content-center" style="background-color: #ffffffff;">
+<body class="justify-content-center">
 
-  <h1 class="text-center mb-5 text-dark">Bingo Literario</h1>
-  <p class="text-center text-muted"><?php echo $codigoSala ?></p>
+  <div class="bg-success-subtle p-5 text-center bg-body-tertiary">
+    <h1 class="text-center mb-3 fw-bold text-success">Bingo Literario</h1>
+
+    <button class="btn btn-info  text-center fs-5">Codigo: <?php echo $codigoSala ?></button>
+    <button class="btn btn-success  text-center fs-5">Categoria: <?php echo $nombreCat ?></button>
+    <button class="btn btn-warning  text-center fs-5">Jugador: <?php echo $nombreAprendiz ?></button>
+    <button class="btn btn-primary  text-center fs-5">Ficha: <?php echo $fichaAprendiz ?></button>
+  </div>
+
+
   <input type="hidden" id="txtCodigoSala" value="<?php echo $codigoSala ?>">
 
-  <table class="table table-bordered table-light border border-dark border-2 text-center mt-4">
+  <table class="table table-bordered table-light border border-3 text-center mt-4 shadow">
     <thead>
       <tr>
         <th style="font-size: 50px;">B</th>
@@ -121,7 +150,7 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
 
 </body>
 <script src="./assets/js/pintarBingo.js"></script>
-<script src="./assets/js/reiniciar.js"></script>
+<script src="./assets/js/reiniciar_finalizar.js"></script>
 <script src="./assets/js/validar_sesion.js"></script>
 <!-- Sweet alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
