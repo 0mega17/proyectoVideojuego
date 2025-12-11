@@ -64,7 +64,7 @@ require_once './layout/navbar.php';
             <div class="col-md-4 mb-4 d-flex justify-content-center">
                 <div class="card mt-3 text-center" style="width: 18rem;">
                     <div class="card-body d-flex flex-column align-items-center">
-                        <img src="./assets/img/profile.png"
+                        <img src="./assets/img/logoSena.png"
                              class="rounded-circle shadow mb-3"
                              alt="User Image"
                              style="width: 150px; height: 150px; object-fit: cover;">
