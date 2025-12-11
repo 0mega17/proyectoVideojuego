@@ -13,7 +13,6 @@ $mysql = new MySQL();
 $mysql->conectar();
 $pagina = "Administradores";
 
-//CONSULTA DE TODAS LAS COMPOSICIONES LITERARIAS
 try {
     $sql = "SELECT * FROM administradores";
 
@@ -103,12 +102,6 @@ require_once './layout/navbar.php';
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
 
                                             <?php if ($fila['estado'] == "Activo") { ?>
-
-                                                <button class="btn btn-primary btn-sm btnEditar"
-                                                    data-id="<?php echo $fila['id'] ?>">
-                                                    <i class="fa-solid fa-pen-to-square me-1"></i>
-                                                    Editar
-                                                </button>
 
                                                 <button class="btn btn-danger btn-sm btnEliminar"
                                                     data-id="<?php echo $fila['id'] ?>"

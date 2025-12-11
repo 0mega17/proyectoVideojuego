@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (password_verify($contrasena, $resultado['password'])) {
 
                     session_start();
+                    $_SESSION['IdUsuario'] = $resultado['id'];
                     $_SESSION['nombreAdmin'] = $resultado['nombre'];
                     $_SESSION['acceso'] = true;
                     echo json_encode([

@@ -24,33 +24,6 @@ btnAgregar.addEventListener("click", async () => {
 
 // EVENTOS DE TABLA (EDITAR / ELIMINAR)
 tblAdministradores.addEventListener("click", async (e) => {
-  // ==========================
-  // EDITAR
-  // ==========================
-  if (e.target.classList.contains("btnEditar")) {
-    IDeditar = e.target.dataset.id;
-    modoEdicion = true;
-
-    let formData = new FormData();
-    formData.append("IDeditar", IDeditar);
-
-    const request = await fetch(
-      "../controllers/controllerTraerDatosAdmin.php",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-
-    const response = await request.json();
-
-    txtNombre.value = response.nombre;
-    txtEmail.value = response.email;
-
-    txtPassword.removeAttribute("required"); //OPCIONAL
-    txtPassword.value = ""; //VACÍO
-    modalAdministradores.show();
-  }
 
   // ==========================
   // ELIMINAR
