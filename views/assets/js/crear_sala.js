@@ -21,7 +21,7 @@ formularioSala.addEventListener("submit", (e) => {
 
         Swal.fire({
           title: `<h1 class="m-0 fw-bold">Codigo sala </h1>`,
-          html: `<h3 class="m-0">${res.sala}</h3>`,
+          html: `<h2 class="m-0">${res.sala}</h2>`,
           icon: "info",
           confirmButtonText: "Aceptar",
           customClass: {
@@ -32,8 +32,8 @@ formularioSala.addEventListener("submit", (e) => {
         });
       }else{
          Swal.fire({
-           title: `<h1 class="m-0 fw-bold">Error </h1>`,
-           text: res.message,
+           title: `<h1 class="m-0 fw-bold"> ¡Error! </h1>`,
+           html: res.message,
            icon: "error",
            confirmButtonText: "Aceptar",
            customClass: {

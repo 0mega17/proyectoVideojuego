@@ -17,6 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //  AQUÍ VIENE LA CATEGORÍA
         $categoria = $_POST['categoria'] ?? null;
 
+
+        // Seleccionar el nombre de la categoria
         try {
             if ($categoria != "") {
                 $sqlCategoria = "SELECT nombre FROM categorias WHERE id = :IDcategoria";
@@ -24,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $consultaCategoria->bindParam("IDcategoria", $categoria);
                 $consultaCategoria->execute();
                 $nombreCategoria = $consultaCategoria->fetch(PDO::FETCH_ASSOC)["nombre"];
-                
             } else {
                 $categoria = 0;
                 $nombreCategoria = "General";
@@ -36,15 +37,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
         }
 
+        // Verificacion de conteo minimo de 10 items para generar el bingo por categorias
         try {
             if ($categoria != "") {
-                $sqlConteo = "SELECT COUNT(*) AS conteo FROM categorias";
+                $sqlConteo = "SELECT COUNT(*) AS conteo FROM categorias_has_composiciones WHERE
+                categorias_has_composiciones.categorias_id = :categoriaID";
                 $consultaConteo = $mysql->getConexion()->prepare($sqlConteo);
+                $consultaConteo->bindParam("categoriaID", $categoria);
                 $consultaConteo->execute();
                 $conteo = $consultaConteo->fetch(PDO::FETCH_ASSOC)["conteo"];
 
-              
-
+                if ($conteo < 10) {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "Debe haber minimo 10 obras asociadas a esa categoria" . "<br>" .  "<strong> Categoria: </strong> $nombreCategoria" . "<br>" . "<strong> Cantidad actual: </strong> $conteo"
+                    ]);
+                    exit();
+                }
             }
         } catch (PDOException $e) {
             echo json_encode([
@@ -53,8 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
         }
 
-        try {
 
+
+
+        try {
             //  AGREGAMOS CATEGORÍA A LA TABLA
             $sql = "INSERT INTO codigos (codigo, estado, categoria_codigo)
                     VALUES (:codigo, 1, :categoria)";
@@ -86,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo json_encode([
             "success" => false,
-            "message" => "Faltan datos obligatorios."
+            "message" => "Todos los campos son obligatorios"
         ]);
     }
 }
