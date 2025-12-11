@@ -77,7 +77,7 @@ require_once './layout/navbar.php';
                                 Email
                             </th>
                             <th class="fw-bold">
-                                <i class="fa-solid fa-envelope"></i>
+                                <i class="fa-solid fa-circle"></i>
                                 Estados
                             </th>
                             <th class="fw-bold">
@@ -87,6 +87,7 @@ require_once './layout/navbar.php';
                         </thead>
                         <tbody id="tblAdministradores">
                             <?php while ($fila = $administradores->fetch(PDO::FETCH_ASSOC)): ?>
+                                 <?php if ($fila["nombre"] == $_SESSION["nombreAdmin"]) continue; ?>
                                 <?php $claseEstado = $fila["estado"] == "Activo" ? "badge rounded-pill text-bg-success" : "badge rounded-pill text-bg-danger"; ?>
                                 <tr>
                                     <td>
