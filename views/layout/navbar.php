@@ -24,7 +24,7 @@ $nombreAdmin = $_SESSION["nombreAdmin"];
         <div
             class="navbar-nav-right d-flex align-items-center justify-content-end"
             id="navbar-collapse">
-            <div id="capaCategoria" class="text-center">
+            <div id="capaCategoria" class="text-center mx-3 mx-sm-0">
                 
             </div>
             <ul class="navbar-nav flex-row align-items-center ms-md-auto">

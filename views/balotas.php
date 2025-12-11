@@ -46,7 +46,7 @@ require_once './layout/navbar.php';
 
 <div class="d-flex justify-content-between align-items-center border-bottom border-2 p-2 mb-2">
     <div id="capaTitulo" class="">
-        <h2 class="fw-semibold m-0 me-1">Balotas del bingo literario</h2>
+        <h2 class="fw-semibold m-0 me-1">Balotas del bingo</h2>
         <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
     </div>
     <div class="mt-3">

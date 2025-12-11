@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Verificacion de conteo minimo de 10 items para generar el bingo por categorias
         try {
-            if ($categoria != "") {
+            if ($categoria != 0) {
                 $sqlConteo = "SELECT COUNT(*) AS conteo FROM categorias_has_composiciones WHERE
                 categorias_has_composiciones.categorias_id = :categoriaID";
                 $consultaConteo = $mysql->getConexion()->prepare($sqlConteo);
