@@ -122,6 +122,7 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
 </body>
 <script src="./assets/js/pintarBingo.js"></script>
 <script src="./assets/js/reiniciar.js"></script>
+<script src="./assets/js/validar_sesion.js"></script>
 <!-- Sweet alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
