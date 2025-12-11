@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let tituloUltima = document.createElement("span");
     tituloUltima.classList.add("fw-bold");
     tituloUltima.textContent = "Ultima balota: ";
-    ultimaBalota.classList.add("btn", "text-bg-info", "mb-2", "fs-5", "w-100");
+    ultimaBalota.classList.add("btn", "text-bg-ultima-balota", "mb-2", "fs-5", "w-100");
     ultimaBalota.appendChild(tituloUltima);
     ultimaBalota.textContent +=
       arregloBalotas[arregloBalotas.length - 1].balota;

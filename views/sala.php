@@ -13,20 +13,34 @@ $mysql = new MySQL();
 $mysql->conectar();
 $pagina = "Salas";
 
-//CONSULTA DE TODAS LAS COMPOSICIONES LITERARIAS
+// Conteo de totales
 try {
-    $sql = "SELECT composiciones.id, composiciones.titulo, composiciones.autor, composiciones.frase, tipo_material.nombre FROM composiciones JOIN tipo_material ON tipo_material.id  = composiciones.tipo_material_id";
-
-    $composiciones = $mysql->getConexion()->prepare($sql);
-    $composiciones->execute();
+    $sql = "SELECT COUNT(*) as conteoGeneral FROM codigos";
+    $consultaConteo = $mysql->getConexion()->prepare($sql);
+    $consultaConteo->execute();
+    $conteoGeneral = $consultaConteo->fetch(PDO::FETCH_ASSOC)["conteoGeneral"];
 } catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode(
-        [
-            'success' => false,
-            "message" => "Ocurrio un error en la consulta..." . $e->getMessage()
-        ]
-    );
+    $error = $e->getMessage();
+}
+
+// Conteo de partidas jugadas por categoria o general
+try {
+    $sql = "SELECT COUNT(*) as conteo, categoria_codigo, COALESCE((SELECT categorias.nombre FROM categorias WHERE categorias.id = categoria_codigo ), 'General') as nombre_categoria FROM codigos GROUP BY categoria_codigo ORDER BY conteo DESC LIMIT 5;";
+    $consultaConteo = $mysql->getConexion()->prepare($sql);
+    $consultaConteo->execute();
+
+    $arregloBadge = ["text-bg-success", "text-bg-primary", "text-bg-rosado", "text-bg-danger", "text-bg-warning"];
+
+    $arregloImg = [
+        "../views/assets/img/libro-verde.png",
+        "../views/assets/img/libro-azul.png",
+        "../views/assets/img/libro-rosado.png",
+        "../views/assets/img/libro-rojo.png",
+        "../views/assets/img/libro-amarillo.png",
+    ];
+    $contadorBadge = 0;
+} catch (PDOException $e) {
+    $error = $e->getMessage();
 }
 
 
@@ -52,7 +66,7 @@ require_once './layout/navbar.php';
 </div>
 
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 mb-3">
         <div class="card shadow-sm">
             <div class="card-header border">
                 <h5 class="m-0">
@@ -106,6 +120,53 @@ require_once './layout/navbar.php';
     </div>
 </div>
 
+<div class="row mt-5">
+    <div class="col-5 col-sm-2 mb-4 mx-auto">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-start mb-0 justify-content-between">
+                    <div class="avatar flex-shrink-0">
+                        <img
+                            src="../views/assets/img/libro-total.png"
+                            alt="chart success"
+                            class="rounded" />
+                    </div>
+                    <h3 class="card-title mb-2"><?php echo $conteoGeneral ?></h3>
+                </div>
+                <small class="text-dark fw-semibold">Total de partidas</small>
+                <span class="fw-semibold d-block mb-1 badge text-bg-info ?>">Total</span>
+
+
+            </div>
+        </div>
+    </div>
+    <?php while ($fila = $consultaConteo->fetch(PDO::FETCH_ASSOC)): ?>
+        <div class="col-5 col-sm-2 mb-4 mx-auto">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <div class="card-title d-flex align-items-start mb-0 justify-content-between">
+                        <div class="avatar flex-shrink-0">
+                            <img
+                                src="<?php echo $arregloImg[$contadorBadge] ?>"
+                                alt="chart success"
+                                class="rounded" />
+                        </div>
+                        <h3 class="card-title mb-2"><?php echo $fila["conteo"] ?></h3>
+                    </div>
+                    <small class="text-dark fw-semibold">Total de partidas</small>
+                    <span class="fw-semibold d-block mb-1 badge <?php echo $arregloBadge[$contadorBadge] ?>"><?php echo $fila["nombre_categoria"] ?></span>
+
+
+                </div>
+            </div>
+        </div>
+
+    <?php
+        $contadorBadge++;
+    endwhile ?>
+
+
+</div>
 
 
 <?php

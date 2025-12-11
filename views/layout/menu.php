@@ -43,10 +43,26 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                 <div class="menu-inner-shadow"></div>
 
                 <ul class="menu-inner py-1">
-                    <li class="menu-item">
-                        <a href="./pages/index.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-smile"></i>
-                            <div class="text-truncate" data-i18n="Basic">Dashboard</div>
+
+                    <li class="menu-item <?php echo ($archivoActual == "sala.php" ? "active" : "") ?>">
+                        <a href="sala.php" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-collection"></i>
+                            <div class="text-truncate" data-i18n="Basic">Salas</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item <?php echo ($archivoActual == "jugadores.php" ? "active" : "") ?>">
+                        <a href="jugadores.php" class="menu-link">
+                            <i class="menu-icon tf-icons bx  bx-user"></i>
+                            <div class="text-truncate" data-i18n="Basic">Jugadores</div>
+                        </a>
+                    </li>
+
+
+                    <li class="menu-item <?php echo ($archivoActual == "balotas.php" ? "active" : "") ?>">
+                        <a href="balotas.php" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-tennis-ball'></i>
+                            <div class="text-truncate" data-i18n="Basic">Balotas</div>
                         </a>
                     </li>
 
@@ -57,39 +73,21 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                         </a>
                     </li>
 
-                    <li class="menu-item <?php echo ($archivoActual == "sala.php" ? "active" : "") ?>">
-                        <a href="sala.php" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-collection"></i>
-                            <div class="text-truncate" data-i18n="Basic">Salas</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-item <?php echo ($archivoActual == "balotas.php" ? "active" : "") ?>">
-                        <a href="balotas.php" class="menu-link">
-                            <i class='menu-icon tf-icons bx bx-tennis-ball'></i>
-                            <div class="text-truncate" data-i18n="Basic">Balotas</div>
-                        </a>
-                    </li>
                     <li class="menu-item <?php echo ($archivoActual == "crear_categoria.php" ? "active" : "") ?>">
                         <a href="crear_categoria.php" class="menu-link">
-                            <i class="menu-icon tf-icons bx  bx-list-ul"></i>
+                            <i class="menu-icon tf-icons bx bx-list-ul"></i>
                             <div class="text-truncate" data-i18n="Basic">Categorias</div>
                         </a>
                     </li>
-                    <li class="menu-item <?php echo ($archivoActual == "jugadores.php" ? "active" : "") ?>">
-                        <a href="jugadores.php" class="menu-link">
-                            <i class="menu-icon tf-icons bx  bx-user"></i>
-                            <div class="text-truncate" data-i18n="Basic">Jugadores</div>
-                        </a>
-                    </li>
+
 
                     <li class="menu-item <?php echo ($archivoActual == "admins.php" ? "active" : "") ?>">
                         <a href="admins.php" class="menu-link">
-                            <i class="fa-solid fa-user"></i>
-                            <div class="text-truncate" data-i18n="Basic">Gestion administradores</div>
+                            <i class='menu-icon tf-icons bx bx-user-plus'></i>
+                            <div class="text-truncate" data-i18n="Basic">Administradores</div>
                         </a>
                     </li>
-            
+
                 </ul>
             </aside>
             <!-- / Menu -->

@@ -17,7 +17,10 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link
+        rel="icon"
+        type="image/x-icon"
+        href="./assets/img/logoSena.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -100,7 +103,7 @@
                                     <span class="input-group-text cursor-pointer"><i class="icon-base bx bx-hide"></i></span>
                                 </div>
                             </div>
-                            <div class="mb-8">
+                            <div class="mb-3">
                                 <div class="d-flex justify-content-between">
 
                                 </div>

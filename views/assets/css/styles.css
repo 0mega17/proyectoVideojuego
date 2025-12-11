@@ -29,3 +29,18 @@ div.bolaBingo {
 .swal2-popup {
     z-index: 3010 !important;
 }
+
+.text-bg-rosado{
+  background: #bd004c;
+  color: #ffff;
+}
+
+.text-bg-ultima-balota{
+  background: #005713 !important;
+  color: #ffff !important;
+}
+
+.text-bg-ultima-balota:hover{
+  background: #006a17 !important;
+  color: #ffff !important;
+}

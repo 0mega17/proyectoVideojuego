@@ -20,9 +20,9 @@ formularioSala.addEventListener("submit", (e) => {
         localStorage.setItem("nombreCategoria", res.nombreCategoria);
 
         Swal.fire({
-          title: `<h1 class="m-0 fw-bold">Codigo sala </h1>`,
-          html: `<h2 class="m-0">${res.sala}</h2>`,
-          icon: "info",
+          title: `<h1 class="m-0 fw-bold display-1">${res.sala}</h1>`,
+          html: `<p class="m-0">Codigo generado exitosamente</p>`,
+          icon: "success",
           confirmButtonText: "Aceptar",
           customClass: {
             confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",

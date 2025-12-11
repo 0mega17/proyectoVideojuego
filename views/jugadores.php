@@ -23,9 +23,9 @@ require_once './layout/navbar.php';
         <p class="text-muted m-0">Gestiona todo lo relacionado con los jugadores del bingo</p>
     </div>
     <div class="mt-3">
-        <button type="button" class="btn btn-info" id="Btncodigo" disabled></button>
+        <button type="button" class="btn btn-info" id="Btncodigo"></button>
         <button id="btnIniciar" class="btn btn-primary">
-            <i class=""></i>
+            <i class="fa-solid fa-play"></i>
             Iniciar juego
         </button>
     </div>

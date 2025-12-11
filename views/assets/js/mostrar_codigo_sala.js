@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   let codigo = localStorage.getItem("codigoSala");
   if (codigo) {
-    document.getElementById("Btncodigo").textContent = "Código: " + codigo;
+    document.getElementById("Btncodigo").innerHTML = `<i class="fa-solid fa-circle-info"></i>` + "  Código: " + codigo;
   } else {
     Swal.fire({
       title: `<h1 class="m-0 fw-bold">Ocurrio un error... </h1`,
