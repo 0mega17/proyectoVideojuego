@@ -77,7 +77,7 @@ require_once './layout/navbar.php';
                                 Email
                             </th>
                             <th class="fw-bold">
-                                <i class="fa-solid fa-envelope"></i>
+                                <i class="fa-solid fa-circle"></i>
                                 Estados
                             </th>
                             <th class="fw-bold">
