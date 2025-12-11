@@ -12,13 +12,9 @@ setInterval(() => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log("Respuesta del servidor:", data); // <-- aquí
-      console.log(ultimaFecha);
-      console.log(accion);
       accion = data.estado.accion;
       if (!ultimaFecha) {
         ultimaFecha = data.estado.updated_at;
-        console.log(ultimaFecha);
         return;
       }
 

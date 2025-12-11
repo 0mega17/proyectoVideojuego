@@ -21,7 +21,7 @@ function cargarCategorias() {
     .then((res) => res.json())
     .then((data) => {
       const categoriaSelect = document.getElementById("categoria");
-      categoriaSelect.innerHTML = `<option value="">Seleccione una categoría...</option>`;
+      // categoriaSelect.innerHTML = `<option value="">Seleccione una categoría...</option>`;
 
       data.forEach((cat) => {
         const opt = document.createElement("option");

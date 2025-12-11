@@ -41,10 +41,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $resultado->bindParam(":ficha", $ficha, PDO::PARAM_STR);
 
                     $resultado->execute();
-
+                    // se deben de traer los datos del aprendiz para poder tener el id de el y ponerlo en SESSION
+                    $traerDatos = "SELECT * FROM aprendices ORDER BY id DESC LIMIT 1";
+                    $resultadoDatosUsuario = $mysql->getConexion()->prepare($traerDatos);
+                    $resultadoDatosUsuario->execute();
+                    $datos = $resultadoDatosUsuario->fetch(PDO::FETCH_ASSOC);
                     session_start();
+                    $_SESSION["idAprendiz"] = $datos['id'];
                     $_SESSION["codigoSala"] = $codigoBD;
                     $_SESSION["accesoAprendiz"] = true;
+                    $_SESSION["nombreAprendiz"] = $nombre;
+                    $_SESSION["fichaAprendiz"] = $ficha;
                     if ($resultado) {
                         echo json_encode([
                             "validacion" => true
@@ -70,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } catch (PDOException $e) {
             $errores[] = "Error en la consulta de traer datos de los ADMIN" . $e->getMessage();
         }
-    }else{
+    } else {
         echo json_encode([
             "validacion" => false,
             "mensaje" => "Todos los campos son obligatorios"

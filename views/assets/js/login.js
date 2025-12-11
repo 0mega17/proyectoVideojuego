@@ -22,7 +22,7 @@ formularioLogin.addEventListener("submit", (e) => {
           },
         });
       } else {
-        location.href = "./composiciones.php";
+        location.href = "./sala.php";
       }
     },
   });
