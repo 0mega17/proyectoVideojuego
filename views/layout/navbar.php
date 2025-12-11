@@ -1,5 +1,5 @@
 <?php
-
+$IdUsuario=$_SESSION["IdUsuario"];
 $nombreAdmin = $_SESSION["nombreAdmin"];
 
 ?>
@@ -24,7 +24,7 @@ $nombreAdmin = $_SESSION["nombreAdmin"];
         <div
             class="navbar-nav-right d-flex align-items-center justify-content-end"
             id="navbar-collapse">
-         
+
             <ul class="navbar-nav flex-row align-items-center ms-md-auto">
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -60,6 +60,11 @@ $nombreAdmin = $_SESSION["nombreAdmin"];
                         </li>
                         <li>
                             <div class="dropdown-divider my-1"></div>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/proyectoVideojuego/views/editarPerfil.php">
+                                <i class="fa-solid fa-user-pen"></i><span>Editar Perfil</span>
+                            </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="../controllers/controlador_logout.php">

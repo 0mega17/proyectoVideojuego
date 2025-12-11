@@ -104,6 +104,10 @@
 
      <script src="./assets/js/administradores.js"></script>
  <?php endif ?>
+ <?php if ($archivoActual == "editarPerfil.php"): ?>
+
+     <script src="./assets/js/editarPerfil.js"></script>
+ <?php endif ?>
  </body>
 
  </html>
