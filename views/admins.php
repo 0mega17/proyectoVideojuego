@@ -87,6 +87,7 @@ require_once './layout/navbar.php';
                         </thead>
                         <tbody id="tblAdministradores">
                             <?php while ($fila = $administradores->fetch(PDO::FETCH_ASSOC)): ?>
+                                 <?php if ($fila["nombre"] == $_SESSION["nombreAdmin"]) continue; ?>
                                 <?php $claseEstado = $fila["estado"] == "Activo" ? "badge rounded-pill text-bg-success" : "badge rounded-pill text-bg-danger"; ?>
                                 <tr>
                                     <td>

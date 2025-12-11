@@ -24,7 +24,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $datosAministradores->execute();
             $resultado = $datosAministradores->fetch(PDO::FETCH_ASSOC);
+
             if ($resultado) {
+
+                // 🔥 VALIDACIÓN AGREGADA: impedir ingreso si está inactivo
+                if (isset($resultado['estado']) && $resultado['estado'] == "Inactivo") {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "El administrador está inactivo, no puede iniciar sesión"
+                    ]);
+                    exit();
+                }
+
                 if (password_verify($contrasena, $resultado['password'])) {
 
                     session_start();
