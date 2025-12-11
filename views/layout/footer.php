@@ -98,6 +98,7 @@
  <?php endif ?>
  <?php if ($archivoActual == "jugadores.php"): ?>
      <script src="./assets/js/jugadores.js"></script>
+     <script src="./assets/js/mostrar_codigo_sala.js"></script>
  <?php endif ?>
  <?php if ($archivoActual == "admins.php"): ?>
 
