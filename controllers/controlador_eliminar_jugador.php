@@ -25,9 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Respuesta
         if (count($errores) == 0) {
-            session_start();
-            session_unset();
-            session_destroy();
             echo json_encode([
                 "success" => true,
                 "message" => "Aprendiz eliminado correctamente"

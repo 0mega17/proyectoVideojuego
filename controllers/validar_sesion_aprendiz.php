@@ -3,39 +3,24 @@ session_start();
 
 header("Content-Type: application/json");
 
-
-if (!isset($_SESSION["accesoAprendiz"]) || $_SESSION["accesoAprendiz"] !== true) {
-    echo json_encode([
-        "valido" => false,
-        "motivo" => "sesion_no_valida"
-    ]);
-    exit();
-}
-
-
-if (!isset($_SESSION["codigoSala"])) {
-    echo json_encode([
-        "valido" => false,
-        "motivo" => "sala_no_existente"
-    ]);
-    exit();
-}
-
 require_once "../models/MySQL.php";
 $mysql = new MySQL();
 $mysql->conectar();
+// ahora se debe de validar si el usuarrio tiene datos en la base de datos en base del id 
 
-$codigoSala = $_SESSION["codigoSala"];
+$idAprendiz = $_SESSION["idAprendiz"];
 
-$sql = "SELECT * FROM codigos WHERE codigo = :codigo";
+$sql = "SELECT * FROM aprendices WHERE id = :idAprendiz";
 $stmt = $mysql->getConexion()->prepare($sql);
-$stmt->bindParam(":codigo", $codigoSala, PDO::PARAM_INT);
+$stmt->bindParam(":idAprendiz", $idAprendiz, PDO::PARAM_INT);
 $stmt->execute();
 $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$resultado) {
+    session_unset();
+    session_destroy();
     echo json_encode([
         "valido" => false,
-        "motivo" => "sala_eliminada"
+        "motivo" => "Sesión inválida. Por favor, inicie sesión nuevamente."
     ]);
     exit();
 }
