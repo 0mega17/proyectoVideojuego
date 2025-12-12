@@ -5,6 +5,12 @@ if (!isset($_SESSION["acceso"]) || $_SESSION["acceso"] !== true) {
     header('location: login_admin.php');
     exit();
 }
+
+// MODELO DE LA BD
+require_once '../models/MySQL.php';
+
+$mysql = new MySQL();
+$mysql->conectar();
 $pagina = "Aprendices";
 //=====================================
 // lAYOUT HTML

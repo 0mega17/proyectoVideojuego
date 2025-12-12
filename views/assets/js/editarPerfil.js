@@ -1,4 +1,3 @@
-
 //funcion para habilitar el campo de nuevo password cuando se selecciona el checkbox
 document
   .getElementById("cambiarPassword")
@@ -42,15 +41,24 @@ function actualizar() {
       if (data.success) {
         Swal.fire({
           icon: "success",
-          title: "¡Éxito!",
+          title: `<h1 class="m-0 fw-bold">Exito! </h1>`,
           text: data.message,
           confirmButtonText: "Aceptar",
+          customClass: {
+            confirmButton: "btn btn-success fw-bold",
+            cancelButton: "btn btn-danger fw-bold",
+          },
         }).then(() => location.reload());
       } else {
         Swal.fire({
           icon: "error",
-          title: "Error",
+          title: `<h1 class="m-0 fw-bold">¡Error! </h1>`,
           text: data.message,
+          confirmButtonText: "Entendido",
+          customClass: {
+            confirmButton: "btn btn-success fw-bold",
+            cancelButton: "btn btn-danger fw-bold",
+          },
         });
       }
     })

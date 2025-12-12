@@ -1,6 +1,17 @@
 <?php
-$IdUsuario=$_SESSION["IdUsuario"];
-$nombreAdmin = $_SESSION["nombreAdmin"];
+$IdUsuario = $_SESSION["IdUsuario"];
+
+
+
+try {
+    $sql = "SELECT nombre FROM administradores WHERE id = :IDusuario";
+    $consultaAdmin = $mysql->getConexion()->prepare($sql);
+    $consultaAdmin->bindParam("IDusuario", $IdUsuario);
+    $consultaAdmin->execute();
+    $nombreAdmin = $consultaAdmin->fetch(PDO::FETCH_ASSOC)["nombre"];
+} catch (PDOException $e) {
+    echo $e->getMessage();
+}
 
 ?>
 
@@ -26,7 +37,7 @@ $nombreAdmin = $_SESSION["nombreAdmin"];
             id="navbar-collapse">
 
             <div id="capaCategoria" class="text-center mx-3 mx-sm-0">
-                
+
             </div>
             <ul class="navbar-nav flex-row align-items-center ms-md-auto">
                 <!-- User -->
@@ -44,7 +55,7 @@ $nombreAdmin = $_SESSION["nombreAdmin"];
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item">
                                 <div class="d-flex">
                                     <div class="shrink-0 me-3">
                                         <div class="avatar avatar-online">
@@ -66,7 +77,7 @@ $nombreAdmin = $_SESSION["nombreAdmin"];
                         </li>
                         <li>
                             <a class="dropdown-item" href="/proyectoVideojuego/views/editarPerfil.php">
-                                <i class="fa-solid fa-user-pen"></i><span>Editar Perfil</span>
+                                <i class="fa-solid fa-user-pen me-3"></i><span>Editar Perfil</span>
                             </a>
                         </li>
                         <li>

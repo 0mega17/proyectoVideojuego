@@ -32,7 +32,7 @@ tblAdministradores.addEventListener("click", async (e) => {
     let nombre = e.target.dataset.nombre;
 
     Swal.fire({
-      title: `Eliminar administrador`,
+      title: `<h1 class="m-0 fw-bold">Eliminar</h1>`,
       html: `¿Esta seguro de eliminar este administrador?`,
       icon: "info",
       showCancelButton: true,
@@ -60,7 +60,7 @@ tblAdministradores.addEventListener("click", async (e) => {
 
         if (response.success) {
           Swal.fire({
-            title: "¡Éxito!",
+            title: `<h1 class="m-0 fw-bold">¡Exito!</h1>`,
             text: response.message,
             icon: "success",
             timer: 2000,
@@ -80,7 +80,7 @@ tblAdministradores.addEventListener("click", async (e) => {
     let nombre = e.target.dataset.nombre;
 
     Swal.fire({
-      title: `Reintegrar administrador`,
+      title: `<h1 class="m-0 fw-bold">Reintegrar</h1>`,
       html: `¿Esta seguro de reintegrar este administrador?`,
       icon: "info",
       showCancelButton: true,
@@ -105,7 +105,7 @@ tblAdministradores.addEventListener("click", async (e) => {
 
         if (response.success) {
           Swal.fire({
-            title: "¡Éxito!",
+            title: `<h1 class="m-0 fw-bold">¡Exito!</h1>`,
             text: response.message,
             icon: "success",
             timer: 2000,
@@ -143,7 +143,7 @@ frmAdministradores.addEventListener("submit", async (e) => {
 
   if (response.success) {
     Swal.fire({
-      title: "¡Éxito!",
+      title: `<h1 class="m-0 fw-bold">¡Exito!</h1>`,
       text: response.message,
       icon: "success",
       timer: 2000,
@@ -153,7 +153,7 @@ frmAdministradores.addEventListener("submit", async (e) => {
     });
   } else {
     Swal.fire({
-      title: "¡Error!",
+      title: `<h1 class="m-0 fw-bold">¡Error!</h1>`,
       text: response.message,
       icon: "error",
       timer: 2000,
