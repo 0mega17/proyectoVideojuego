@@ -49,7 +49,41 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+let botonIniciar = document.querySelector("#btnIniciar");
 setInterval(cargarJugadores, 5000);
+botonIniciar.addEventListener("click", () => {
+  let sala = localStorage.getItem("codigoSala");
+  Swal.fire({
+    title: `<h1 class="m-0 fw-bold">Iniciar juego </h1>`,
+    text: "¿Estás seguro de iniciar el juego?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, iniciar",
+    cancelButtonText: "Cancelar",
+    customClass: {
+      confirmButton: "btn btn-success fw-bold",
+      cancelButton: "btn btn-danger fw-bold",
+    },
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      let formData = new FormData();
+      formData.append("codigoSala", sala);
+
+      const request = await fetch(
+        "../controllers/controlador_iniciar_juego.php",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const response = await request.json();
+      if (response.success) {
+        localStorage.setItem("iniciarJuego", true);
+        window.location.href = "balotas.php";
+      }
+    }
+  });
+});
 
 document.addEventListener("click", function (e) {
   if (e.target.closest(".btnEliminar")) {
@@ -57,12 +91,16 @@ document.addEventListener("click", function (e) {
     const ID = btn.dataset.id;
 
     Swal.fire({
-      title: "Eliminar aprendiz",
+      title: `<h1 class="m-0 fw-bold">Eliminar</h1>`,
       text: "¿Estás seguro de eliminar este aprendiz?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
+      customClass: {
+        confirmButton: "btn btn-success fw-bold",
+        cancelButton: "btn btn-danger fw-bold",
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         let formData = new FormData();
@@ -79,7 +117,18 @@ document.addEventListener("click", function (e) {
         const response = await request.json();
 
         if (response.success) {
-          Swal.fire("Eliminado", response.message, "success");
+          Swal.fire({
+            title: `<h1 class="m-0 fw-bold">Eliminado</h1>`,
+            text: response.message,
+            icon: "success",
+            timer: 2000,
+            allowOutsideClick: false,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            customClass: {
+              confirmButton: "btn btn-success fw-bold",
+            },
+          });
           cargarJugadores();
         }
       }
