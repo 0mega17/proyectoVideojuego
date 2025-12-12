@@ -18,6 +18,7 @@ formularioSala.addEventListener("submit", (e) => {
         localStorage.setItem("modoJuego", res.modo);
         localStorage.setItem("categoria", res.categoria);
         localStorage.setItem("nombreCategoria", res.nombreCategoria);
+        localStorage.setItem("cantidadJugadores", res.jugadores);
 
         Swal.fire({
           title: `<h1 class="m-0 fw-bold display-1">${res.sala}</h1>`,
