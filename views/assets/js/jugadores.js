@@ -44,6 +44,7 @@ botonInicar.addEventListener("click", () => {
       );
       const response = await request.json();
       if (response.success) {
+        localStorage.setItem("iniciarJuego", true);
         window.location.href = "balotas.php";
       }
     }
