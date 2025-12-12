@@ -34,11 +34,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $codigoAprendiz = (int)$codigo;
                 if ($codigoBD === $codigoAprendiz) {
 
-                    $insertAprendiz = "INSERT INTO aprendices (nombre, ficha) VALUES (:nombre, :ficha)";
+                    // Verificar cantidad de jugadores en la sala
+                    $consultaCantidad = "SELECT COUNT(*) as total_jugadores FROM aprendices WHERE codigo_sala = :codigoSala";
+                    $stmtCantidad = $mysql->getConexion()->prepare($consultaCantidad);
+                    $stmtCantidad->bindParam(":codigoSala", $codigoBD, PDO::PARAM_INT);
+                    $stmtCantidad->execute();
+                    $totalJugadores = $stmtCantidad->fetch(PDO::FETCH_ASSOC)['total_jugadores'];
+
+                    // Obtener cantidad máxima de la sala
+                    $consultaMax = "SELECT cantidad_jugadores FROM codigos WHERE codigo = :codigoSala";
+                    $stmtMax = $mysql->getConexion()->prepare($consultaMax);
+                    $stmtMax->bindParam(":codigoSala", $codigoBD, PDO::PARAM_INT);
+                    $stmtMax->execute();
+                    $maxJugadores = $stmtMax->fetch(PDO::FETCH_ASSOC)['cantidad_jugadores'];
+
+                    if ($totalJugadores >= $maxJugadores) {
+                        echo json_encode([
+                            "validacion" => false,
+                            "mensaje" => "La sala ya está llena. Cantidad máxima de jugadores: $maxJugadores"
+                        ]);
+                        exit();
+                    }
+
+                    $insertAprendiz = "INSERT INTO aprendices (nombre, ficha, codigo_sala) VALUES (:nombre, :ficha, :codigoSala)";
 
                     $resultado = $mysql->getConexion()->prepare($insertAprendiz);
                     $resultado->bindParam(":nombre", $nombre, PDO::PARAM_STR);
                     $resultado->bindParam(":ficha", $ficha, PDO::PARAM_STR);
+                    $resultado->bindParam(":codigoSala", $codigoBD, PDO::PARAM_INT);
 
                     $resultado->execute();
                     // se deben de traer los datos del aprendiz para poder tener el id de el y ponerlo en SESSION
