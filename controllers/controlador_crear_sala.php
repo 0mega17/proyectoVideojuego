@@ -66,16 +66,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         try {
-            //  AGREGAMOS CATEGORÍA A LA TABLA
-            $sql = "INSERT INTO codigos (codigo, estado, categoria_codigo)
-                    VALUES (:codigo, 1, :categoria)";
+            //  AGREGAMOS CATEGORÍA Y CANTIDAD DE JUGADORES A LA TABLA
+            $sql = "INSERT INTO codigos (codigo, estado, categoria_codigo, cantidad_jugadores)
+                    VALUES (:codigo, 1, :categoria, :cantidadJugadores)";
 
             $insert = $mysql->getConexion()->prepare($sql);
 
             $insert->bindParam(":codigo", $codigo, PDO::PARAM_STR);
-
-            // GUARDAMOS LA CATEGORÍA
             $insert->bindParam(":categoria", $categoria, PDO::PARAM_STR);
+            $insert->bindParam(":cantidadJugadores", $cantidadJugadores, PDO::PARAM_INT);
 
             $insert->execute();
 
