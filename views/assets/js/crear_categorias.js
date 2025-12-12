@@ -32,7 +32,7 @@ tblCategorias.addEventListener("click", async (e) => {
     let nombre = e.target.dataset.nombre;
     console.log("DATASET ELIMINAR:", e.target.dataset);
     Swal.fire({
-      title: "Eliminar categoría",
+      title: `<h1 class="m-0 fw-bold">Eliminar</h1>`,
       html: `¿Está seguro de eliminar esta categoría?<br>
             <strong>${nombre}</strong>`,
       icon: "warning",
@@ -81,7 +81,7 @@ frmCategorias.addEventListener("submit", async (e) => {
   const response = await request.json();
   if (response.success) {
     Swal.fire({
-      title: "¡Éxito!",
+      title: `<h1 class="m-0 fw-bold">¡Exito!</h1>`,
       text: response.message,
       icon: "success",
       timer: 2000,
@@ -89,7 +89,7 @@ frmCategorias.addEventListener("submit", async (e) => {
     }).then(() => location.reload());
   } else {
     Swal.fire({
-      title: "¡Error!",
+      title: `<h1 class="m-0 fw-bold">¡Error!</h1>`,
       text: response.message,
       icon: "error",
       timer: 2000,

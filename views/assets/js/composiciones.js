@@ -82,41 +82,41 @@ tblComposiciones.addEventListener("click", async (e) => {
   if (e.target.classList.contains("btnEliminar")) {
     let titulo = e.target.dataset.titulo
     Swal.fire({
-      title: `Eliminar obra literaria`,
+      title: `<h1 class="m-0 fw-bold">Eliminar</h1>`,
       html: `¿Esta seguro de eliminar esta obra? 
       <br> <strong>Nombre: </strong>${titulo}`,
       icon: "info",
       showCancelButton: true,
       cancelButtonText: "Cancelar",
       confirmButtonText: "Si, eliminar",
-      customClass:{
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
+      customClass: {
+        confirmButton: "btn btn-success fw-bold",
+        cancelButton: "btn btn-danger fw-bold",
       },
-      preConfirm: async () =>{
-  IDeliminar = e.target.dataset.id;
-    let formData = new FormData();
-    formData.append("IDeliminar", IDeliminar);
+      preConfirm: async () => {
+        IDeliminar = e.target.dataset.id;
+        let formData = new FormData();
+        formData.append("IDeliminar", IDeliminar);
 
-    const request = await fetch("../controllers/eliminar_composicion.php", {
-      method: "POST",
-      body: formData,
-    });
+        const request = await fetch("../controllers/eliminar_composicion.php", {
+          method: "POST",
+          body: formData,
+        });
 
-    const response = await request.json();
+        const response = await request.json();
 
-    if (response.success) {
-      Swal.fire({
-        title: "¡Exito!",
-        text: response.message,
-        icon: "success",
-        timer: 2000,
-        showConfirmButton: false,
-      }).then(() => {
-        location.reload();
-      });
-    }
-      }
+        if (response.success) {
+          Swal.fire({
+            title: "¡Exito!",
+            text: response.message,
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          }).then(() => {
+            location.reload();
+          });
+        }
+      },
     });
   
   }
@@ -225,7 +225,7 @@ frmComposiciones.addEventListener("submit", async (e) => {
 
   if (response.success) {
     Swal.fire({
-      title: "¡Exito!",
+      title: `<h1 class="m-0 fw-bold">¡Exito!</h1>`,
       text: response.message,
       icon: "success",
       timer: 2000,
@@ -235,7 +235,7 @@ frmComposiciones.addEventListener("submit", async (e) => {
     });
   } else {
     Swal.fire({
-      title: "¡Error!",
+      title: `<h1 class="m-0 fw-bold">¡Error! </h1>`,
       text: response.message,
       icon: "error",
       timer: 2000,

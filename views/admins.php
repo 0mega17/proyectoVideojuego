@@ -47,7 +47,7 @@ require_once './layout/navbar.php';
     <div class="mt-3">
         <button id="btnAgregar" class="btn btn-success">
             <i class="fa-solid fa-plus"></i>
-            Crear Administrador
+            Agregar
         </button>
     </div>
 </div>
