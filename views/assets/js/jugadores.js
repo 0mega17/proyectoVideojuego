@@ -1,15 +1,48 @@
-let botonInicar = document.getElementById("btnIniciar");
 function cargarJugadores() {
   fetch("../controllers/controlador_listar_jugadores.php")
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((data) => {
-      document.querySelector("#tblJugadores").innerHTML = data;
+
+      localStorage.setItem("listaJugadores", JSON.stringify(data));
+
+      pintarTablaJugadores(data);
     })
     .catch((error) => console.error("Error:", error));
 }
 
-cargarJugadores();
+function pintarTablaJugadores(lista) {
+  const tabla = document.querySelector("#tblJugadores");
+  tabla.innerHTML = "";
+
+  lista.forEach((jugador) => {
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+      <td>${jugador.nombre}</td>
+      <td>${jugador.ficha}</td>
+      <td>
+        <button class="btn btn-danger btn-sm btnEliminar" data-id="${jugador.id}">
+            <i class="fa-solid fa-trash"></i> Eliminar
+        </button>
+      </td>
+    `;
+
+    tabla.appendChild(fila);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+
+  const guardado = localStorage.getItem("listaJugadores");
+
+  if (guardado) {
+    pintarTablaJugadores(JSON.parse(guardado));
+  }
+
+
+  cargarJugadores();
+
+
   let codigo = localStorage.getItem("codigoSala");
   if (codigo) {
     document.getElementById("Btncodigo").textContent = "Código: " + codigo;
@@ -17,34 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 setInterval(cargarJugadores, 5000);
-botonInicar.addEventListener("click", () => {
-  let sala = localStorage.getItem("codigoSala");
-  Swal.fire({
-    title: "Iniciar juego",
-    text: "¿Estás seguro de iniciar el juego?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Sí, iniciar",
-    cancelButtonText: "Cancelar",
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      let formData = new FormData();
-      formData.append("codigoSala", sala);
-
-      const request = await fetch(
-        "../controllers/controlador_iniciar_juego.php",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const response = await request.json();
-      if (response.success) {
-        window.location.href = "balotas.php";
-      }
-    }
-  });
-});
 
 document.addEventListener("click", function (e) {
   if (e.target.closest(".btnEliminar")) {
