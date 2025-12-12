@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const modoJuego = document.getElementById("modoJuego");
   const categoriaSelect = document.getElementById("categoria");
+  const labelCategoria = document.getElementById("labelCategoria");
 
   modoJuego.addEventListener("change", () => {
     const modo = modoJuego.value;
@@ -8,8 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (modo === "categoria") {
       categoriaSelect.hidden = false;
       categoriaSelect.disabled = false;
+      labelCategoria.hidden = false;
+      labelCategoria.disabled = false;
       cargarCategorias();
     } else {
+      labelCategoria.hidden = true;
+      labelCategoria.disabled = false;
       categoriaSelect.hidden = true;
       categoriaSelect.disabled = false; // <-- CAMBIAR ESTO
       categoriaSelect.value = ""; // <-- para que no mande nada
