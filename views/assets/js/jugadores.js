@@ -49,8 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+let botonIniciar = document.querySelector("#btnIniciar");
 setInterval(cargarJugadores, 5000);
-botonInicar.addEventListener("click", () => {
+botonIniciar.addEventListener("click", () => {
   let sala = localStorage.getItem("codigoSala");
   Swal.fire({
     title: `<h1 class="m-0 fw-bold">Iniciar juego </h1>`,
