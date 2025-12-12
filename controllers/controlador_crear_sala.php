@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once '../models/MySQL.php';
         $mysql = new MySQL();
         $mysql->conectar();
-        $codigo = mt_rand(100000, 999999);
+
 
         $cantidadJugadores = $_POST['cantidadJugadores'];
         $modoJuego = $_POST['modoJuego'];
@@ -17,6 +17,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //  AQUÍ VIENE LA CATEGORÍA
         $categoria = $_POST['categoria'] ?? null;
 
+        // Booleano para determinar si esta repetido el codigo
+        $vefCodigo = false;
+
+
+        // Verificar que no exista el codigo generado ya  
+        try {
+            while (!$vefCodigo) {
+                $codigo = mt_rand(100000, 999999);
+                $sqlVef = "SELECT COUNT(*) AS conteo FROM codigos WHERE id = :codigo";
+                $consultaVef = $mysql->getConexion()->prepare($sqlVef);
+                $consultaVef->bindParam("codigo", $codigo);
+                $consultaVef->execute();
+                $conteoVef = $consultaVef->fetch(PDO::FETCH_ASSOC)["conteo"];
+
+                if ($conteoVef == 1) {
+                    $vefCodigo = false;
+                } else {
+                    $vefCodigo = true;
+                }
+            }
+        } catch (PDOException $e) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Ocurrio un error en la verificacion del conteo"
+            ]);
+        }
 
         // Seleccionar el nombre de la categoria
         try {
@@ -62,7 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
         }
 
-
+        try {
+            $sqlTruncate = "TRUNCATE aprendices";
+            $consultaTruncate = $mysql->getConexion()->prepare($sqlTruncate);
+            $consultaTruncate->execute();
+        } catch (PDOException $e) {
+            $errores[] = "Ocurrio un error en el truncate..." . $e->getMessage();
+        }
 
 
         try {

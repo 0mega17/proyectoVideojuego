@@ -4,7 +4,7 @@ const btnFinalizar = document.querySelector("#btnFinalizar");
 const tblBalotas = document.querySelector("#tblBalotas");
 const datosSala = JSON.parse(localStorage.getItem("codigoSala"));
 const divUltimaBalota = document.querySelector("#ultimaBalota");
-const divNombreCategoria = document.querySelector("#capaCategoria");
+const btnCategoria = document.querySelector("#btnCategoria");
 const categoria = localStorage.getItem("categoria");
 console.log(categoria);
 
@@ -17,10 +17,8 @@ let arregloBalotas = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   const nombreCategoria = localStorage.getItem("nombreCategoria");
-  const parrafo = document.createElement("button");
-  parrafo.classList.add("m-0", "text-center", "btn", "btn-success", "mt-2", "w-100", "p-2", "fw-bold", "mx-sm-0");
-  parrafo.textContent = "Categoria: " + nombreCategoria;
-  divNombreCategoria.appendChild(parrafo)
+  btnCategoria.innerHTML = '<i class="fa-solid fa-list me-1"></i>' + "Categoria: " + nombreCategoria;
+  
 
   const datosGuardados = localStorage.getItem("navegadorBalotas");
   if (datosGuardados) {
@@ -32,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let tituloUltima = document.createElement("span");
     tituloUltima.classList.add("fw-bold");
     tituloUltima.textContent = "Ultima balota: ";
-    ultimaBalota.classList.add("btn", "text-bg-ultima-balota", "mb-2", "fs-5", "w-100");
+    ultimaBalota.classList.add("btn", "text-bg-ultima-balota", "mb-2", "fs-5", "w-100", "p-3");
     ultimaBalota.appendChild(tituloUltima);
     ultimaBalota.textContent +=
       arregloBalotas[arregloBalotas.length - 1].balota;
@@ -138,13 +136,13 @@ btnReiniciar.addEventListener("click", () => {
   Swal.fire({
     title: `<h1 class="m-0 fw-bold">Reiniciar </h1>`,
     html: "¿Esta seguro de realizar esta acción?",
-    icon: "info",
+    icon: "warning",
     confirmButtonText: "Si, reiniciar juego",
     cancelButtonText: "Cancelar",
     showCancelButton: true,
     customClass: {
-      confirmButton: "btn btn-success",
-      cancelButton: "btn btn-danger",
+      confirmButton: "btn btn-success fw-bold",
+      cancelButton: "btn btn-danger fw-bold",
     },
     preConfirm: () => {
       let formData = new FormData();
@@ -185,8 +183,8 @@ btnFinalizar.addEventListener("click", () => {
     cancelButtonText: "Cancelar",
     showCancelButton: true,
     customClass: {
-      confirmButton: "btn btn-success",
-      cancelButton: "btn btn-danger",
+      confirmButton: "btn btn-success fw-bold",
+      cancelButton: "btn btn-danger fw-bold",
     },
     preConfirm: () => {
       let formData = new FormData();

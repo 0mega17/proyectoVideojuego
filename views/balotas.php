@@ -46,18 +46,19 @@ require_once './layout/navbar.php';
 
 <div class="d-flex row justify-content-between align-items-center border-bottom border-2 p-2 mb-2">
     <div id="capaTitulo" class="col-sm-4">
-        <h2 class="fw-semibold m-0 me-1">Balotas del bingo</h2>
+        <h2 class="fw-semibold m-0">Balotas del bingo</h2>
         <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
     </div>
     <div class="mt-3 col-sm-8">
-        <button type="button" class="btn btn-info m-1  mx-auto" id="Btncodigo"> </button>
-        <button data-accion="reiniciar" id="btnReiniciar" class="btn btn-primary m-1  mx-auto">
+        <button type="button" class="btn btn-info m-1 fw-bold  mx-auto" id="Btncodigo"> </button>
+        <button id="btnCategoria" class="btn btn-warning m-2 fw-bold mx-auto"></button>
+        <button data-accion="reiniciar" id="btnReiniciar" class="btn btn-primary m-1 fw-bold mx-auto">
             <i class="fa-solid fa-rotate-left me-1"></i>
-            Reiniciar juego
+            Reiniciar
         </button>
 
-        <button id="btnFinalizar" class="btn btn-danger m-1  mx-auto">
-            <i class="fa-solid fa-trash"></i>
+        <button id="btnFinalizar" class="btn btn-danger m-1 fw-bold mx-auto">
+            <i class="fa-solid fa-rectangle-xmark me-1"></i>
             Finalizar juego
         </button>
     </div>
@@ -68,9 +69,10 @@ require_once './layout/navbar.php';
         <div id="ultimaBalota" class="my-2">
         </div>
 
-        <button id="btnBalota" class="btn btn-success w-100 p-3 fw-bold">
-            <i class="fa-brands fa-dribbble fs-5 fw-bold"></i>
+        <button id="btnBalota" class="btn btn-success w-100 p-3 fs-5 fw-bold">
+            <i class="fa-solid fa-baseball mx-1"></i>
             Nueva balota
+
         </button>
 
 

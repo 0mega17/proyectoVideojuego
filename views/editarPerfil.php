@@ -36,7 +36,6 @@ try {
     if (!$usuario) {
         die("Error: Usuario no encontrado.");
     }
-
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode([
@@ -65,9 +64,9 @@ require_once './layout/navbar.php';
                 <div class="card mt-3 text-center" style="width: 18rem;">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="./assets/img/profile.png"
-                             class="rounded-circle shadow mb-3"
-                             alt="User Image"
-                             style="width: 150px; height: 150px; object-fit: cover;">
+                            class="rounded-circle shadow mb-3"
+                            alt="User Image"
+                            style="width: 150px; height: 150px; object-fit: cover;">
 
                         <h3 class="card-title mb-0">
                             <?php echo htmlspecialchars($usuario["nombre"]); ?>
@@ -89,8 +88,8 @@ require_once './layout/navbar.php';
                             <div class="col-md-6">
                                 <label class="form-label">Nombre</label>
                                 <input type="text" class="form-control"
-                                       id="nombre" name="nombre"
-                                       value="<?php echo htmlspecialchars($usuario['nombre']); ?>">
+                                    id="nombre" name="nombre"
+                                    value="<?php echo htmlspecialchars($usuario['nombre']); ?>">
                             </div>
                         </div>
 
@@ -98,8 +97,8 @@ require_once './layout/navbar.php';
                             <div class="col-md-12">
                                 <label class="form-label">Email</label>
                                 <input type="email" class="form-control"
-                                       id="email" name="email"
-                                       value="<?php echo htmlspecialchars($usuario['email']); ?>">
+                                    id="email" name="email"
+                                    value="<?php echo htmlspecialchars($usuario['email']); ?>">
                             </div>
                         </div>
 
@@ -110,17 +109,17 @@ require_once './layout/navbar.php';
                             <div class="col-md-6">
                                 <label class="form-label">Contraseña actual</label>
                                 <input type="password" class="form-control"
-                                       id="oldPassword" name="oldPassword"
-                                       placeholder="Ingrese su contraseña actual">
+                                    id="oldPassword" name="oldPassword"
+                                    placeholder="Ingrese su contraseña actual">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Nueva Contraseña</label>
                                 <input type="password" class="form-control"
-                                       id="newPassword" name="newPassword"
-                                       disabled placeholder="Ingresa una nueva contraseña">
+                                    id="newPassword" name="newPassword"
+                                    disabled placeholder="Ingresa una nueva contraseña">
 
-                                <div class="form-check mb-2">
+                                <div class="form-check mb-2 mt-3">
                                     <input class="form-check-input" type="checkbox" id="cambiarPassword">
                                     <label class="form-check-label" for="cambiarPassword">
                                         ¿Deseas cambiar tu contraseña?
@@ -138,8 +137,14 @@ require_once './layout/navbar.php';
     </div>
 
     <div class="d-flex justify-content-end m-4">
-        <button type="button" class="btn btn-primary me-2" id="btnGuardar">Guardar</button>
-        <a href="./admins.php" class="btn btn-success">Volver a Inicio</a>
+        <button type="button" class="btn btn-success me-2 fw-bold" id="btnGuardar">
+            <i class="fa-solid fa-circle-check me-2"></i>
+            Guardar
+        </button>
+        <a href="./sala.php" class="btn btn-primary fw-bold">
+            <i class="fa-solid fa-circle-left"></i>
+            Volver a Inicio
+        </a>
     </div>
 
 </main>
