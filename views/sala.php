@@ -104,7 +104,7 @@ require_once './layout/navbar.php';
                         </div>
                         <div class="col-sm-3">
                             <div class="mb-6">
-                                <label for="categoria" class="form-label">Categorias</label>
+                                <label for="categoria" class="form-label" id="labelCategoria" hidden>Categorias</label>
                                 <select class="form-control selectCategorias" id="categoria" name="categoria" disabled hidden>
 
                                 </select>
