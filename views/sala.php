@@ -90,6 +90,7 @@ require_once './layout/navbar.php';
                                     id="cantidadJugadores"
                                     name="cantidadJugadores"
                                     placeholder="Ingrese la cantidad de jugadores"
+                                    min="1"
                                     autofocus />
                             </div>
                         </div>
