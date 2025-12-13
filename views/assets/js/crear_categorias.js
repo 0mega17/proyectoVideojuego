@@ -53,7 +53,7 @@ tblCategorias.addEventListener("click", async (e) => {
         const response = await request.json();
         if (response.success) {
           Swal.fire({
-            title: "¡Éxito!",
+            title: `<h1 class="m-0 fw-bold">¡Exito!</h1>`,
             text: response.message,
             icon: "success",
             timer: 2000,

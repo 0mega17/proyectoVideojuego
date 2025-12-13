@@ -107,7 +107,7 @@ tblComposiciones.addEventListener("click", async (e) => {
 
         if (response.success) {
           Swal.fire({
-            title: "¡Exito!",
+            title: `<h1 class="m-0 fw-bold">¡Exito!</h1>`,
             text: response.message,
             icon: "success",
             timer: 2000,
