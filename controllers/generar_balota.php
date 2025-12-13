@@ -14,9 +14,7 @@ $columnas = ["titulo", "autor", "frase"];
 $arregloBalotas = json_decode($_POST["arregloBalotas"], true);
 $categoria = intval($_POST["categoria"]);
 
-// if ($arregloBalotas == "") {
-//     $arregloBalotas = [];
-// }
+
 $conteoFilas = 0;
 $conteoLimite = 0;
 
