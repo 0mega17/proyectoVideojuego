@@ -25,8 +25,9 @@ try {
 }
 
 try {
-    $sqlTruncate = "TRUNCATE aprendices";
+    $sqlTruncate = "DELETE FROM aprendices WHERE codigo_sala = :codigoSala";
     $consultaTruncate = $mysql->getConexion()->prepare($sqlTruncate);
+    $consultaTruncate->bindParam("codigoSala", $codigoSala);
     $consultaTruncate->execute();
 } catch (PDOException $e) {
     $errores[] = "Ocurrio un error en el truncate..." . $e->getMessage();

@@ -30,6 +30,7 @@ require_once './layout/navbar.php';
     </div>
     <div class="mt-3">
         <button type="button" class="btn btn-info" id="Btncodigo"></button>
+        <button id="btnJugadores" class="btn btn-dark m-2 fw-bold"></button>
         <button id="btnIniciar" class="btn btn-primary">
             <i class="fa-solid fa-play"></i>
             Iniciar juego

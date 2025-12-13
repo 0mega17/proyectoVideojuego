@@ -88,14 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
         }
 
-        try {
-            $sqlTruncate = "TRUNCATE aprendices";
-            $consultaTruncate = $mysql->getConexion()->prepare($sqlTruncate);
-            $consultaTruncate->execute();
-        } catch (PDOException $e) {
-            $errores[] = "Ocurrio un error en el truncate..." . $e->getMessage();
-        }
-
 
         try {
             //  AGREGAMOS CATEGORÍA Y CANTIDAD DE JUGADORES A LA TABLA

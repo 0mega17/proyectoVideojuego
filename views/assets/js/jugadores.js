@@ -1,5 +1,12 @@
+
+const codigoSala = localStorage.getItem("codigoSala");
 function cargarJugadores() {
-  fetch("../controllers/controlador_listar_jugadores.php")
+  let formData = new FormData();
+  formData.append("codigoSala", codigoSala);
+  fetch("../controllers/controlador_listar_jugadores.php", {
+    method: "POST",
+    body: formData
+  })
     .then((response) => response.json())
     .then((data) => {
 

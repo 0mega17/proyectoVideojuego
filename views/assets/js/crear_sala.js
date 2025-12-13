@@ -19,6 +19,7 @@ formularioSala.addEventListener("submit", (e) => {
         localStorage.setItem("categoria", res.categoria);
         localStorage.setItem("nombreCategoria", res.nombreCategoria);
         localStorage.setItem("cantidadJugadores", res.jugadores);
+        localStorage.setItem("iniciarJuego", false);
 
         Swal.fire({
           title: `<h1 class="m-0 fw-bold display-1">${res.sala}</h1>`,
@@ -31,16 +32,16 @@ formularioSala.addEventListener("submit", (e) => {
         }).then(() => {
           window.location.href = "jugadores.php";
         });
-      }else{
-         Swal.fire({
-           title: `<h1 class="m-0 fw-bold"> ¡Error! </h1>`,
-           html: res.message,
-           icon: "error",
-           confirmButtonText: "Aceptar",
-           customClass: {
-             confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",
-           },
-         });
+      } else {
+        Swal.fire({
+          title: `<h1 class="m-0 fw-bold"> ¡Error! </h1>`,
+          html: res.message,
+          icon: "error",
+          confirmButtonText: "Aceptar",
+          customClass: {
+            confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",
+          },
+        });
       }
     });
 });
