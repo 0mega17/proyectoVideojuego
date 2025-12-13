@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($resultado['estado']) && $resultado['estado'] == "Inactivo") {
                     echo json_encode([
                         "success" => false,
-                        "message" => "El administrador está inactivo, no puede iniciar sesión"
+                        "message" => "El usuario está inactivo, no puede iniciar sesión"
                     ]);
                     exit();
                 }
