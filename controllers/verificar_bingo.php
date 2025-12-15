@@ -12,6 +12,7 @@ $errores = [];
 $arregloBalotas = json_decode($_POST["arregloBalotas"], true);
 
 
+
 session_start();
 $codigo = $_SESSION["codigoSala"];
 $tablas = [];
@@ -26,37 +27,38 @@ try {
 }
 
 // Resetear el contador  de la sala
-try{
+try {
     $reinicio = 0;
     $sql = "UPDATE tablas SET conteo = :reinicio WHERE tablas.codigos_codigo = :codigo";
     $consultaReset = $mysql->getConexion()->prepare($sql);
     $consultaReset->bindParam("reinicio", $reinicio);
     $consultaReset->bindParam("codigo", $codigo);
     $consultaReset->execute();
-
-}catch(PDOException $e){
+} catch (PDOException $e) {
     $errores[] = "Ocurrio un error en reset..." . $e->getMessage();
 }
 
-while ($fila = $consultaTablas->fetch(PDO::FETCH_ASSOC)) {
-    for($i = 0; $i < count($arregloBalotas); $i++){
-        $balota = $arregloBalotas[$i]["balota"];
-        $tablaCasilla = $fila["contenido"];
-        if ($balota == $tablaCasilla) {
-            try {
-                $acumulador = 1;
-                $IDtabla = intval($fila["id"]);
-                $sqlConteo = "UPDATE tablas SET conteo = conteo + :acumulador  WHERE id = :IDtabla";
-                $consultaConteo = $mysql->getConexion()->prepare($sqlConteo);
-                $consultaConteo->bindParam("IDtabla", $IDtabla, PDO::PARAM_INT);
-                $consultaConteo->bindParam("acumulador", $acumulador, PDO::PARAM_INT);
-                $consultaConteo->execute();
-            } catch (PDOException $e) {
-                $erorr = $e->getMessage();
-                echo json_encode([
-                    "success" => false,
-                    "message" => "error en el conteo..."
-                ]);
+if ($arregloBalotas) {
+    while ($fila = $consultaTablas->fetch(PDO::FETCH_ASSOC)) {
+        for ($i = 0; $i < count($arregloBalotas); $i++) {
+            $balota = $arregloBalotas[$i]["balota"];
+            $tablaCasilla = $fila["contenido"];
+            if ($balota == $tablaCasilla) {
+                try {
+                    $acumulador = 1;
+                    $IDtabla = intval($fila["id"]);
+                    $sqlConteo = "UPDATE tablas SET conteo = conteo + :acumulador  WHERE id = :IDtabla";
+                    $consultaConteo = $mysql->getConexion()->prepare($sqlConteo);
+                    $consultaConteo->bindParam("IDtabla", $IDtabla, PDO::PARAM_INT);
+                    $consultaConteo->bindParam("acumulador", $acumulador, PDO::PARAM_INT);
+                    $consultaConteo->execute();
+                } catch (PDOException $e) {
+                    $erorr = $e->getMessage();
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "error en el conteo..."
+                    ]);
+                }
             }
         }
     }
@@ -66,7 +68,7 @@ while ($fila = $consultaTablas->fetch(PDO::FETCH_ASSOC)) {
 // Seleccionar el conteo de cada tabla
 try {
     $sql = "SELECT id, conteo, (SELECT nombre FROM aprendices WHERE aprendices.id = tablas.aprendices_id)
-    as nombre_aprendiz FROM tablas WHERE codigos_codigo = :codigo ";
+    as nombre_aprendiz FROM tablas WHERE codigos_codigo = :codigo ORDER BY conteo DESC ";
     $tablasTotal = $mysql->getConexion()->prepare($sql);
     $tablasTotal->bindParam("codigo", $codigo);
     $tablasTotal->execute();
@@ -76,7 +78,7 @@ try {
 
 $tablasConteo = [];
 
-while($fila = $tablasTotal->fetch(PDO::FETCH_ASSOC)){
+while ($fila = $tablasTotal->fetch(PDO::FETCH_ASSOC)) {
     $tablasConteo[] = $fila;
 }
 
