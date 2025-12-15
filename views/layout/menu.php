@@ -79,15 +79,18 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                             <div class="text-truncate" data-i18n="Basic">Categorias</div>
                         </a>
                     </li>
-
-
+                    <li class="menu-item <?php echo ($archivoActual == "historial_salas.php" ? "active" : "") ?>">
+                        <a href="historial_salas.php" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-history'></i>
+                            <div class="text-truncate" data-i18n="Basic">Historial Salas</div>
+                        </a>
+                    </li>
                     <li class="menu-item <?php echo ($archivoActual == "admins.php" ? "active" : "") ?>">
                         <a href="admins.php" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-user-plus'></i>
                             <div class="text-truncate" data-i18n="Basic">Administradores</div>
                         </a>
                     </li>
-
                 </ul>
             </aside>
             <!-- / Menu -->

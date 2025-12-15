@@ -90,6 +90,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         try {
+            // aque se tiene que verificar si la cantidad de jugadores es valida o osea no puede ser negativa o cero
+            if ($cantidadJugadores <= 0) {
+                echo json_encode([
+                    "success" => false,
+                    "message" => "La cantidad de jugadores debe ser un numero valido mayor a cero"
+                ]);
+                exit();
+            }
             //  AGREGAMOS CATEGORÍA Y CANTIDAD DE JUGADORES A LA TABLA
             $sql = "INSERT INTO codigos (codigo, estado, categoria_codigo, cantidad_jugadores)
                     VALUES (:codigo, 1, :categoria, :cantidadJugadores)";

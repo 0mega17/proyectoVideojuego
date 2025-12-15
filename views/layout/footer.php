@@ -84,6 +84,10 @@
 
      <script src="./assets/js/editarPerfil.js"></script>
  <?php endif ?>
+    <?php if ($archivoActual == "historial_salas.php"): ?>
+    
+        <script src="./assets/js/historial.js"></script>
+    <?php endif ?>
  </body>
 
  </html>

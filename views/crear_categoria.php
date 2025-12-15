@@ -15,7 +15,7 @@ $pagina = "Categorias";
 
 //CONSULTA DE TODAS LAS CATEGORIAS
 try {
-    $sql = "SELECT * FROM categorias";
+    $sql = "SELECT * FROM categorias where id != 0";
 
     $categorias = $mysql->getConexion()->prepare($sql);
     $categorias->execute();

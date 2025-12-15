@@ -7,7 +7,7 @@ $mysql = new MySQL();
 $mysql->conectar();
 
 try {
-    $sql = "SELECT * FROM categorias";
+    $sql = "SELECT * FROM categorias where id != 0";
     $consultaCategorias = $mysql->getConexion()->prepare($sql);
     $consultaCategorias->execute();
 } catch (PDOException $e) {
