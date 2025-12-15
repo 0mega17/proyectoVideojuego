@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let formData = new FormData();
     formData.append("tablaGuardada", JSON.stringify(tablaGuardada));
-    console.log(formData)
+    console.log(formData);
 
     const request = await fetch("../controllers/insertar_casillas.php", {
       method: "POST",

@@ -12,6 +12,37 @@ $codigoSala = $_POST["codigoSala"];
 $accion = "finalizar";
 $estado = 0;
 
+try {
+    $sqlSelectID = "SELECT tablas.id FROM tablas WHERE codigos_codigo = :codigoSala";
+    $selectID = $mysql->getConexion()->prepare($sqlSelectID);
+    $selectID->bindParam("codigoSala", $codigoSala, PDO::PARAM_INT);
+    $selectID->execute();
+} catch (PDOException $e) {
+    $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();
+}
+
+while ($fila = $selectID->fetch(PDO::FETCH_ASSOC)) {
+    $ID = $fila["id"];
+    try {
+        $sqlDelete = "DELETE FROM casillas_tablas WHERE tablas_id = :tablaID";
+        $DeleteTabla = $mysql->getConexion()->prepare($sqlDelete);
+        $DeleteTabla->bindParam("tablaID", $ID, PDO::PARAM_INT);
+        $DeleteTabla->execute();
+    } catch (PDOException $e) {
+        $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();
+    }
+}
+
+try {
+    $sqlDelete = "DELETE FROM tablas WHERE codigos_codigo = :codigoSala";
+    $DeleteTabla = $mysql->getConexion()->prepare($sqlDelete);
+    $DeleteTabla->bindParam("codigoSala", $codigoSala, PDO::PARAM_INT);
+    $DeleteTabla->execute();
+} catch (PDOException $e) {
+    $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();
+}
+
+
 // Update en la accion de la sala
 try {
     $sqlUpdate = "UPDATE codigos SET accion = :accion, estado = :estado WHERE codigo = :codigoSala ";

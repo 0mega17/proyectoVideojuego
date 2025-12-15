@@ -11,6 +11,27 @@ $errores = [];
 $codigoSala = $_POST["codigoSala"];
 $accion = "reiniciar";
 
+try {
+    $sqlSelectID = "SELECT tablas.id FROM tablas WHERE codigos_codigo = :codigoSala";
+    $selectID = $mysql->getConexion()->prepare($sqlSelectID);
+    $selectID->bindParam("codigoSala", $codigoSala, PDO::PARAM_INT);
+    $selectID->execute();
+} catch (PDOException $e) {
+    $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();
+}
+
+while ($fila = $selectID->fetch(PDO::FETCH_ASSOC)) {
+    $ID = $fila["id"];
+    try {
+        $sqlDelete = "DELETE FROM casillas_tablas WHERE tablas_id = :tablaID";
+        $DeleteTabla = $mysql->getConexion()->prepare($sqlDelete);
+        $DeleteTabla->bindParam("tablaID", $ID, PDO::PARAM_INT);
+        $DeleteTabla->execute();
+    } catch (PDOException $e) {
+        $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();
+    }
+}
+
 // Seleccionar la accion actual
 try {
     $sqlAccion = "SELECT accion FROM codigos WHERE codigo = :codigoSala";
@@ -41,9 +62,8 @@ try {
 }
 
 
-
 if (count($errores) == 0) {
-     echo json_encode([
+    echo json_encode([
         "success" => true,
         "message" => "El juego fue reiniciado exitosamente"
     ]);
