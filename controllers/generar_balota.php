@@ -98,7 +98,7 @@ if (count($arregloBalotas) > 0 || $arregloBalotas == "") {
         $tipo_obra = $balotaGeneral["tipo_obra"];
 
         // Decision para determninar si ya se llego al limite
-        if ($limiteBaraja <= count($arregloBalotas) || $conteoLimite === 500) {
+        if ($limiteBaraja <= count($arregloBalotas) || $conteoLimite === 100000) {
             echo json_encode([
                 "success" => false,
                 "balota" => "Todas las balotas fueron generadas",

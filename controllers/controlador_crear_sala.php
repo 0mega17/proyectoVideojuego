@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             while (!$vefCodigo) {
                 $codigo = mt_rand(100000, 999999);
-                $sqlVef = "SELECT COUNT(*) AS conteo FROM codigos WHERE id = :codigo";
+                $sqlVef = "SELECT COUNT(*) AS conteo FROM codigos WHERE codigo = :codigo";
                 $consultaVef = $mysql->getConexion()->prepare($sqlVef);
                 $consultaVef->bindParam("codigo", $codigo);
                 $consultaVef->execute();
@@ -101,6 +101,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insert->bindParam(":cantidadJugadores", $cantidadJugadores, PDO::PARAM_INT);
 
             $insert->execute();
+
+
+            session_start();
+            $_SESSION["codigoSala"] = $codigo;
 
             echo json_encode([
                 "success" => true,

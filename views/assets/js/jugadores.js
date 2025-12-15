@@ -1,15 +1,13 @@
-
 const codigoSala = localStorage.getItem("codigoSala");
 function cargarJugadores() {
   let formData = new FormData();
   formData.append("codigoSala", codigoSala);
   fetch("../controllers/controlador_listar_jugadores.php", {
     method: "POST",
-    body: formData
+    body: formData,
   })
     .then((response) => response.json())
     .then((data) => {
-
       localStorage.setItem("listaJugadores", JSON.stringify(data));
 
       pintarTablaJugadores(data);
@@ -39,16 +37,13 @@ function pintarTablaJugadores(lista) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const guardado = localStorage.getItem("listaJugadores");
 
   if (guardado) {
     pintarTablaJugadores(JSON.parse(guardado));
   }
 
-
   cargarJugadores();
-
 
   let codigo = localStorage.getItem("codigoSala");
   if (codigo) {

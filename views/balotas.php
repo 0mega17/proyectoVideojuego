@@ -44,9 +44,17 @@ require_once './layout/navbar.php';
 ?>
 
 
-<div id="capaTitulo" class="row border-bottom border-2 p-2 mb-2">
-    <h2 class="fw-semibold m-0">Balotas del bingo</h2>
-    <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
+<div id="capaTitulo" class="d-flex justify-content-between align-items-center border-bottom border-2 p-2 mb-2">
+    <div>
+        <h2 class="fw-semibold m-0">Balotas del bingo</h2>
+        <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
+    </div>
+
+    <div>
+        <button class="btn btn-success" id="btnVerificar">
+            <i class="fa-solid fa-check-to-slot"></i>
+            Verificar bingo</button>
+    </div>
 </div>
 <div class="mt-3">
     <button type="button" class="btn btn-info m-2 fw-bold" id="Btncodigo"> </button>

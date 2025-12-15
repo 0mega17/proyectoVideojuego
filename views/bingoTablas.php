@@ -44,6 +44,7 @@ try {
   $error = $e->getMessage();
 }
 
+
 function obtenerElementoRandom($mysql, &$usados, $categoria)
 {
   $db = $mysql->getConexion();
