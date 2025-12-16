@@ -1,7 +1,8 @@
 const btnBalota = document.querySelector("#btnBalota");
 const btnReiniciar = document.querySelector("#btnReiniciar");
 const btnFinalizar = document.querySelector("#btnFinalizar");
-const tblBalotas = document.querySelector("#tblBalotas");
+const contenedorBalotas = document.querySelector("#contenedorBalotas");
+// const tblBalotas = document.querySelector("#tblBalotas");
 const datosSala = JSON.parse(localStorage.getItem("codigoSala"));
 const divUltimaBalota = document.querySelector("#ultimaBalota");
 const btnCategoria = document.querySelector("#btnCategoria");
@@ -11,7 +12,7 @@ console.log(categoria);
 
 let ancho = 0;
 
-tblBalotas.innerHTML = "";
+// tblBalotas.innerHTML = "";
 
 let objetoBalotas = {};
 let arregloBalotas = [];
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     ultimaBalota.appendChild(tituloUltima);
     ultimaBalota.textContent +=
-      arregloBalotas[arregloBalotas.length - 1].balota;
+      arregloBalotas[0].balota;
     divUltimaBalota.appendChild(ultimaBalota);
   }
 });
@@ -68,7 +69,8 @@ btnBalota.addEventListener("click", () => {
           tipo_obra: res.tipo_obra,
           success: res.success,
         };
-        arregloBalotas.push(objetoBalotas);
+        arregloBalotas.unshift(objetoBalotas);
+        pintarTabla(arregloBalotas);
       }
 
       if (res.balota.length <= 25) {
@@ -119,27 +121,24 @@ btnBalota.addEventListener("click", () => {
 });
 
 function pintarTabla(lista) {
-  tblBalotas.innerHTML = "";
+  contenedorBalotas.innerHTML = "";
 
   lista.forEach((b) => {
-    let fila = document.createElement("tr");
+    const balota = document.createElement("div");
+    balota.classList.add("balota");
 
-    let tdCategoria = document.createElement("td");
-    tdCategoria.textContent = b.columna;
+    balota.innerHTML = `
+      <div>
+        <div class="columna">${b.columna}</div>
+        <div class="texto">${b.balota}</div>
+        <div class="tipo">${b.tipo_obra}</div>
+      </div>
+    `;
 
-    let tdBalota = document.createElement("td");
-    tdBalota.textContent = b.balota;
-
-    let tdTipoObra = document.createElement("td");
-    tdTipoObra.textContent = b.tipo_obra;
-
-    fila.appendChild(tdCategoria);
-    fila.appendChild(tdBalota);
-    fila.appendChild(tdTipoObra);
-
-    tblBalotas.appendChild(fila);
+    contenedorBalotas.appendChild(balota);
   });
 }
+
 
 btnReiniciar.addEventListener("click", () => {
   let accion = "reiniciar";

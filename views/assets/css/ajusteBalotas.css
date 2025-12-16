@@ -1,0 +1,112 @@
+.balotas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* BALOTA PRINCIPAL */
+.balota {
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at top left,
+    #66ff99,
+    #1b5e20 60%
+  );
+
+  border: 2px solid rgba(102, 255, 153, 0.6);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: center;
+
+  color: #eafff2;
+  font-family: "Public Sans", sans-serif;
+
+  box-shadow:
+    0 0 15px rgba(102, 255, 153, 0.35),
+    inset 0 0 18px rgba(0, 0, 0, 0.6);
+
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* EFECTO GLOW */
+.balota::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(102, 255, 153, 0.6),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* HOVER PREMIUM */
+.balota:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 30px rgba(102, 255, 153, 0.75),
+    inset 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.balota:hover::before {
+  opacity: 1;
+}
+
+/* LETRA BINGO */
+.balota h4 {
+  font-size: 44px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(102, 255, 153, 0.9);
+}
+
+/* TEXTO PRINCIPAL */
+.balota p {
+  font-size: 18px;
+  margin: 0;
+  line-height: 1.35;
+  word-break: break-word;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+}
+
+/* TIPO DE OBRA */
+.balota small {
+  margin-top: 8px;
+  font-size: 13px;
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+
+/* ANIMACIÓN DE ENTRADA
+@keyframes aparecerBalota {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+} */
+
+.balota {
+  animation: aparecerBalota 0.45s ease-out;
+}

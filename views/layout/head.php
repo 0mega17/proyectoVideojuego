@@ -38,6 +38,12 @@
     <link rel="stylesheet" href="./assets/vendor/css/core.css" />
     <link rel="stylesheet" href="./assets/css/demo.css" />
     <link rel="stylesheet" href="./assets/css/styles.css">
+    <?php if (basename($_SERVER['PHP_SELF']) == 'balotas.php'): ?>
+        <link rel="stylesheet" href="./assets/css/balotas.css"> <!-- Asegúrate de que esta sea la ruta correcta -->
+    <?php endif; ?>
+    <?php if (isset($cssExtra)): ?>
+        <link rel="stylesheet" href="./assets/css/ajusteBalotas.css">
+    <?php endif; ?>
 
     <!-- Vendors CSS -->
 

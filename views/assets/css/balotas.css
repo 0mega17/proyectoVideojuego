@@ -1,0 +1,39 @@
+.balotas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.balota {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle at top, #ffffff00, #28a745); /* color verde */
+  border: 4px solid #006400; /* borde verde oscuro */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  color: white; /* texto blanco para contrastar */
+  transition: transform 0.2s ease;
+}
+
+.balota:hover {
+  transform: scale(1.1); /* hover para agrandar la balota */
+}
+
+.balota .columna {
+  font-size: 40px;
+}
+
+.balota .texto {
+  font-size: 18px;
+}
+
+.balota .tipo {
+  font-size: 16px;
+  opacity: 0.7;
+}

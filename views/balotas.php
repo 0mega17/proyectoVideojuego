@@ -31,6 +31,7 @@ try {
         ]
     );
 }
+$cssExtra = true;
 
 
 //=====================================
@@ -42,7 +43,6 @@ require_once './layout/menu.php';
 require_once './layout/navbar.php';
 
 ?>
-
 
 <div id="capaTitulo" class="row border-bottom border-2 p-2 mb-2">
     <h2 class="fw-semibold m-0">Balotas del bingo</h2>
@@ -92,25 +92,7 @@ require_once './layout/navbar.php';
             </div>
 
             <div class="card-body">
-
-                <div class="table-responsive">
-                    <table class="table table-striped text-nowrap" id="tblGeneral">
-                        <thead>
-                            <th class="fw-bold">
-                                <i class="fa-solid fa-bookmark"></i>
-                                Item
-                            </th>
-                            <th class="fw-bold">
-                                <i class="fa-brands fa-dribbble"></i>
-                                Balotas del juego
-                            </th>
-                            <th class="fw-bold">
-                                <i class="fa-solid fa-book"></i>
-                                Tipo de obra
-                            </th>
-                        </thead>
-                        <tbody id="tblBalotas"></tbody>
-                    </table>
+                <div id="contenedorBalotas" class="balotas-container"></div>
                 </div>
 
             </div>
