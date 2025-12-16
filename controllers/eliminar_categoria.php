@@ -15,6 +15,21 @@ $mysql = new MySQL();
 $mysql->conectar();
 
 try {
+
+$consultarObrasAsociadas = "SELECT COUNT(*) as total FROM categorias_has_composiciones WHERE categorias_id = :id";
+    $consultaObras = $mysql->getConexion()->prepare($consultarObrasAsociadas);
+    $consultaObras->bindParam(":id", $id, PDO::PARAM_INT);
+    $consultaObras->execute();
+    $resultados = $consultaObras->fetch(PDO::FETCH_ASSOC);
+
+    if ($resultados['total'] > 0) {
+        echo json_encode([
+            "success" => false,
+            "message" => "No se puede eliminar la categoría porque tiene obras asociadas."
+        ]);
+        exit();
+    }
+
     $sql = "DELETE FROM categorias WHERE id = :id";
     $consulta = $mysql->getConexion()->prepare($sql);
     $consulta->bindParam(":id", $id, PDO::PARAM_INT);
