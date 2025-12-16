@@ -60,8 +60,12 @@ require_once './layout/navbar.php';
 
     <div class="col-lg-4 col-md-12">
         <div class="card h-100">
-            <div class="card-body text-center d-flex justify-content-center align-items-center">
-                <button id="btnIniciar" class="btn btn-success w-100 py-3">
+            <div class="card-body text-center">
+                <h6 class="mb-2 text-muted">
+                    <i class="fa-solid fa-hourglass-start"></i>
+                    Accion
+                </h6>
+                <button id="btnIniciar" class="btn btn-success w-100">
                     <i class="fa-solid fa-play me-1"></i>
                     Iniciar juego
                 </button>

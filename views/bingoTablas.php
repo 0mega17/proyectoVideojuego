@@ -9,6 +9,7 @@ if (!isset($_SESSION["accesoAprendiz"]) || $_SESSION["accesoAprendiz"] !== true)
 
 //Obtener el codigo de la sala ingresado
 $codigoSala = $_SESSION["codigoSala"];
+$idAprendiz = $_SESSION["idAprendiz"];
 $nombreAprendiz = $_SESSION["nombreAprendiz"];
 $fichaAprendiz = $_SESSION["fichaAprendiz"];
 
@@ -44,6 +45,16 @@ try {
   $error = $e->getMessage();
 }
 
+// Obtener el numero de la tabla generada
+try {
+  $sql = "SELECT id FROM tablas WHERE aprendices_id = :aprendizID";
+  $consultaTablaID = $mysql->getConexion()->prepare($sql);
+  $consultaTablaID->bindParam("aprendizID", $idAprendiz);
+  $consultaTablaID->execute();
+  $tablaID = $consultaTablaID->fetch(PDO::FETCH_ASSOC)["id"];
+} catch (PDOException $e) {
+  $error = $e->getMessage();
+}
 
 function obtenerElementoRandom($mysql, &$usados, $categoria)
 {
@@ -97,6 +108,8 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
   <link rel="stylesheet" href="./assets/vendor/css/core.css">
   <link rel="stylesheet" href="./assets/css/tablasBingo.css">
 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Favicon -->
   <link
     rel="icon"
@@ -106,26 +119,92 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
 
 <body class="justify-content-center">
 
-  <div class="bg-success-subtle p-5 text-center bg-body-tertiary">
-    <h1 class="text-center mb-3 fw-bold text-success">Bingo Literario</h1>
+  <div class="bg-success bg-opacity-10 border-bottom border-success border-3">
+    <div class="container-fluid py-4">
+      <!-- Título principal -->
+      <div class="text-center mb-4">
+        <h1 class="fw-bold text-success mb-2">
+          Bingo Literario
+        </h1>
+        <p class="text-success mb-0 fw-semibold">¡Completa tu tabla y gana el bingo!</p>
+      </div>
 
-    <button class="btn btn-info  text-center fs-5">Codigo: <?php echo $codigoSala ?></button>
-    <button class="btn btn-success  text-center fs-5">Categoria: <?php echo $nombreCat ?></button>
-    <button class="btn btn-warning  text-center fs-5">Jugador: <?php echo $nombreAprendiz ?></button>
-    <button class="btn btn-primary  text-center fs-5">Ficha: <?php echo $fichaAprendiz ?></button>
+      <!-- Información del juego -->
+      <div class="row g-3 justify-content-center">
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <div class="card text-center bg-info bg-opacity-10 border-info border-2 h-100">
+            <div class="card-body py-3">
+              <div class="text-info mb-2">
+                <i class="fas fa-hashtag fs-3"></i>
+              </div>
+              <small class="text-secondary d-block fw-semibold">Código Sala</small>
+              <strong class="text-dark fs-4"><?php echo $codigoSala ?></strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <div class="card text-center bg-success bg-opacity-10 border-success border-2 h-100">
+            <div class="card-body py-3">
+              <div class="text-success mb-2">
+                <i class="fas fa-layer-group fs-3"></i>
+              </div>
+              <small class="text-secondary d-block fw-semibold">Categoría</small>
+              <strong class="text-dark fs-4"><?php echo $nombreCat ?></strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <div class="card text-center bg-warning bg-opacity-10 border-warning border-2 h-100">
+            <div class="card-body py-3">
+              <div class="text-warning mb-2">
+                <i class="fas fa-user fs-3"></i>
+              </div>
+              <small class="text-secondary d-block fw-semibold">Jugador</small>
+              <strong class="text-dark fs-4"><?php echo $nombreAprendiz ?></strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <div class="card text-center bg-primary bg-opacity-10 border-primary border-2 h-100">
+            <div class="card-body py-3">
+              <div class="text-primary mb-2">
+                <i class="fas fa-id-card fs-3"></i>
+              </div>
+              <small class="text-secondary d-block fw-semibold">Ficha</small>
+              <strong class="text-dark fs-4"><?php echo $fichaAprendiz ?></strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <div class="card text-center bg-danger bg-opacity-10 border-danger border-2 h-100">
+            <div class="card-body py-3">
+              <div class="text-danger mb-2">
+                <i class="fas fa-table-cells fs-3"></i>
+              </div>
+              <small class="text-secondary d-block fw-semibold">Tabla N°</small>
+              <strong class="text-dark fs-4"><?php echo $tablaID ?></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-
   <input type="hidden" id="txtCodigoSala" value="<?php echo $codigoSala ?>">
+  
 
-  <table class="table table-bordered table-light border border-3 text-center mt-4 shadow">
+  <table class="tabla-bingo">
     <thead>
       <tr>
-        <th style="font-size: 50px;">B</th>
-        <th style="font-size: 50px;">I</th>
-        <th style="font-size: 50px;">N</th>
-        <th style="font-size: 50px;">G</th>
-        <th style="font-size: 50px;">O</th>
+        <th>B</th>
+        <th>I</th>
+        <th>N</th>
+        <th>G</th>
+        <th>O</th>
       </tr>
     </thead>
     <tbody>
