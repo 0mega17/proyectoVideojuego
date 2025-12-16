@@ -69,6 +69,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $resultadoDatosUsuario = $mysql->getConexion()->prepare($traerDatos);
                     $resultadoDatosUsuario->execute();
                     $datos = $resultadoDatosUsuario->fetch(PDO::FETCH_ASSOC);
+
+                    // Insertar la tabla de cada aprendiz
+                    try {
+                        $conteo = 0;
+                        $sql = "INSERT INTO tablas (aprendices_id, codigos_codigo, conteo) VALUES (:IDaprendiz, :codigo, :conteo)";
+                        $insertTabla = $mysql->getConexion()->prepare($sql);
+                        $insertTabla->bindParam("IDaprendiz", $datos["id"], PDO::PARAM_INT);
+                        $insertTabla->bindParam("codigo", $codigo, PDO::PARAM_INT);
+                        $insertTabla->bindParam("conteo", $conteo, PDO::PARAM_INT);
+                        $insertTabla->execute();
+                    } catch (PDOException $e) {
+                        $error = $e->getMessage();
+                    }
+
                     session_start();
                     $_SESSION["idAprendiz"] = $datos['id'];
                     $_SESSION["codigoSala"] = $codigoBD;

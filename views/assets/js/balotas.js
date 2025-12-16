@@ -8,7 +8,7 @@ const divUltimaBalota = document.querySelector("#ultimaBalota");
 const btnCategoria = document.querySelector("#btnCategoria");
 const btnJugadores = document.querySelector("#btnJugadores");
 const categoria = localStorage.getItem("categoria");
-console.log(categoria);
+
 
 let ancho = 0;
 
@@ -20,10 +20,9 @@ let arregloBalotas = [];
 document.addEventListener("DOMContentLoaded", () => {
   const nombreCategoria = localStorage.getItem("nombreCategoria");
   const cantidadJugadores = localStorage.getItem("cantidadJugadores");
-  btnCategoria.innerHTML =
-    '<i class="fa-solid fa-list me-1"></i>' + "Categoria: " + nombreCategoria;
+  btnCategoria.innerHTML = nombreCategoria;
   btnJugadores.innerHTML =
-    '<i class="fa-solid fa-users me-1"></i>' + "No. Jugadores: " + cantidadJugadores;
+    cantidadJugadores;
 
   const datosGuardados = localStorage.getItem("navegadorBalotas");
   if (datosGuardados) {
@@ -62,14 +61,12 @@ btnBalota.addEventListener("click", () => {
   let formData = new FormData();
   formData.append("arregloBalotas", JSON.stringify(arregloBalotas));
   formData.append("categoria", categoria);
-  console.log(arregloBalotas);
   fetch("../controllers/generar_balota.php", {
     method: "POST",
     body: formData,
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res.tipo_obra);
       if (res.success) {
         objetoBalotas = {
           columna: res.columna,

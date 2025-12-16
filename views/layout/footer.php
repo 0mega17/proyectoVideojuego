@@ -61,6 +61,7 @@
  <?php if ($archivoActual == "balotas.php"): ?>
      <script src="./assets/js/balotas.js"></script>
      <script src="./assets/js/mostrar_codigo_sala.js"></script>
+     <script src="./assets/js/verificar_bingo.js"></script>
  <?php endif ?>
  <?php if ($archivoActual == "sala.php"): ?>
      <script src="./assets/js/categorias.js"></script>
