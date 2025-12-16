@@ -23,20 +23,60 @@ require_once './layout/navbar.php';
 ?>
 
 
-<div class="d-flex justify-content-between border-bottom border-2 p-2 mb-5">
-    <div class="">
+<div class="row border-bottom border-2 p-2 mb-5">
+    <div class="col-sm-6">
         <h2 class="fw-semibold m-0">Jugadores</h2>
         <p class="text-muted m-0">Gestiona todo lo relacionado con los jugadores del bingo</p>
     </div>
-    <div class="mt-3">
-        <button type="button" class="btn btn-info" id="Btncodigo"></button>
-        <button id="btnJugadores" class="btn btn-dark m-2 fw-bold"></button>
-        <button id="btnIniciar" class="btn btn-primary">
-            <i class="fa-solid fa-play"></i>
-            Iniciar juego
-        </button>
+</div>
+
+
+<div class="row g-3 mb-3">
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h6 class="mb-2 text-muted">
+                    <i class="fa-solid fa-hashtag me-1"></i>
+                    Codigo
+                </h6>
+                <button type="button" class="btn btn-info w-100 fw-bold" id="Btncodigo"></button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h6 class="mb-2 text-muted">
+                    <i class="fa-solid fa-users me-1"></i>
+                    Jugadores
+                </h6>
+                <button id="btnJugadores" class="btn btn-dark w-100 fw-bold"></button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 col-md-12">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h6 class="mb-2 text-muted">
+                    <i class="fa-solid fa-hourglass-start"></i>
+                    Accion
+                </h6>
+                <button id="btnIniciar" class="btn btn-success w-100">
+                    <i class="fa-solid fa-play me-1"></i>
+                    Iniciar juego
+                </button>
+            </div>
+        </div>
+
     </div>
 </div>
+
+
+
 
 <div class="row">
     <div class="col-12">

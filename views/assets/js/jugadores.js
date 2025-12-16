@@ -1,15 +1,13 @@
-
 const codigoSala = localStorage.getItem("codigoSala");
 function cargarJugadores() {
   let formData = new FormData();
   formData.append("codigoSala", codigoSala);
   fetch("../controllers/controlador_listar_jugadores.php", {
     method: "POST",
-    body: formData
+    body: formData,
   })
     .then((response) => response.json())
     .then((data) => {
-
       localStorage.setItem("listaJugadores", JSON.stringify(data));
 
       pintarTablaJugadores(data);
@@ -39,16 +37,13 @@ function pintarTablaJugadores(lista) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const guardado = localStorage.getItem("listaJugadores");
 
   if (guardado) {
     pintarTablaJugadores(JSON.parse(guardado));
   }
 
-
   cargarJugadores();
-
 
   let codigo = localStorage.getItem("codigoSala");
   if (codigo) {
@@ -73,6 +68,25 @@ botonIniciar.addEventListener("click", () => {
     },
   }).then(async (result) => {
     if (result.isConfirmed) {
+      const guardado = localStorage.getItem("listaJugadores");
+      console.log(guardado);
+      if (guardado == "[]") {
+        Swal.fire({
+          title: `<h1 class="m-0 fw-bold">¡Error! </h1>`,
+          text: "No hay ningun jugador en la sala, intentelo de nuevo",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+          customClass: {
+            confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",
+          },
+          timer: 2000,
+          allowOutsideClick: false,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+        return;
+      }
+
       let formData = new FormData();
       formData.append("codigoSala", sala);
 

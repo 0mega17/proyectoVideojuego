@@ -22,6 +22,7 @@ formularioLogin.addEventListener("submit", (e) => {
           },
         });
       } else {
+        localStorage.clear();
         location.href = "./sala.php";
       }
     },

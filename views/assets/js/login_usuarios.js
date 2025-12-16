@@ -22,8 +22,7 @@ formularioLogin.addEventListener("submit", (e) => {
           },
         });
       } else {
-        localStorage.removeItem("bingoMarcados");
-        localStorage.removeItem("bingoTabla")
+        localStorage.clear();
         location.href = "./bingoTablas.php";
       }
     },

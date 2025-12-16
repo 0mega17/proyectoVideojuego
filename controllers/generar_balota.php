@@ -1,11 +1,10 @@
 <?php
-
-
 // Conexion a la base de datos
 require_once '../models/MySQL.php';
 $mysql = new MySQL();
 $mysql->conectar();
 
+// Arreglos necesarios para revolver la baraja
 $errores = [];
 $composiciones = [];
 $columnas = ["titulo", "autor", "frase"];
@@ -14,9 +13,6 @@ $columnas = ["titulo", "autor", "frase"];
 $arregloBalotas = json_decode($_POST["arregloBalotas"], true);
 $categoria = intval($_POST["categoria"]);
 
-
-$conteoFilas = 0;
-$conteoLimite = 0;
 
 // Consulta para traer todas las composiciones
 try {
@@ -32,102 +28,61 @@ try {
     $errores[] = "Ocurrio un error en composiciones..." . $e->getMessage();
 }
 
-// Consulta para contar el numero de composiciones
-try {
-    if ($categoria == 0) {
-        $sql = "SELECT COUNT(*) as conteo FROM composiciones";
-    } else {
-        $sql = "SELECT COUNT(*) as conteo FROM composiciones JOIN categorias_has_composiciones ON
-        categorias_has_composiciones.composiciones_id = composiciones.id 
-        WHERE categorias_has_composiciones.categorias_id = $categoria";
-    }
-
-    $consultaConteo = $mysql->getConexion()->prepare($sql);
-    $consultaConteo->execute();
-    $conteoFilas = $consultaConteo->fetch(PDO::FETCH_ASSOC)["conteo"];
-} catch (PDOException $e) {
-    $errores[] = "Ocurrio un error en composiciones..." . $e->getMessage();
-}
-
-// Establecer el limite de posibilidades para revolver
-$limiteBaraja = $conteoFilas * count($columnas);
-
 
 // Llenar el arreglo con todas las obras literarias
 while ($fila = $consultaComposiciones->fetch(PDO::FETCH_ASSOC)) {
     $composiciones[] = $fila;
 }
 
-// Funcion para determinar que arreglo seleccionar de manera aleatoria
-function revolverBalotas($composiciones, $conteoFilas)
-{
-    // Numero random entre los valores posibles del arreglo
-    $numRandom = mt_rand(1, $conteoFilas - 1);
-    // Revolver el arreglo entre posiciones
-    shuffle($composiciones);
-    // Determinar del arreglo que elemento selccionar  con el numero random
-    $balotaGeneral = $composiciones[$numRandom];
-    return $balotaGeneral;
-}
+$balotasDisponibles = [];
 
-// Numero random para las columnas a escoger
-$numCol = mt_rand(0, sizeof($columnas) - 1);
-// Revolver el arreglo de las columnas
-shuffle($columnas);
-
-function seleccionarBalota($balotaGeneral, $columnas, $numCol)
-{
-    // Seleccionar de la balota seleccionada una columna con el numero random
-    $balota = $balotaGeneral[$columnas[$numCol]];
-    return $balota;
-}
-
-// Revoler las balotas con la funcion
-$balotaGeneral = revolverBalotas($composiciones, $conteoFilas);
-$balota = seleccionarBalota($balotaGeneral, $columnas, $numCol);
-
-
-$tipo_obra = $balotaGeneral["tipo_obra"];
-if (count($arregloBalotas) > 0 || $arregloBalotas == "") {
-    for ($i = 0; $i < count($arregloBalotas); $i++) {
-        // Limitar si no encuentra ninguna balota
-        $conteoLimite++;
-        // Elemento del array de las balotas que ya salieron
-        $balotasRepetidas = $arregloBalotas[$i]["balota"];
-        $conteo = count($arregloBalotas);
-        $tipo_obra = $balotaGeneral["tipo_obra"];
-
-        // Decision para determninar si ya se llego al limite
-        if ($limiteBaraja <= count($arregloBalotas) || $conteoLimite === 500) {
-            echo json_encode([
-                "success" => false,
-                "balota" => "Todas las balotas fueron generadas",
-                "columna" => "Sin columna"
-            ]);
-            exit();
-        }
-
-
-        // Determinar si el elemento ya salio
-        if ($balotasRepetidas == $balota) {
-            // Volver a revolver y seleccionar otro elemento
-            $balotaGeneral = revolverBalotas($composiciones, $conteoFilas);
-            $numCol = mt_rand(0, sizeof($columnas) - 1);
-            shuffle($columnas);
-            $balota = seleccionarBalota($balotaGeneral, $columnas, $numCol);
-            // Reiniciar el ciclo otra vez
-            $i = -1;
+// Llenar el arreglo con las balotas disponibles
+foreach ($composiciones as $comp) {
+    foreach ($columnas as $col) {
+        if (!empty($comp[$col])) {
+            $balotasDisponibles[] = [
+                "texto" => $comp[$col],
+                "columna" => ucfirst($col),
+                "tipo_obra" => $comp["tipo_obra"]
+            ];
         }
     }
 }
-// Columna a enviar
-$columna = ucfirst($columnas[$numCol]); // ucfirst = Primera letra en mayuscula
+
+// Extraer el contenido de las balotas usadas
+$balotasUsadas = array_column($arregloBalotas, 'balota');
+
+// Filtrar con un array method las balotas que no han salido
+// 1er parametro el arreglo general
+// 2do parameto funcion callback que retorna los elementos que no 
+// coinciden entre el texto de balotas disponibles y balotas usadas 
+$balotasDisponibles = array_filter(
+    $balotasDisponibles,
+    function ($b) use ($balotasUsadas) {
+        return !in_array($b["texto"], $balotasUsadas);
+    }
+);
+
+// Determinar si no han terminado todas las balotas
+if (count($balotasDisponibles) === 0) {
+    echo json_encode([
+        "success" => false,
+        "balota" => "Todas las balotas fueron generadas",
+        "columna" => "Sin columna"
+    ]);
+    exit();
+}
+
+// Extraer un elemento random del arreglo de las balotas ya filtrado
+$balotaFinal = $balotasDisponibles[array_rand($balotasDisponibles)];
 
 
 // Enviar la informacion al JS
-echo json_encode([
-    "success" => true,
-    "balota" => $balota,
-    "columna" => $columna,
-    "tipo_obra" => $tipo_obra
-]);
+if (count($errores) === 0) {
+    echo json_encode([
+        "success" => true,
+        "balota" => $balotaFinal["texto"],
+        "columna" => $balotaFinal["columna"],
+        "tipo_obra" => $balotaFinal["tipo_obra"]
+    ]);
+}
