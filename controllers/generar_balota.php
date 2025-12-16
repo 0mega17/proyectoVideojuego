@@ -1,6 +1,4 @@
 <?php
-
-
 // Conexion a la base de datos
 require_once '../models/MySQL.php';
 $mysql = new MySQL();
@@ -30,23 +28,6 @@ try {
     $errores[] = "Ocurrio un error en composiciones..." . $e->getMessage();
 }
 
-// Consulta para contar el numero de composiciones
-try {
-    if ($categoria == 0) {
-        $sql = "SELECT COUNT(*) as conteo FROM composiciones";
-    } else {
-        $sql = "SELECT COUNT(*) as conteo FROM composiciones JOIN categorias_has_composiciones ON
-        categorias_has_composiciones.composiciones_id = composiciones.id 
-        WHERE categorias_has_composiciones.categorias_id = $categoria";
-    }
-
-    $consultaConteo = $mysql->getConexion()->prepare($sql);
-    $consultaConteo->execute();
-    $conteoFilas = $consultaConteo->fetch(PDO::FETCH_ASSOC)["conteo"];
-} catch (PDOException $e) {
-    $errores[] = "Ocurrio un error en composiciones..." . $e->getMessage();
-}
-
 
 // Llenar el arreglo con todas las obras literarias
 while ($fila = $consultaComposiciones->fetch(PDO::FETCH_ASSOC)) {
@@ -55,6 +36,7 @@ while ($fila = $consultaComposiciones->fetch(PDO::FETCH_ASSOC)) {
 
 $balotasDisponibles = [];
 
+// Llenar el arreglo con las balotas disponibles
 foreach ($composiciones as $comp) {
     foreach ($columnas as $col) {
         if (!empty($comp[$col])) {
@@ -67,8 +49,13 @@ foreach ($composiciones as $comp) {
     }
 }
 
+// Extraer el contenido de las balotas usadas
 $balotasUsadas = array_column($arregloBalotas, 'balota');
 
+// Filtrar con un array method las balotas que no han salido
+// 1er parametro el arreglo general
+// 2do parameto funcion callback que retorna los elementos que no 
+// coinciden entre el texto de balotas disponibles y balotas usadas 
 $balotasDisponibles = array_filter(
     $balotasDisponibles,
     function ($b) use ($balotasUsadas) {
@@ -76,7 +63,7 @@ $balotasDisponibles = array_filter(
     }
 );
 
-
+// Determinar si no han terminado todas las balotas
 if (count($balotasDisponibles) === 0) {
     echo json_encode([
         "success" => false,
@@ -86,8 +73,8 @@ if (count($balotasDisponibles) === 0) {
     exit();
 }
 
+// Extraer un elemento random del arreglo de las balotas ya filtrado
 $balotaFinal = $balotasDisponibles[array_rand($balotasDisponibles)];
-
 
 
 // Enviar la informacion al JS

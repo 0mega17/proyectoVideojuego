@@ -7,7 +7,7 @@ const divUltimaBalota = document.querySelector("#ultimaBalota");
 const btnCategoria = document.querySelector("#btnCategoria");
 const btnJugadores = document.querySelector("#btnJugadores");
 const categoria = localStorage.getItem("categoria");
-console.log(categoria);
+
 
 let ancho = 0;
 
@@ -52,14 +52,12 @@ btnBalota.addEventListener("click", () => {
   let formData = new FormData();
   formData.append("arregloBalotas", JSON.stringify(arregloBalotas));
   formData.append("categoria", categoria);
-  console.log(arregloBalotas);
   fetch("../controllers/generar_balota.php", {
     method: "POST",
     body: formData,
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res.tipo_obra);
       if (res.success) {
         objetoBalotas = {
           columna: res.columna,

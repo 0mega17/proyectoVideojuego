@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Validacion para balotas en caso de se no se inicie el juego
   let iniciarJuego = localStorage.getItem("iniciarJuego");
-  console.log(iniciarJuego);
   if (iniciarJuego == "false" && archivo == "balotas.php") {
     Swal.fire({
       title: `<h1 class="m-0 fw-bold">Ocurrio un error... </h1`,
@@ -25,17 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Validacion para jugadores en caso que no se haya generado la sala
   if (codigo) {
-    if (archivo == "balotas.php") {
-      document.getElementById("Btncodigo").innerHTML = codigo;
-      document.getElementById("btnJugadores").innerHTML = cantidadJugadores;
-    } else {
-      document.getElementById("Btncodigo").innerHTML =
-        `<i class="fa-solid fa-circle-info"></i>` + "  Código: " + codigo;
-      document.getElementById("btnJugadores").innerHTML =
-        '<i class="fa-solid fa-users me-1"></i>' +
-        "No. Jugadores: " +
-        cantidadJugadores;
-    }
+    document.getElementById("Btncodigo").innerHTML = codigo;
+    document.getElementById("btnJugadores").innerHTML = cantidadJugadores;
   } else {
     if (archivo == "balotas.php") {
       mensaje =
