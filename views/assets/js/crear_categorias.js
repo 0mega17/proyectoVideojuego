@@ -59,6 +59,14 @@ tblCategorias.addEventListener("click", async (e) => {
             timer: 2000,
             showConfirmButton: false,
           }).then(() => location.reload());
+        } else {
+          Swal.fire({
+            title: `<h1 class="m-0 fw-bold">¡Error!</h1>`,
+            text: response.message,
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false,
+          });
         }
       },
     });
