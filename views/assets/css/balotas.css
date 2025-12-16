@@ -19,6 +19,7 @@
   font-weight: bold;
   color: white; /* texto blanco para contrastar */
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 .balota:hover {
