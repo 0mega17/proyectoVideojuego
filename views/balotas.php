@@ -79,25 +79,30 @@ require_once './layout/navbar.php';
     </div>
 
 </div>
-
+<div class="row mt-3 mb-3">
+    <div class="col-12 d-flex justify-content-end">
+        <div style="max-width: 320px; width: 100%;">
+            <input
+                type="text"
+                id="filtroBalotas"
+                class="form-control form-control-sm shadow-sm"
+                placeholder="Filtrar balotas...">
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-12">
         <div class="card shadow-sm">
-            <div class="card-header border">
-                <h5 class="m-0">
-                    <i class="fa-solid fa-list"></i>
-                    Listado de material bibliografico
-                </h5>
-            </div>
+
 
             <div class="card-body">
                 <div id="contenedorBalotas" class="balotas-container"></div>
-                </div>
-
             </div>
+
         </div>
     </div>
+</div>
 </div>
 
 

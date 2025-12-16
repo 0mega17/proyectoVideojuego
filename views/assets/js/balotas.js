@@ -50,6 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// Listener para el filtro de balotas
+const filtroInput = document.querySelector("#filtroBalotas");
+filtroInput.addEventListener("input", () => {
+  const filtro = filtroInput.value.toLowerCase();
+  const filtradas = arregloBalotas.filter(b => b.balota.toLowerCase().includes(filtro));
+  pintarTabla(filtradas);
+});
+
 btnBalota.addEventListener("click", () => {
   let formData = new FormData();
   formData.append("arregloBalotas", JSON.stringify(arregloBalotas));
@@ -70,7 +78,11 @@ btnBalota.addEventListener("click", () => {
           success: res.success,
         };
         arregloBalotas.unshift(objetoBalotas);
-        pintarTabla(arregloBalotas);
+        
+        // Aplicar filtro si existe
+        const filtro = filtroInput.value.toLowerCase();
+        const filtradas = arregloBalotas.filter(b => b.balota.toLowerCase().includes(filtro));
+        pintarTabla(filtradas);
       }
 
       if (res.balota.length <= 25) {
