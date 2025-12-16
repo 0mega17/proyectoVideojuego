@@ -11,15 +11,17 @@ $errores = [];
 $codigoSala = $_POST["codigoSala"];
 $accion = "reiniciar";
 
+// Seleccionar todas las tablas de la sala
 try {
     $sqlSelectID = "SELECT tablas.id FROM tablas WHERE codigos_codigo = :codigoSala";
     $selectID = $mysql->getConexion()->prepare($sqlSelectID);
     $selectID->bindParam("codigoSala", $codigoSala, PDO::PARAM_INT);
     $selectID->execute();
 } catch (PDOException $e) {
-    $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();
+    $errores[] = "Ocurrio un error en el select de la tabla..." . $e->getMessage();
 }
 
+// Eliminar todas las casillas de las tablas
 while ($fila = $selectID->fetch(PDO::FETCH_ASSOC)) {
     $ID = $fila["id"];
     try {
@@ -28,7 +30,7 @@ while ($fila = $selectID->fetch(PDO::FETCH_ASSOC)) {
         $DeleteTabla->bindParam("tablaID", $ID, PDO::PARAM_INT);
         $DeleteTabla->execute();
     } catch (PDOException $e) {
-        $errores[] = "Ocurrio un error en el update de la sala..." . $e->getMessage();
+        $errores[] = "Ocurrio un error en el delete de las casillas..." . $e->getMessage();
     }
 }
 

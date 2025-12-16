@@ -15,7 +15,7 @@ btnVerificar.addEventListener("click", async () => {
 
   if (response.success) {
     let tabla = `
-                    <table class="table table-striped table-bordered nowrap" style="width:100%;text-align:left;">
+                    <table id="tblGeneral" class="table table-striped table-bordered nowrap" style="width:100%;text-align:left;">
                          <thead>
                           <tr> 
                           <th class="fw-bold fs-5"> <i class="fa-solid fa-table text-warning"></i> Tabla </th>
@@ -45,7 +45,7 @@ btnVerificar.addEventListener("click", async () => {
       title: `<h1 class="m-0 fw-bold">Tablas del bingo</h1>`,
       html: tabla,
       icon: "success",
-      width: 700,
+      width: 800,
       confirmButtonText: "Aceptar",
       customClass: {
         confirmButton: "btn btn-success fs-5 fw-bold",

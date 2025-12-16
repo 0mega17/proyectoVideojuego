@@ -19,10 +19,9 @@ let arregloBalotas = [];
 document.addEventListener("DOMContentLoaded", () => {
   const nombreCategoria = localStorage.getItem("nombreCategoria");
   const cantidadJugadores = localStorage.getItem("cantidadJugadores");
-  btnCategoria.innerHTML =
-    '<i class="fa-solid fa-list me-1"></i>' + "Categoria: " + nombreCategoria;
+  btnCategoria.innerHTML = nombreCategoria;
   btnJugadores.innerHTML =
-    '<i class="fa-solid fa-users me-1"></i>' + "No. Jugadores: " + cantidadJugadores;
+    cantidadJugadores;
 
   const datosGuardados = localStorage.getItem("navegadorBalotas");
   if (datosGuardados) {

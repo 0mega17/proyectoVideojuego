@@ -68,6 +68,25 @@ botonIniciar.addEventListener("click", () => {
     },
   }).then(async (result) => {
     if (result.isConfirmed) {
+      const guardado = localStorage.getItem("listaJugadores");
+      console.log(guardado);
+      if (guardado == "[]") {
+        Swal.fire({
+          title: `<h1 class="m-0 fw-bold">¡Error! </h1>`,
+          text: "No hay ningun jugador en la sala, intentelo de nuevo",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+          customClass: {
+            confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",
+          },
+          timer: 2000,
+          allowOutsideClick: false,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+        return;
+      }
+
       let formData = new FormData();
       formData.append("codigoSala", sala);
 

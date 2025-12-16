@@ -44,31 +44,71 @@ require_once './layout/navbar.php';
 ?>
 
 
-<div id="capaTitulo" class="d-flex justify-content-between align-items-center border-bottom border-2 p-2 mb-2">
-    <div>
-        <h2 class="fw-semibold m-0">Balotas del bingo</h2>
-        <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
+<div id="capaTitulo" class="row border-bottom border-2 p-2 mb-2">
+    <div class="col-sm-9">
+        <div>
+            <h2 class="fw-semibold m-0">Balotas del bingo</h2>
+            <p class="text-muted m-0">Genera las balotas para jugar el bingo</p>
+        </div>
     </div>
 
-    <div>
-        <button class="btn btn-success" id="btnVerificar">
-            <i class="fa-solid fa-check-to-slot"></i>
-            Verificar bingo</button>
+    <div class="col-sm-3 d-sm-flex justify-content-center align-items-center my-2">
+        <div>
+            <button class="btn btn-success" id="btnVerificar">
+                <i class="fa-solid fa-check-to-slot"></i>
+                Verificar bingo</button>
+        </div>
     </div>
+
 </div>
-<div class="mt-3">
-    <button type="button" class="btn btn-info m-2 fw-bold" id="Btncodigo"> </button>
-    <button id="btnCategoria" class="btn btn-warning m-2 fw-bold"></button>
-    <button id="btnJugadores" class="btn btn-dark m-2 fw-bold"></button>
-    <button data-accion="reiniciar" id="btnReiniciar" class="btn btn-primary m-2 fw-bold">
-        <i class="fa-solid fa-rotate-left me-1"></i>
-        Reiniciar juego
-    </button>
-
-    <button id="btnFinalizar" class="btn btn-danger m-2 fw-bold">
-        <i class="fa-solid fa-rectangle-xmark me-1"></i>
-        Finalizar juego
-    </button>
+<div class="row g-3 mb-3">
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">
+                    <i class="fa-solid fa-hashtag me-1"></i>
+                    Código
+                </h6>
+                <button type="button" class="btn btn-info fw-bold w-100" id="Btncodigo">-</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">
+                    <i class="fa-solid fa-layer-group me-1"></i>
+                    Categoría
+                </h6>
+                <button id="btnCategoria" class="btn btn-warning fw-bold w-100">-</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-6">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">
+                    <i class="fa-solid fa-users me-1"></i>
+                    Jugadores
+                </h6>
+                <button id="btnJugadores" class="btn btn-dark fw-bold w-100">-</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column justify-content-center gap-2">
+                <button data-accion="reiniciar" id="btnReiniciar" class="btn btn-primary fw-bold">
+                    <i class="fa-solid fa-rotate-left me-1"></i>
+                    Reiniciar
+                </button>
+                <button id="btnFinalizar" class="btn btn-danger fw-bold">
+                    <i class="fa-solid fa-rectangle-xmark me-1"></i>
+                    Finalizar
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -76,16 +116,11 @@ require_once './layout/navbar.php';
     <div class="col-sm-12">
         <div id="ultimaBalota" class="my-2">
         </div>
-
         <button id="btnBalota" class="btn btn-success w-100 p-3 fs-5 fw-bold">
             <i class="fa-solid fa-baseball mx-1"></i>
             Nueva balota
-
         </button>
-
-
     </div>
-
 </div>
 
 

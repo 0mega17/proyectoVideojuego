@@ -25,12 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Validacion para jugadores en caso que no se haya generado la sala
   if (codigo) {
-    document.getElementById("Btncodigo").innerHTML =
-      `<i class="fa-solid fa-circle-info"></i>` + "  Código: " + codigo;
-    document.getElementById("btnJugadores").innerHTML =
-      '<i class="fa-solid fa-users me-1"></i>' +
-      "No. Jugadores: " +
-      cantidadJugadores;
+    if (archivo == "balotas.php") {
+      document.getElementById("Btncodigo").innerHTML = codigo;
+      document.getElementById("btnJugadores").innerHTML = cantidadJugadores;
+    } else {
+      document.getElementById("Btncodigo").innerHTML =
+        `<i class="fa-solid fa-circle-info"></i>` + "  Código: " + codigo;
+      document.getElementById("btnJugadores").innerHTML =
+        '<i class="fa-solid fa-users me-1"></i>' +
+        "No. Jugadores: " +
+        cantidadJugadores;
+    }
   } else {
     if (archivo == "balotas.php") {
       mensaje =
