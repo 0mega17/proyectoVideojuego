@@ -7,6 +7,7 @@ const tblCategorias = document.querySelector("#tblCategorias");
 tblCategorias.addEventListener("click", function (e) {
     if (e.target.classList.contains("btnEliminar")) {
         const id = e.target.dataset.id;
+        const codigo = e.target.dataset.codigo;
         Swal.fire({
           title: `<h1 class="m-0 fw-bold">Eliminar</h1>`,
           html: `¿Está seguro de eliminar esta sala?<br>
@@ -22,6 +23,7 @@ tblCategorias.addEventListener("click", function (e) {
           preConfirm: async () => {
             let formData = new FormData();
             formData.append("id", id);
+            formData.append("codigo", codigo);
             const request = await fetch(
               "../controllers/controlador_eliminar_sala.php",
               {

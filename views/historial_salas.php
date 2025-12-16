@@ -15,7 +15,7 @@ $pagina = "Historial Salas";
 
 //CONSULTA DE TODOS LOS REGISTROS DE SALAS ACTIVAS
 try {
-    $sql = "SELECT codigos.id as id_codigo, codigos.codigo as codigo, categorias.nombre as nombre_categoria FROM codigos  inner join categorias on codigos.categoria_codigo = categorias.id where codigos.estado = 1";
+    $sql = "SELECT codigos.id as id_codigo, codigos.codigo as codigo, categorias.nombre as nombre_categoria FROM codigos  inner join categorias on codigos.categoria_codigo = categorias.id where codigos.estado = 1 OR codigos.estado = 2";
 
     $categorias = $mysql->getConexion()->prepare($sql);
     $categorias->execute();
@@ -90,7 +90,7 @@ require_once './layout/navbar.php';
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                             
-                                            <button class="btn btn-danger btn-sm btnEliminar" data-id="<?php echo $fila["id_codigo"] ?>" >
+                                            <button class="btn btn-danger btn-sm btnEliminar" data-id="<?php echo $fila["id_codigo"] ?>" data-codigo="<?php echo $fila["codigo"] ?>" >
                                                 <i class=" fa-solid fa-trash"></i>
                                                 Eliminar
                                             </button>
