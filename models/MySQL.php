@@ -7,7 +7,7 @@ private $conexion;
 // Método para establecer la conexión
 public function conectar() {
 $host = 'localhost';
-$dbname = 'bingo_literario_2';
+$dbname = 'bingo_literario';
 $usuario = 'root';
 $contrasena = '';
 
