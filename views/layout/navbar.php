@@ -76,7 +76,7 @@ try {
                             <div class="dropdown-divider my-1"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/proyectoVideojuego/views/editarPerfil.php">
+                            <a class="dropdown-item" href="editarPerfil.php">
                                 <i class="fa-solid fa-user-pen me-3"></i><span>Editar Perfil</span>
                             </a>
                         </li>
