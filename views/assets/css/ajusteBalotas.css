@@ -12,19 +12,10 @@
   height: 230px;
   border-radius: 50%;
 
-background: linear-gradient(
-  145deg,
-  #8ee26b,
-  #5bbf4a
-);
+  background: linear-gradient(145deg, #8ee26b, #5bbf4a);
 
-border: 2px solid #4aa03c;
-color: #ffffff;
-
-
-
-
-
+  border: 2px solid #4aa03c;
+  color: #ffffff;
 
   display: flex;
   flex-direction: column;

@@ -9,7 +9,11 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background: radial-gradient(circle at top, #ffffff00, #28a745); /* color verde */
+  background: radial-gradient(
+    circle at top,
+    #ffffff00,
+    #28a745
+  ); /* color verde */
   border: 4px solid #006400; /* borde verde oscuro */
   display: flex;
   align-items: center;
@@ -19,7 +23,11 @@
   font-weight: bold;
   color: white; /* texto blanco para contrastar */
   transition: transform 0.2s ease;
+  cursor: pointer;
+  
 }
+
+
 
 .balota:hover {
   transform: scale(1.1); /* hover para agrandar la balota */
