@@ -80,7 +80,7 @@
 
 
 
-                        <form id="formularioLoginAprendiz" class="mb-6">
+                        <form id="formularioLoginAprendiz" class="mb-2">
                             <div class="mb-6">
                                 <label for="nombre" class="form-label">Nombre</label>
                                 <input
@@ -112,13 +112,16 @@
 
                                     autofocus />
                             </div>
-                            <div class="mb-8">
+                            <!-- <div class="mb-8">
                                 <div class="d-flex justify-content-between">
 
                                 </div>
-                            </div>
-                            <div class="mb-6">
+                            </div> -->
+                            <div class="mb-2">
                                 <button class="btn btn-success d-grid w-100" type="submit">Ingresar</button>
+                            </div>
+                            <div class="mb-2">
+                                <a class="btn btn-primary w-100" href="./login_admin.php">Administradores</a>
                             </div>
                         </form>
 

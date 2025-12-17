@@ -80,7 +80,7 @@
 
 
 
-                        <form id="formularioLogin" class="mb-6">
+                        <form id="formularioLogin" class="mb-2">
                             <div class="mb-6">
                                 <label for="email" class="form-label">Correo</label>
                                 <input
@@ -108,8 +108,11 @@
 
                                 </div>
                             </div>
-                            <div class="mb-6">
+                            <div class="mb-2">
                                 <button class="btn btn-success d-grid w-100" type="submit">Ingresar</button>
+                            </div>
+                            <div class="mb-2">
+                                <a class="btn btn-primary w-100" href="./login_usuarios.php">Jugadores</a>
                             </div>
                         </form>
 
