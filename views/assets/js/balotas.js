@@ -119,7 +119,7 @@ btnBalota.addEventListener("click", () => {
         customClass: {
           confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",
         },
-        timer: 6000,
+        timer: 7000,
         allowOutsideClick: false,
         timerProgressBar: true,
         showConfirmButton: false,

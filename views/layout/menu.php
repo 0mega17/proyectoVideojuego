@@ -23,8 +23,8 @@ $archivoActual = basename($_SERVER["PHP_SELF"]);
                                     alt="" />
                             </span>
                         </span>
-                        <span class="app-brand-text demo menu-text fw-bold">Bingo</span>
-                        <small class="text-success">Literario</small>
+                        <span class="app-brand-text demo menu-text fw-bold"> EduBingo </span>
+                        <!-- <small class="text-success">Bingo Litera</small> -->
 
                     </a>
 

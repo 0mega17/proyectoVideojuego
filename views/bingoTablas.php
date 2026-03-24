@@ -104,7 +104,7 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
 
 <head>
   <meta charset="UTF-8">
-  <title class="text-dark">Bingo Literario</title>
+  <title class="text-dark">EduBingo</title>
   <link rel="stylesheet" href="./assets/vendor/css/core.css">
   <link rel="stylesheet" href="./assets/css/tablasBingo.css">
 
@@ -124,7 +124,7 @@ function obtenerElementoRandom($mysql, &$usados, $categoria)
       <!-- Título principal -->
       <div class="text-center mb-4">
         <h1 class="fw-bold text-success mb-2">
-          Bingo Literario
+          EduBingo
         </h1>
         <p class="text-success mb-0 fw-semibold">¡Completa tu tabla y gana el bingo!</p>
       </div>

@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let botonIniciar = document.querySelector("#btnIniciar");
-setInterval(cargarJugadores, 5000);
+setInterval(cargarJugadores, 2000);
 botonIniciar.addEventListener("click", () => {
   let sala = localStorage.getItem("codigoSala");
   Swal.fire({
