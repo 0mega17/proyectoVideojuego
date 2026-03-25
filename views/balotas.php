@@ -114,7 +114,21 @@ require_once './layout/navbar.php';
 
 <div class="row p-2 mb-2">
     <div class="col-sm-12">
-        <div id="ultimaBalota" class="my-2">
+        <div class="row my-1">
+            <div class="col">
+                <button id="btnAutomatico" class="my-3   btn btn-warning w-100 p-3 fs-5 fw-bold">
+                    <i class="fa-solid fa-robot mx-1"></i>
+                    Modo Automatico
+                </button>
+            </div>
+
+            <div class="col">
+                <button disabled id="btnDetener" class="my-3 btn btn-primary w-100 p-3 fs-5 fw-bold">
+                    <i class="fa-solid fa-pause mx-1"></i>
+                    Detener Modo automatico
+                </button>
+            </div>
+
         </div>
         <button id="btnBalota" class="btn btn-success w-100 p-3 fs-5 fw-bold">
             <i class="fa-solid fa-baseball mx-1"></i>

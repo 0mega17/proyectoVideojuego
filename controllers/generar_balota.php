@@ -20,22 +20,54 @@ $categoria = intval($_POST["categoria"]);
 
 // Consulta para traer todas las casillas de las tablas de los jugadores
 try {
-    $sql = "SELECT DISTINCT(contenido) FROM casillas_tablas JOIN tablas ON tablas.id = casillas_tablas.tablas_id
-WHERE tablas.codigos_codigo = :codigoSala;";
-    $consultaComposiciones = $mysql->getConexion()->prepare($sql);
-    $consultaComposiciones->bindParam("codigoSala", $codigoSala);
-    $consultaComposiciones->execute();
+    $sql = "
+SELECT DISTINCT c.contenido, comp.titulo, comp.autor, comp.frase, comp.tipo_material_id
+FROM casillas_tablas c
+JOIN tablas t ON t.id = c.tablas_id
+LEFT JOIN composiciones comp 
+    ON comp.titulo = c.contenido
+    OR comp.autor = c.contenido
+    OR comp.frase = c.contenido
+WHERE t.codigos_codigo = :codigoSala
+";
+
+    $consulta = $mysql->getConexion()->prepare($sql);
+    $consulta->bindParam(":codigoSala", $codigoSala);
+    $consulta->execute();
+
+    $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     $errores[] = "Ocurrio un error en composiciones..." . $e->getMessage();
 }
 
 
-// Llenar el arreglo con todas las obras literarias
-while ($fila = $consultaComposiciones->fetch(PDO::FETCH_ASSOC)) {
-    $composiciones[] = $fila;
-}
-
 $balotasDisponibles = [];
+
+foreach ($resultados as $fila) {
+
+    $columna = null;
+    $tipoObra = null;
+
+    if ($fila["contenido"] === $fila["titulo"]) {
+        $columna = "titulo";
+    } elseif ($fila["contenido"] === $fila["autor"]) {
+        $columna = "autor";
+    } elseif ($fila["contenido"] === $fila["frase"]) {
+        $columna = "frase";
+    }
+
+    if ($fila["tipo_material_id"] == 1) {
+        $tipoObra = "Libro";
+    } elseif ($fila["tipo_material_id"] == 2) {
+        $tipoObra = "Poema";
+    }
+
+    $balotasDisponibles[] = [
+        "texto" => $fila["contenido"],
+        "columna" => $columna,
+        "tipo_obra" => $tipoObra
+    ];
+}
 
 $columna = "";
 $tipoObra = "";
@@ -92,37 +124,6 @@ function determinarColumnaPoema($mysql, $comp, $columnaBD)
     }
 }
 
-// Llenar el arreglo con las balotas disponibles
-foreach ($composiciones as $comp) {
-
-    $info = determinarColumnaLibro($mysql, $comp, "titulo");
-
-    if (count($info) == 0) {
-        $info = determinarColumnaLibro($mysql, $comp, "autor");
-    }
-
-    if (count($info) == 0) {
-        $info = determinarColumnaLibro($mysql, $comp, "frase");
-    }
-
-    if (count($info) == 0) {
-        $info = determinarColumnaPoema($mysql, $comp, "titulo");
-    }
-
-    if (count($info) == 0) {
-        $info = determinarColumnaPoema($mysql, $comp, "autor");
-    }
-
-    if (count($info) == 0) {
-        $info = determinarColumnaPoema($mysql, $comp, "frase");
-    }
-
-    $balotasDisponibles[] = [
-        "texto" => $comp["contenido"],
-        "columna" => $info["columna"],
-        "tipo_obra" => $info["tipoObra"]
-    ];
-}
 
 // Extraer el contenido de las balotas usadas
 $balotasUsadas = array_column($arregloBalotas, 'balota');

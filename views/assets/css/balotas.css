@@ -24,10 +24,13 @@
   color: white; /* texto blanco para contrastar */
   transition: transform 0.2s ease;
   cursor: pointer;
-  
 }
 
-
+.disabled {
+  pointer-events: none; /* Evita clics */
+  opacity: 0.5; /* Aspecto visual gris */
+  cursor: not-allowed;
+}
 
 .balota:hover {
   transform: scale(1.1); /* hover para agrandar la balota */

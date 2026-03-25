@@ -23,7 +23,8 @@ formularioSala.addEventListener("submit", (e) => {
 
         Swal.fire({
           title: `<h1 class="m-0 fw-bold display-1">${res.sala}</h1>`,
-          html: `<p class="m-0">Codigo generado exitosamente</p>`,
+          html: `<p class="m-0">Codigo generado exitosamente</p>
+          <img src="./assets/img/qr-code.png" alt="Código QR Estático" class="img-fluid my-3" width="300" height="300">`,
           icon: "success",
           confirmButtonText: "Aceptar",
           customClass: {

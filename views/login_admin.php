@@ -73,7 +73,7 @@
 
                                     </span>
                                 </span>
-                                <span class="app-brand-text demo text-heading fw-bold">Bingo literario</span>
+                                <span class="app-brand-text demo text-heading fw-bold">EduBingo</span>
                             </a>
                         </div>
                         <!-- /Logo -->

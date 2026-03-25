@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 1. Revisar si ya existe una tabla guardada
   let tablaGuardada = JSON.parse(localStorage.getItem("bingoTabla"));
 
-  if (!tablaGuardada) {
+  if (!tablaGuardada || tablaGuardada.length === 0) {
     // No existe → guardar la tabla actual generada por PHP
     tablaGuardada = [];
     celdas.forEach((celda) => tablaGuardada.push(celda.innerText));

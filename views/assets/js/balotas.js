@@ -1,51 +1,99 @@
 const btnBalota = document.querySelector("#btnBalota");
 const btnReiniciar = document.querySelector("#btnReiniciar");
 const btnFinalizar = document.querySelector("#btnFinalizar");
+const btnAutomatico = document.querySelector("#btnAutomatico");
+const btnDetener = document.querySelector("#btnDetener");
 const contenedorBalotas = document.querySelector("#contenedorBalotas");
 // const tblBalotas = document.querySelector("#tblBalotas");
 const datosSala = JSON.parse(localStorage.getItem("codigoSala"));
-const divUltimaBalota = document.querySelector("#ultimaBalota");
 const btnCategoria = document.querySelector("#btnCategoria");
 const btnJugadores = document.querySelector("#btnJugadores");
 const categoria = localStorage.getItem("categoria");
 
-
 let ancho = 0;
-
+let intervalo;
+let automatico = false;
 // tblBalotas.innerHTML = "";
 
 let objetoBalotas = {};
 let arregloBalotas = [];
 
+btnDetener.addEventListener("click", () => {
+  const automaticoStorage = localStorage.getItem("automatico");
+  if (automaticoStorage) {
+    clearTimeout(intervalo);
+    automatico = false;
+    localStorage.setItem("automatico", automatico);
+    Swal.fire({
+      title: `<h1 class="mb-0 fw-bold">¡Exito!</h1>`,
+      text: "El modo automatico se ha detenido",
+      icon: "success",
+      confirmButtonText: "Entendido",
+      customClass: {
+        confirmButton: "btn btn-success fw-bold",
+      },
+      timer: 2000,
+      allowOutsideClick: false,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    }).then(() => {
+      clearTimeout(intervalo);
+      btnAutomatico.disabled = false;
+      localStorage.setItem("automatico", false);
+      location.reload();
+    });
+  }
+});
+
+btnAutomatico.addEventListener("click", () => {
+  Swal.fire({
+    title: `<h1 class="m-0 fw-bold">Modo Automatico </h1>`,
+    text: "Las balotas se generaran cada 5 segundos",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, iniciar",
+    cancelButtonText: "Cancelar",
+    customClass: {
+      confirmButton: "btn btn-success fw-bold",
+      cancelButton: "btn btn-danger fw-bold",
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      automatico = true;
+      localStorage.setItem("automatico", automatico);
+      btnBalota.classList.add("disabled");
+      btnAutomatico.disabled = true;
+      setTimeout(() => {
+        btnBalota.click();
+      }, 3000);
+    }
+  });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const nombreCategoria = localStorage.getItem("nombreCategoria");
   const cantidadJugadores = localStorage.getItem("cantidadJugadores");
   btnCategoria.innerHTML = nombreCategoria;
-  btnJugadores.innerHTML =
-    cantidadJugadores;
+  btnJugadores.innerHTML = cantidadJugadores;
 
   const datosGuardados = localStorage.getItem("navegadorBalotas");
+  const automaticoStorage = localStorage.getItem("automatico");
+
   if (datosGuardados) {
     arregloBalotas = JSON.parse(datosGuardados);
     pintarTabla(arregloBalotas);
+  }
 
-    // Ultima balota
-    let ultimaBalota = document.createElement("button");
-    let tituloUltima = document.createElement("span");
-    tituloUltima.classList.add("fw-bold");
-    tituloUltima.textContent = "Ultima balota: ";
-    ultimaBalota.classList.add(
-      "btn",
-      "text-bg-ultima-balota",
-      "mb-2",
-      "fs-5",
-      "w-100",
-      "p-3"
-    );
-    ultimaBalota.appendChild(tituloUltima);
-    ultimaBalota.textContent +=
-      arregloBalotas[0].balota;
-    divUltimaBalota.appendChild(ultimaBalota);
+  if (automaticoStorage == "true") {
+    btnAutomatico.disabled = true;
+    btnBalota.classList.add("disabled");
+    btnDetener.disabled = false;
+    intervalo = setTimeout(() => {
+      btnBalota.click();
+    }, 4000);
+  } else {
+    btnBalota.classList.remove("disabled");
+    btnDetener.disabled = true;
   }
 });
 
@@ -53,7 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
 const filtroInput = document.querySelector("#filtroBalotas");
 filtroInput.addEventListener("input", () => {
   const filtro = filtroInput.value.toLowerCase();
-  const filtradas = arregloBalotas.filter(b => b.balota.toLowerCase().includes(filtro));
+  const filtradas = arregloBalotas.filter((b) =>
+    b.balota.toLowerCase().includes(filtro),
+  );
   pintarTabla(filtradas);
 });
 
@@ -75,10 +125,12 @@ btnBalota.addEventListener("click", () => {
           success: res.success,
         };
         arregloBalotas.unshift(objetoBalotas);
-        
+
         // Aplicar filtro si existe
         const filtro = filtroInput.value.toLowerCase();
-        const filtradas = arregloBalotas.filter(b => b.balota.toLowerCase().includes(filtro));
+        const filtradas = arregloBalotas.filter((b) =>
+          b.balota.toLowerCase().includes(filtro),
+        );
         pintarTabla(filtradas);
       }
 
@@ -119,7 +171,7 @@ btnBalota.addEventListener("click", () => {
         customClass: {
           confirmButton: "text-center btn btn-success fw-bold fs-5 w-100",
         },
-        timer: 7000,
+        timer: 6000,
         allowOutsideClick: false,
         timerProgressBar: true,
         showConfirmButton: false,
@@ -147,7 +199,6 @@ function pintarTabla(lista) {
     contenedorBalotas.appendChild(balota);
   });
 }
-
 
 btnReiniciar.addEventListener("click", () => {
   let accion = "reiniciar";
@@ -182,7 +233,12 @@ btnReiniciar.addEventListener("click", () => {
                 confirmButton: "btn btn-success fw-bold",
               },
             }).then(() => {
+              localStorage.setItem("reiniciando", "true");
               localStorage.removeItem("navegadorBalotas");
+              localStorage.removeItem("automatico");
+              localStorage.removeItem("accion");
+              localStorage.removeItem("bingoTabla");
+              localStorage.removeItem("bingoMarcados");
               location.reload();
             });
           }
